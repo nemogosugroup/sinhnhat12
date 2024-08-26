@@ -1,8 +1,8 @@
 <template>
-    <div class="navbar" :style="backgroundNav">
+    <div class="navbar">
         <Logo />
-
         <div class="right-menu">
+            <Menu></Menu>
         </div>
     </div>
 </template>
@@ -10,15 +10,15 @@
 <script>
 import { mapGetters } from "vuex";
 import Logo from "@frontend/components/Logo";
+import Menu from "@frontend/components/Menu";
 import avatarDefault from "@/assets/images/logo/avatar.gif";
-import bgNav from "@/assets/images/bg/bg-navbar.png";
 export default {
     components: {
-        Logo
+        Logo,
+        Menu
     },
     data() {
         return {
-            bgNav: bgNav,
         }
     },
     computed: {
@@ -29,9 +29,6 @@ export default {
         },
         variables() {
             return variables;
-        },
-        backgroundNav() {
-            return `background-image: url(${bgNav})`;
         },
     },
     methods: {

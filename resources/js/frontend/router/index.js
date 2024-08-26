@@ -24,27 +24,39 @@ import store from '../store';
 export const constantRoutes = [
     {
         path: '/login',
-        component: Login,
+        component: layoutFront,
         hidden: true,
-        beforeEnter(to, from, next) {
-            // Kiểm tra xem người dùng đã đăng nhập hay chưa
-            // Lấy các query parameters từ URL
-            const queryParams = to.query;
-            if (getAccessToken()) {
-                if (queryParams.redirect_uri) {
-                    window.location.href =
-                        queryParams.redirect_uri +
-                        '?token=' +
-                        getAccessToken() +
-                        '&state=' +
-                        queryParams.state;
-                } else {
-                    next({ path: '/' });
+        redirect: '',
+        children: [
+            {
+                path: '',
+                component: Login,
+                name: 'Login',
+                meta: {
+                    title: 'Gosu',
+                    affix: true
+                },
+                beforeEnter(to, from, next) {
+                    // Kiểm tra xem người dùng đã đăng nhập hay chưa
+                    // Lấy các query parameters từ URL
+                    const queryParams = to.query;
+                    if (getAccessToken()) {
+                        if (queryParams.redirect_uri) {
+                            window.location.href =
+                                queryParams.redirect_uri +
+                                '?token=' +
+                                getAccessToken() +
+                                '&state=' +
+                                queryParams.state;
+                        } else {
+                            next({ path: '/' });
+                        }
+                    } else {
+                        next();
+                    }
                 }
-            } else {
-                next();
             }
-        }
+        ]
     },
     {
         path: '/404',

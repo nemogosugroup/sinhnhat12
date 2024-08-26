@@ -1,52 +1,52 @@
-import router from "./router";
-import store from "./store";
-import { ElMessage } from 'element-plus'
-import NProgress from "nprogress"; // progress bar
-import "nprogress/nprogress.css"; // progress bar style
-import { getAccessToken, removeToken, setLayout } from "@frontend/utils/auth"; // get token from cookie
-import getPageTitle from "@frontend/utils/get-page-title";
+import router from './router';
+import store from './store';
+import { ElMessage } from 'element-plus';
+import NProgress from 'nprogress'; // progress bar
+import 'nprogress/nprogress.css'; // progress bar style
+import { getAccessToken, removeToken, setLayout } from '@frontend/utils/auth'; // get token from cookie
+import getPageTitle from '@frontend/utils/get-page-title';
 
 NProgress.configure({ showSpinner: false }); // NProgress Configuration
 
-const whiteList = ["/login","/logout", "/auth-redirect"]; // no redirect whitelist
+const whiteList = ['/login', '/logout', '/auth-redirect']; // no redirect whitelist
 router.beforeEach(async (to, from, next) => {
     // start progress bar
-    NProgress.start();    
+    NProgress.start();
     // set page title
     document.title = getPageTitle(to.meta.title);
     // determine whether the user has logged in
     //removeToken();
     const hasToken = getAccessToken();
     //const hasToken = null;
-    if (hasToken && hasToken != "undefined") {
+    if (hasToken && hasToken != 'undefined') {
         const hasRoles = store.getters.roles && store.getters.roles.length > 0;
         setLayout(to.meta.active);
         if (hasRoles) {
-            let roles = store.getters.roles
+            let roles = store.getters.roles;
             const accessRoutes = await store.dispatch(
-                "permission/generateRoutes",
+                'permission/generateRoutes',
                 roles
             );
-            accessRoutes.forEach(route => {
+            accessRoutes.forEach((route) => {
                 router.addRoute(route);
             });
             next();
         } else {
-            var roles = await store.dispatch("user/getRoles");
+            var roles = await store.dispatch('user/getRoles');
             if (store.getters.roles.length <= 0) {
-                store.dispatch("user/logout");
+                store.dispatch('user/logout');
                 router.push(`/login`);
             }
-            var info = await store.dispatch("user/getInfo");
+            var info = await store.dispatch('user/getInfo');
             // generate accessible routes map based on roles
             const accessRoutes = await store.dispatch(
-                "permission/generateRoutes",
+                'permission/generateRoutes',
                 roles
             );
-            accessRoutes.forEach(route => {
+            accessRoutes.forEach((route) => {
                 router.addRoute(route);
             });
-            if (to.path === "/login") {
+            if (to.path === '/login') {
                 next();
                 NProgress.done();
             } else {
@@ -59,14 +59,12 @@ router.beforeEach(async (to, from, next) => {
         //     router.addRoute(route);
         // });
         const accessRoutes = await store.dispatch(
-            "permission/generateRoutes",
+            'permission/generateRoutes',
             null
         );
-        accessRoutes.forEach(route => {
+        accessRoutes.forEach((route) => {
             router.addRoute(route);
         });
-        console.log("accessRoutes", accessRoutes);
-        console.log('router', to);
         if (whiteList.indexOf(to.path) !== -1) {
             // in the free login whitelist, go directly
             next();

@@ -1,40 +1,67 @@
 <template>
     <div class="app-wrapper">
-        <el-container>
-            <el-aside class="sidebar-container">
-                <div class="login-container">
-                    <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" autocomplete="on"
-                        label-position="left">
-                        <div class="title-container">
-                            <h3 class="title"><img v-if="logo" :src="logo" class="sidebar-logo"></h3>
-                        </div>
-
-                        <el-form-item prop="email">
-                            <span class="svg-container">
-                                <i class="ri-user-line"></i>
-                            </span>
-                            <el-input ref="email" v-model="loginForm.email" placeholder="Email" name="email"
-                                type="email" tabindex="1" autocomplete="on" />
-                        </el-form-item>
-
-                        <el-tooltip v-model="capsTooltip" content="Caps lock is On" placement="right" manual>
-                            <el-form-item prop="password">
-                                <span class="svg-container">
-                                    <i class="ri-lock-line"></i>
-                                </span>
-                                <el-input :key="passwordType" ref="password" v-model="loginForm.password"
-                                    :type="passwordType" placeholder="Password" name="password" tabindex="2"
-                                    autocomplete="on" @keyup="checkCapslock" @blur="capsTooltip = false"
-                                    @keyup.enter="handleLogin" />
-                            </el-form-item>
-                        </el-tooltip>
-                        <el-button :loading="loading" type="primary" style="width: 100%; margin-bottom: 30px"
-                            @click.prevent="handleLogin">Login</el-button>
-                    </el-form>
+        <el-dialog v-model="visible" :show-close="false" width="500">
+            <template #header="{ close, titleId, titleClass }">
+                <div class="my-header">
+                    <h4 :id="titleId" :class="titleClass">This is a custom header!</h4>
+                    <el-button type="danger" @click="close">
+                        <el-icon class="el-icon--left">
+                            <CircleCloseFilled />
+                        </el-icon>
+                        Close
+                    </el-button>
                 </div>
-            </el-aside>
-            <el-main class="main-login" :style="backgroundLogin"></el-main>
-        </el-container>
+            </template>
+            <div class="login-container">
+                <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" autocomplete="on"
+                    label-position="left">
+                    <div class="title-container">
+                        <h3 class="title"><img v-if="logo" :src="logo" class="sidebar-logo"></h3>
+                    </div>
+
+                    <el-form-item prop="email">
+                        <span class="svg-container">
+                            <i class="ri-user-line"></i>
+                        </span>
+                        <el-input ref="email" v-model="loginForm.email" placeholder="Email" name="email" type="email"
+                            tabindex="1" autocomplete="on" />
+                    </el-form-item>
+
+                    <el-tooltip v-model="capsTooltip" content="Caps lock is On" placement="right" manual>
+                        <el-form-item prop="password">
+                            <span class="svg-container">
+                                <i class="ri-lock-line"></i>
+                            </span>
+                            <el-input :key="passwordType" ref="password" v-model="loginForm.password"
+                                :type="passwordType" placeholder="Password" name="password" tabindex="2"
+                                autocomplete="on" @keyup="checkCapslock" @blur="capsTooltip = false"
+                                @keyup.enter="handleLogin" />
+                        </el-form-item>
+                    </el-tooltip>
+                    <el-button :loading="loading" type="primary" style="width: 100%; margin-bottom: 30px"
+                        @click.prevent="handleLogin">Login</el-button>
+                </el-form>
+            </div>
+        </el-dialog>
+        <el-main class="main-login">
+            <div class="display-flex">
+                <div class="info">
+                    <div class="logo">
+                        <el-image :src="Logo12" />
+                    </div>
+                    <div class="info">
+                        <h1 class="title-h1">Đường tơ trăng</h1>
+                        <span>18/9/2024</span>
+                    </div>
+                </div>
+                <div class="divider">
+                    <el-image :src="Divider" />
+                </div>
+                <div class="more">
+                    <span>Đăng nhập</span>
+                </div>
+            </div>
+        </el-main>
     </div>
     <!--  -->
 </template>
@@ -44,11 +71,15 @@ import { validUsername } from "@frontend/utils/validate";
 // import SocialSign from './components/SocialSignin'
 import bgLogin from "@/assets/images/bg/authentication-bg.jpg";
 import imagesLogo from "@/assets/images/logo/GOSU_full.png";
+import Logo12 from "@/assets/images/sinhnhat/logo12.svg";
+import Divider from "@/assets/images/sinhnhat/divider.svg";
 import { getAccessToken } from "@frontend/utils/auth";
 export default {
     name: "Login",
     data() {
         return {
+            Logo12: Logo12,
+            Divider: Divider,
             loginForm: {
                 email: "",
                 password: "",
@@ -233,20 +264,9 @@ $bg: #2d3a4b;
 $bgOverlay : #292626b3;
 $dark_gray: #889aa4;
 $light_gray: #eee;
-$width_main: calc(100% - 30%);
-$width_siderbar: calc(30%);
+$width_main: calc(100%);
+$width_siderbar: calc(0%);
 $height_logo: 70px;
-
-#app {
-    .sidebar-container {
-        width: $width_siderbar !important;
-        padding: 0;
-
-        .sidebar-logo {
-            max-height: $height_logo;
-        }
-    }
-}
 
 .login-container {
     min-height: 100%;
@@ -322,7 +342,6 @@ $height_logo: 70px;
 
 .main-login {
     width: $width_main;
-    margin-left: $width_siderbar;
     height: 100vh;
     position: relative;
 
