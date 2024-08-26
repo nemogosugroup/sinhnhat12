@@ -138,7 +138,6 @@ export default {
                                     window.location.href = "/";
                                 }
 
-
                             } else {
                                 this.$message({
                                     message: data.message,
