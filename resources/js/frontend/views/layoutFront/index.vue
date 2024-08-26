@@ -13,7 +13,6 @@
             <div class="wrapper-main">
                 <app-main />
             </div>
-            <div :class="`wrap-footer`"><Footer /></div>
         </div>
     </div>
 </template>
@@ -30,7 +29,6 @@ export default {
         Navbar,
         Sidebar,
         TagsView,
-        Footer
     },
     mixins: [ResizeMixin],
     computed: {
@@ -63,10 +61,12 @@ export default {
 <style lang="scss" scoped>
 @import "~@style/mixin.scss";
 @import "~@style/variables.scss";
+
 #app .wrapper-container {
     min-height: 100%;
     position: relative;
 }
+
 .app-wrapper {
     @include clearfix;
     position: relative;
@@ -77,6 +77,7 @@ export default {
         position: fixed;
         top: 0;
     }
+
     .wrapper-main {
         min-height: 300px;
         padding-top: 80px;

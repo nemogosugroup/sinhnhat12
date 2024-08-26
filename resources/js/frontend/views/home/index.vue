@@ -23,12 +23,10 @@ export default {
                 limit: 10,
                 sort: 'desc',
                 title: '',
-                locale: this.$i18n.locale
             },
             listQueryAll: {
                 sort: 'desc',
                 title: '',
-                locale: this.$i18n.locale
             },
             total: 0,
             infoWindowVisible: []

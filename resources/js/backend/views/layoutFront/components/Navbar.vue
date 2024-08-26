@@ -1,39 +1,36 @@
 <template>
     <div class="navbar" :style="backgroundNav">
-        <Logo/>
+        <Logo />
 
         <div class="right-menu">
-            <Locale></Locale>
         </div>
     </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
-import Locale from "@backend/components/Locale";
 import Logo from "@backend/components/Logo";
 import avatarDefault from "@/assets/images/logo/avatar.gif";
 import bgNav from "@/assets/images/bg/bg-navbar.png";
 export default {
     components: {
-        Locale,
         Logo
     },
-    data(){
+    data() {
         return {
             bgNav: bgNav,
         }
     },
     computed: {
         ...mapGetters(["sidebar", "device", "user"]),
-		avatar() {
-            let avatar = this.user.avatar; 
-			return avatar ? avatar : avatarDefault;
-		},
-        variables() {           
+        avatar() {
+            let avatar = this.user.avatar;
+            return avatar ? avatar : avatarDefault;
+        },
+        variables() {
             return variables;
         },
-        backgroundNav(){
+        backgroundNav() {
             return `background-image: url(${bgNav})`;
         },
     },
@@ -63,7 +60,7 @@ export default {
     justify-content: space-between;
     padding: 8px 100px;
     background-repeat: no-repeat;
-    background-size: cover;    
+    background-size: cover;
 
     .right-menu {
         float: right;

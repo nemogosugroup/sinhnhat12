@@ -1,11 +1,7 @@
 <template>
     <div class="navbar">
-        <hamburger
-            id="hamburger-container"
-            :is-active="sidebar.opened"
-            class="hamburger-container"
-            @toggleClick="toggleSideBar"
-        />
+        <hamburger id="hamburger-container" :is-active="sidebar.opened" class="hamburger-container"
+            @toggleClick="toggleSideBar" />
 
         <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
 
@@ -33,17 +29,12 @@
                     />
                 </el-tooltip>
             </template> -->
-            <Locale></Locale>
-            <el-dropdown
-                class="avatar-container right-menu-item hover-effect"
-                trigger="click"
-            >
+            <el-dropdown class="avatar-container right-menu-item hover-effect" trigger="click">
                 <div class="avatar-wrapper">
-                    <img
-                        :src="avatar + '?imageView2/1/w/80/h/80'"
-                        class="user-avatar"
-                    />
-                    <el-icon><CaretBottom /></el-icon>
+                    <img :src="avatar + '?imageView2/1/w/80/h/80'" class="user-avatar" />
+                    <el-icon>
+                        <CaretBottom />
+                    </el-icon>
                 </div>
                 <template #dropdown>
                     <el-dropdown-menu>
@@ -67,28 +58,23 @@
 import { mapGetters } from "vuex";
 import Breadcrumb from "@frontend/components/Breadcrumb";
 import Hamburger from "@frontend/components/Hamburger";
-import Locale from "@frontend/components/Locale";
-// import Screenfull from "@frontend/components/Screenfull";
-// import SizeSelect from "@frontend/components/SizeSelect";
-// import Search from "@frontend/components/HeaderSearch";
 import avatarDefault from "@/assets/images/logo/avatar.gif";
 export default {
     components: {
         Breadcrumb,
         Hamburger,
-        Locale
     },
-    data(){
+    data() {
         return {
         }
     },
     computed: {
         ...mapGetters(["sidebar", "device", "user"]),
-		avatar() {
-            let avatar = this.user.avatar; 
-			return avatar ? avatar : avatarDefault;
-		},
-        variables() {           
+        avatar() {
+            let avatar = this.user.avatar;
+            return avatar ? avatar : avatarDefault;
+        },
+        variables() {
             return variables;
         },
     },

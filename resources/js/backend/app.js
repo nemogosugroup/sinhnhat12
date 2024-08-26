@@ -29,7 +29,6 @@ const GOOGLE_MAP_KEY = process.env.MIX_GOOGLE_MAP_KEY;
 app.config.globalProperties.GOOGLE_MAP_KEY = GOOGLE_MAP_KEY;
 
 app.use(ElementPlus, {
-    size: Cookies.get('size') || 'default', // set element-plus default size
-    locale: locale // Bạn có thể sử dụng locale nếu cần, hãy đảm bảo đã import và cấu hình nó
+    size: Cookies.get('size') || 'default' // set element-plus default size
 });
 app.use(store).use(router).mount('#app');
