@@ -113,7 +113,7 @@ export default {
             capsTooltip: false,
             loading: false,
             showDialog: false,
-            showSlogan: true,
+            showSlogan: false,
             redirect: undefined,
             redirectUri: undefined,
             oAuthState: undefined,
