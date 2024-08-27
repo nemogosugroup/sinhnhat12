@@ -6,7 +6,7 @@
             @click="handleClickOutside"
         />
         <sidebar class="sidebar-container" /> -->
-        <div class="wrapper-container">
+        <div class="wrapper-container wrapper-birthday">
             <div :class="{ 'fixed-header': fixedHeader }">
                 <navbar />
             </div>

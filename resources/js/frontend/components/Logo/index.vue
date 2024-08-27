@@ -5,7 +5,8 @@
                 <img v-if="icon" :src="icon" class="sidebar-logo">
             </router-link> -->
             <router-link class="sidebar-logo-link" to="/">
-                <img v-if="logo" :src="logo" class="sidebar-logo">
+                <img v-if="checkUser" :src="logo" class="sidebar-logo">
+                <img v-else :src="LogoWhite" class="sidebar-logo">
             </router-link>
         </transition>
     </div>
@@ -13,20 +14,27 @@
 
 <script>
 import imagesLogo from "@/assets/images/logo/GOSU_full.png";
-import imagesIcon from "@/assets/images/logo/GOSU_icon.png";
+import LogoWhite from "@/assets/images/logo/GOSU_full_white.png";
+import { mapGetters } from "vuex";
 export default {
     name: 'Logo',
-    // props: {
-    //     collapse: {
-    //         type: Boolean,
-    //         required: true
-    //     }
-    // },
     data() {
         return {
             logo: imagesLogo,
-            icon: imagesIcon
+            LogoWhite: LogoWhite,
+            checkUser: false,
         }
+    },
+    computed: {
+        ...mapGetters(["user"]),
+    },
+    created() {
+        this.getUser();
+    },
+    methods: {
+        getUser() {
+            this.checkUser = Object.keys(this.user).length > 0 ? true : false;
+        },
     }
 }
 </script>

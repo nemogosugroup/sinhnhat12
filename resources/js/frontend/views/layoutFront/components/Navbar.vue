@@ -48,21 +48,14 @@ export default {
 .navbar {
     overflow: hidden;
     position: relative;
-    background: #fff;
-    box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
-    height: 80px;
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 8px 100px;
-    background-repeat: no-repeat;
-    background-size: cover;
 
     .right-menu {
         float: right;
         height: 100%;
-        line-height: 50px;
 
         &:focus {
             outline: none;

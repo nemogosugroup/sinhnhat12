@@ -1,5 +1,280 @@
 @import url('https://fonts.googleapis.com/css2?family=Phudu:wght@300..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+$fontMenu: #66494e;
 body {
     font-family: 'Phudu', sans-serif;
     font-weight: 400;
+}
+.app-wrapper {
+    .wrapper-birthday {
+        font-family: 'Phudu', sans-serif;
+        font-weight: 400;
+        .box-slogan {
+            padding: 85px 110px 85px 340px;
+            background-color: transparent;
+            background-image: url(../js/assets/images/sinhnhat/bg_slogan.svg);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-height: 707px;
+            background-repeat: no-repeat;
+            box-shadow: none;
+            .header-dialog {
+                position: relative;
+                margin-top: 50px;
+                .button-close {
+                    right: -75px;
+                    top: -75px;
+                }
+            }
+            .title-form {
+                text-align: left;
+                margin: 0;
+                font-weight: 700;
+                font-size: 50px;
+                span {
+                    display: block;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    &.line_1 {
+                        animation: animated-text__1 6s steps(30, end) 1s 1
+                                normal both,
+                            animated-cursor__1 900ms steps(30, end) 8;
+                    }
+                    &.line_2 {
+                        animation: animated-text__2 5s steps(30, end) 1s 1
+                                normal both,
+                            animated-cursor__2 900ms steps(30, end) infinite;
+                        -webkit-animation-delay: 5s;
+                        animation-delay: 5s;
+                    }
+                }
+            }
+            .content {
+                font-family: 'Inter';
+                overflow: hidden;
+                font-size: 20px;
+                color: #000;
+                line-height: 26px;
+            }
+        }
+        .wrapper-main {
+            padding-top: 0 !important;
+        }
+        .main-login {
+            /*url(../js/assets/images/sinhnhat/img_left.svg),
+                url(../js/assets/images/sinhnhat/img_right.svg),
+                url(../js/assets/images/sinhnhat/img_bottom.svg);*/
+            background-image: url(../js/assets/images/sinhnhat/bg_login.svg);
+            background-repeat: no-repeat;
+            background-size: 100%;
+            height: 100vh;
+            position: relative;
+            .bg_left {
+                background-image: url(../js/assets/images/sinhnhat/img_left.svg);
+                position: absolute;
+                left: 0;
+                top: -20px;
+                width: 330px;
+                height: 100%;
+                background-repeat: no-repeat;
+                background-size: 100%;
+            }
+            .bg_right {
+                background-image: url(../js/assets/images/sinhnhat/img_right.svg);
+                position: absolute;
+                right: 0;
+                top: 0;
+                width: 840px;
+                height: 100%;
+                background-repeat: no-repeat;
+            }
+            .bg_bottom {
+                background-image: url(../js/assets/images/sinhnhat/img_bottom.svg);
+                position: absolute;
+                right: 0;
+                bottom: 0;
+                width: 100%;
+                height: 100%;
+                background-repeat: no-repeat;
+                background-size: 100% 100%;
+            }
+            &:before {
+                width: 100%;
+                height: 100vh;
+                position: absolute;
+                left: 0;
+                top: 0;
+                background: rgba(0, 0, 0, 0.75);
+                content: '';
+                -webkit-backdrop-filter: blur(10px);
+                backdrop-filter: blur(10px);
+            }
+            .display-flex {
+                display: grid;
+                grid-template-columns: 2fr;
+                grid-template-rows: 1fr;
+                gap: 0px 20px;
+                justify-content: center;
+                justify-items: center;
+                position: relative;
+                z-index: 1;
+                .info {
+                    display: flex;
+                    flex-direction: column;
+                    flex-wrap: nowrap;
+                    justify-content: center;
+                    align-items: center;
+                    align-content: center;
+                    .logo {
+                        position: relative;
+                        top: 65px;
+                    }
+                    .title-h1 {
+                        font-size: 160px;
+                        background: #ffffff;
+                        background: linear-gradient(
+                            to bottom,
+                            #ffffff 28%,
+                            #ead87f 87%
+                        );
+                        -webkit-background-clip: text;
+                        -webkit-text-fill-color: transparent;
+                        margin: -10px 0 0;
+                        font-weight: 600;
+                        /*filter: drop-shadow(0 0 0.75rem rgba(234, 216, 127, 0.4)); */
+                        text-shadow: -4px -4px 10px rgba(255, 255, 255, 0.5),
+                            1px 1px 10px rgba(234, 216, 127, 0.3);
+                        /* -webkit-filter: drop-shadow(0 0 0.75rem rgba(234, 216, 127, 0.4));*/
+                    }
+                    .date {
+                        font-size: 70px;
+                        background: #ffffff;
+                        background: linear-gradient(
+                            to bottom,
+                            #ffffff 28%,
+                            #ead87f 87%
+                        );
+                        -webkit-background-clip: text;
+                        -webkit-text-fill-color: transparent;
+                        text-shadow: -2px -2px 10px rgba(255, 255, 255, 0.7),
+                            2px 2px 10px rgba(234, 216, 127, 0.4);
+                    }
+                }
+                .divider {
+                    margin: 20px 0;
+                }
+            }
+        }
+        .more {
+            line-height: 60px;
+            cursor: pointer;
+            background-image: url(../js/assets/images/sinhnhat/readmore.svg);
+            width: 330px;
+            height: 66px;
+            background-size: 100%;
+            text-align: center;
+            text-transform: uppercase;
+            color: #66494e;
+            font-size: 32px;
+        }
+        .button-close {
+            background: url(../js/assets/images/sinhnhat/close.svg);
+            width: 75px;
+            height: 75px;
+            cursor: pointer;
+            position: absolute;
+            right: 23px;
+            top: 15px;
+        }
+        .title-form {
+            font-size: 32px;
+            color: #66494e;
+            font-weight: 600;
+            margin: 0 0 14px;
+            text-align: center;
+        }
+        .navbar {
+            position: relative;
+            background-color: transparent;
+            padding: 40px 40px 0;
+            .menu {
+                list-style: none;
+                display: flex;
+                margin: 0;
+                padding: 0;
+                li {
+                    padding: 0 10px;
+                    position: relative;
+
+                    &:last-child {
+                        a {
+                            &::before {
+                                content: none;
+                            }
+                        }
+                    }
+                    a {
+                        text-transform: uppercase;
+                        font-size: 22px;
+                        line-height: 30px;
+                        font-weight: 600;
+                        color: #66494e;
+                        transition: all 0.3s ease-in-out;
+                        -webkit-transition: all 0.3s ease-in-out;
+                        -moz-transition: all 0.3s ease-in-out;
+                        -ms-transition: all 0.3s ease-in-out;
+                        -o-transition: all 0.3s ease-in-out;
+                        position: relative;
+                        &::after {
+                            content: '';
+                            border-bottom: 2px solid #66494e;
+                            width: 0;
+                            transition: all 0.3s ease-in-out;
+                            -webkit-transition: all 0.3s ease-in-out;
+                            -moz-transition: all 0.3s ease-in-out;
+                            -ms-transition: all 0.3s ease-in-out;
+                            -o-transition: all 0.3s ease-in-out;
+                            position: absolute;
+                            bottom: -5px;
+                            left: 0;
+                        }
+                        &:hover {
+                            transition: all 0.3s ease-in-out;
+                            -webkit-transition: all 0.3s ease-in-out;
+                            -moz-transition: all 0.3s ease-in-out;
+                            -ms-transition: all 0.3s ease-in-out;
+                            -o-transition: all 0.3s ease-in-out;
+                            &::after {
+                                width: 100%;
+                            }
+                        }
+                        &::before {
+                            content: '';
+                            position: absolute;
+                            right: -10px;
+                            width: 2px;
+                            height: 20px;
+                            background-color: #66494e;
+                            top: 50%;
+                            transform: translate(0px, -8px);
+                        }
+                    }
+                }
+                &.white {
+                    li {
+                        a {
+                            color: #fff;
+                            &::after {
+                                border-color: #fff;
+                            }
+                            &::before {
+                                background-color: #fff;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
