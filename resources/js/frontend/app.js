@@ -25,7 +25,8 @@ import RepositoryFactory from '@frontend/utils/RepositoryFactory';
 import AdminRepositoryFactory from '@backend/respository/index';
 app.provide('$RepositoryFactory', RepositoryFactory);
 app.provide('$AdminRepositoryFactory', AdminRepositoryFactory);
-
+import VueTyped from 'vue3-typed-js';
+app.use(VueTyped);
 const GOOGLE_MAP_KEY = process.env.MIX_GOOGLE_MAP_KEY;
 app.config.globalProperties.GOOGLE_MAP_KEY = GOOGLE_MAP_KEY;
 

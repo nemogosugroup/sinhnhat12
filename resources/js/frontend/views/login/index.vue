@@ -1,30 +1,21 @@
 <template>
     <div class="app-wrapper">
-        <el-dialog v-model="visible" :show-close="false" width="500">
-            <template #header="{ close, titleId, titleClass }">
+        <el-dialog v-model="showDialog" :show-close="false" width="1070" align-center>
+            <template #header="{ close, titleId }">
                 <div class="my-header">
-                    <h4 :id="titleId" :class="titleClass">This is a custom header!</h4>
-                    <el-button type="danger" @click="close">
-                        <el-icon class="el-icon--left">
-                            <CircleCloseFilled />
-                        </el-icon>
-                        Close
-                    </el-button>
+                    <h4 :id="titleId" :class="`title-form`">Đăng nhập Email Gosu tại đây</h4>
+                    <span class="button-close" @click="close"></span>
                 </div>
             </template>
             <div class="login-container">
                 <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" autocomplete="on"
                     label-position="left">
-                    <div class="title-container">
-                        <h3 class="title"><img v-if="logo" :src="logo" class="sidebar-logo"></h3>
-                    </div>
-
                     <el-form-item prop="email">
                         <span class="svg-container">
                             <i class="ri-user-line"></i>
                         </span>
-                        <el-input ref="email" v-model="loginForm.email" placeholder="Email" name="email" type="email"
-                            tabindex="1" autocomplete="on" />
+                        <el-input ref="email" v-model="loginForm.email" placeholder="Nhập Email Gosu tại đây"
+                            name="email" type="email" tabindex="1" autocomplete="on" />
                     </el-form-item>
 
                     <el-tooltip v-model="capsTooltip" content="Caps lock is On" placement="right" manual>
@@ -33,35 +24,42 @@
                                 <i class="ri-lock-line"></i>
                             </span>
                             <el-input :key="passwordType" ref="password" v-model="loginForm.password"
-                                :type="passwordType" placeholder="Password" name="password" tabindex="2"
-                                autocomplete="on" @keyup="checkCapslock" @blur="capsTooltip = false"
+                                :type="passwordType" placeholder="Nhập mật khẩu Email Gosu tại đây" name="password"
+                                tabindex="2" autocomplete="on" @keyup="checkCapslock" @blur="capsTooltip = false"
                                 @keyup.enter="handleLogin" />
                         </el-form-item>
                     </el-tooltip>
-                    <el-button :loading="loading" type="primary" style="width: 100%; margin-bottom: 30px"
-                        @click.prevent="handleLogin">Login</el-button>
+                    <div class="more" @click.prevent="handleLogin">
+                        <span>Đăng nhập</span>
+                    </div>
+                    <!-- <el-button :loading="loading" type="primary" style="width: 100%; margin-bottom: 30px"
+                        @click.prevent="handleLogin">Login</el-button> -->
                 </el-form>
             </div>
         </el-dialog>
         <el-main class="main-login">
+            <span class="bg_left"></span>
+            <span class="bg_right"></span>
+            <span class="bg_bottom"></span>
             <div class="display-flex">
                 <div class="info">
                     <div class="logo">
-                        <el-image :src="Logo12" />
+                        <el-image style="width: 347px; height: 347px" :src="Logo12" />
                     </div>
                     <div class="info">
                         <h1 class="title-h1">Đường tơ trăng</h1>
-                        <span>18/9/2024</span>
+                        <span class="date">18/9/2024</span>
                     </div>
                 </div>
                 <div class="divider">
                     <el-image :src="Divider" />
                 </div>
-                <div class="more">
+                <div class="more" @click="showLogin">
                     <span>Đăng nhập</span>
                 </div>
             </div>
         </el-main>
+        <dialog-about :show-slogan="showSlogan"></dialog-about>
     </div>
     <!--  -->
 </template>
@@ -69,17 +67,27 @@
 <script>
 import { validUsername } from "@frontend/utils/validate";
 // import SocialSign from './components/SocialSignin'
-import bgLogin from "@/assets/images/bg/authentication-bg.jpg";
+// import bgLogin from "@/assets/images/bg/authentication-bg.jpg";
 import imagesLogo from "@/assets/images/logo/GOSU_full.png";
 import Logo12 from "@/assets/images/sinhnhat/logo12.svg";
 import Divider from "@/assets/images/sinhnhat/divider.svg";
+import bgLogin from "@/assets/images/sinhnhat/bg_login.svg";
+import bg_left from "@/assets/images/sinhnhat/img_left.svg";
+import bg_right from "@/assets/images/sinhnhat/img_right.svg";
+import img_bottom from "@/assets/images/sinhnhat/img_bottom.svg";
+import DialogAbout from "@frontend/components/DialogAbout";
 import { getAccessToken } from "@frontend/utils/auth";
 export default {
     name: "Login",
+    components: { DialogAbout },
     data() {
         return {
             Logo12: Logo12,
             Divider: Divider,
+            bgLogin: bgLogin,
+            bg_left: bg_left,
+            bg_right: bg_right,
+            img_bottom: img_bottom,
             loginForm: {
                 email: "",
                 password: "",
@@ -105,12 +113,14 @@ export default {
             capsTooltip: false,
             loading: false,
             showDialog: false,
+            showSlogan: true,
             redirect: undefined,
             redirectUri: undefined,
             oAuthState: undefined,
             otherQuery: {},
             bgLogin: bgLogin,
             logo: imagesLogo,
+
         };
     },
     watch: {
@@ -131,6 +141,7 @@ export default {
     created() {
     },
     mounted() {
+
     },
     destroyed() {
     },
@@ -140,6 +151,9 @@ export default {
         },
     },
     methods: {
+        showLogin() {
+            this.showDialog = !this.showDialog;
+        },
         checkCapslock(e) {
             const { key } = e;
             this.capsTooltip =
@@ -197,12 +211,14 @@ export default {
     },
 };
 </script>
-
+<style>
+@import "~@style/style.scss";
+</style>
 <style lang="scss">
 $bg: hsl(213, 25%, 21%);
 // $bg: #432828;
-$light_gray: #fff;
-$cursor: #fff;
+$light_gray: #616161;
+$cursor: #616161;
 
 @supports (-webkit-mask: none) and (not (cater-color: $cursor)) {
     .login-container .el-input input {
@@ -211,50 +227,30 @@ $cursor: #fff;
 }
 
 /* reset element-ui css */
-.login-container {
-    .el-input {
-        display: inline-block;
-        height: 47px;
-        width: calc(100% - 50px);
-
-        input {
-            background: transparent;
-            border: 0px;
-            -webkit-appearance: none;
-            border-radius: 0px;
-            padding: 12px 5px 12px 0px;
-            color: $light_gray;
+.wrapper-birthday {
+    .login-container {
+        .el-input {
+            display: inline-block;
             height: 47px;
-            caret-color: $cursor;
+            width: calc(100% - 50px);
 
-            &:-webkit-autofill {
-                box-shadow: 0 0 0px 1000px $bg inset !important;
-                -webkit-text-fill-color: $cursor !important;
-            }
-        }
-    }
+            input {
+                background: transparent;
+                border: 0px;
+                -webkit-appearance: none;
+                border-radius: 0px;
+                padding: 12px 5px 12px 0px;
+                color: #616161;
+                height: 47px;
+                caret-color: #616161;
 
-    .el-form-item {
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        background: rgba(0, 0, 0, 0.1);
-        border-radius: 5px;
-        color: #454545;
-        margin-bottom: 20px;
-
-        &.is-error {
-            .el-input__wrapper {
-                box-shadow: none;
+                &:-webkit-autofill {
+                    box-shadow: 0 0 0px 1000px $bg inset !important;
+                    -webkit-text-fill-color: '#616161' !important;
+                }
             }
         }
 
-        .el-input__wrapper {
-            width: 100%;
-            background: transparent;
-            box-shadow: none;
-            padding: 0;
-            border-radius: 0 5px 5px 0;
-            padding-right: 5px;
-        }
     }
 }
 </style>
@@ -268,91 +264,120 @@ $width_main: calc(100%);
 $width_siderbar: calc(0%);
 $height_logo: 70px;
 
-.login-container {
-    min-height: 100%;
-    width: 100%;
-    background-color: $bg;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
+:deep(.el-dialog) {
+    padding: 75px 110px;
+    background: #d9d9d9;
+    border: 0;
+    border-radius: 0;
 
-    .login-form {
-        position: relative;
-        width: 100%;
-        max-width: 500px;
-        padding: 0px 35px;
-        margin: 0 auto;
-        overflow: hidden;
-    }
-
-    .tips {
-        font-size: 14px;
-        color: #fff;
-        margin-bottom: 10px;
-
-        span {
-            &:first-of-type {
-                margin-right: 16px;
-            }
-        }
-    }
-
-    .svg-container {
-        color: $dark_gray;
-        vertical-align: middle;
-        width: 50px;
-        display: inline-block;
+    .el-dialog__title {
+        margin: 0;
         text-align: center;
-    }
-
-    .title-container {
-        position: relative;
-
-        .title {
-            font-size: 26px;
-            color: $light_gray;
-            margin: 0px auto 40px auto;
-            text-align: center;
-            font-weight: bold;
-        }
-    }
-
-    .show-pwd {
-        position: absolute;
-        right: 10px;
-        top: 7px;
-        font-size: 16px;
-        color: $dark_gray;
-        cursor: pointer;
-        user-select: none;
-    }
-
-    .thirdparty-button {
-        position: absolute;
-        right: 0;
-        bottom: 6px;
-    }
-
-    @media only screen and (max-width: 470px) {
-        .thirdparty-button {
-            display: none;
-        }
     }
 }
 
-.main-login {
-    width: $width_main;
-    height: 100vh;
-    position: relative;
-
-    &:before {
+.wrapper-birthday {
+    .login-container {
+        min-height: 100%;
         width: 100%;
-        height: 100%;
-        position: absolute;
-        left: 0;
-        top: 0;
-        background: $bgOverlay;
-        content: ''
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+
+        .el-form-item {
+            border: 1px solid transparent;
+            background: #fff;
+            border-radius: 0px;
+            color: #616161;
+            margin-bottom: 30px;
+            font-family: 'Inter', sans-serif;
+
+            &.is-error {
+                .el-input__wrapper {
+                    box-shadow: none;
+                }
+            }
+
+            .el-input__wrapper {
+                width: 100%;
+                background: transparent;
+                box-shadow: none;
+                padding: 0;
+                border-radius: 0 5px 5px 0;
+                padding-right: 5px;
+            }
+        }
+
+        .more {
+            width: 260px;
+            height: 50px;
+            font-size: 25px;
+            line-height: 50px;
+            margin: 0 auto;
+        }
+
+        .login-form {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            padding: 0px 35px;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+
+        .tips {
+            font-size: 14px;
+            color: #fff;
+            margin-bottom: 10px;
+
+            span {
+                &:first-of-type {
+                    margin-right: 16px;
+                }
+            }
+        }
+
+        .svg-container {
+            color: $dark_gray;
+            vertical-align: middle;
+            width: 50px;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .title-container {
+            position: relative;
+
+            .title {
+                font-size: 26px;
+                color: $light_gray;
+                margin: 0px auto 40px auto;
+                text-align: center;
+                font-weight: bold;
+            }
+        }
+
+        .show-pwd {
+            position: absolute;
+            right: 10px;
+            top: 7px;
+            font-size: 16px;
+            color: $dark_gray;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .thirdparty-button {
+            position: absolute;
+            right: 0;
+            bottom: 6px;
+        }
+
+        @media only screen and (max-width: 470px) {
+            .thirdparty-button {
+                display: none;
+            }
+        }
     }
 }
 </style>
