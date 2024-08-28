@@ -79,7 +79,10 @@ export default {
 
     .wrapper-main {
         min-height: 300px;
-        padding-top: 80px;
+        //padding-top: 80px;
+        .app-main-front {
+            overflow: hidden;
+        }
     }
 }
 

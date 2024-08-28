@@ -1,5 +1,5 @@
 module.exports = {
-  title: 'Cẩm nang hành trình',
+  title: 'Birthday 12th',
   // theme: variables.theme,
   /**
    * @type {boolean} true | false
