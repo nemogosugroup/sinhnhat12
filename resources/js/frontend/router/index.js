@@ -8,6 +8,7 @@ import Page401 from '@frontend/views/error-page/401';
 import Profile from '@frontend/views/profile/index';
 import Layout from '@frontend/layout';
 import layoutFront from '@frontend/views/layoutFront';
+import moonWalk from '@frontend/views/moonWalk';
 // import Medal from '@/backend/views/medal'
 import { getAccessToken } from '@frontend/utils/auth';
 // import CategoryMedal from '@/backend/views/medal/category'
@@ -80,6 +81,24 @@ export const constantRoutes = [
                 name: 'Home',
                 meta: {
                     title: 'Gosu',
+                    icon: 'ri-home-4-fill',
+                    affix: true
+                }
+            }
+        ]
+    },
+    {
+        path: '/moonwalk',
+        component: layoutFront,
+        hidden: true,
+        redirect: '',
+        children: [
+            {
+                path: '',
+                component: moonWalk,
+                name: 'moonWalk',
+                meta: {
+                    title: 'Cổng mặt trời',
                     icon: 'ri-home-4-fill',
                     affix: true
                 }
