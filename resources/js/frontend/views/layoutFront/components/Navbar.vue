@@ -1,8 +1,8 @@
 <template>
     <div class="navbar">
-        <Logo />
+        <Logo :isLogin="isLogin" />
         <div class="right-menu">
-            <Menu></Menu>
+            <Menu :isLogin="isLogin"></Menu>
         </div>
     </div>
 </template>
@@ -19,6 +19,7 @@ export default {
     },
     data() {
         return {
+            isLogin: false
         }
     },
     computed: {
@@ -31,6 +32,9 @@ export default {
             return variables;
         },
     },
+    created() {
+        this.checkLogin();
+    },
     methods: {
         toggleSideBar() {
             this.$store.dispatch("app/toggleSideBar");
@@ -40,6 +44,11 @@ export default {
             //this.$router.push(`/login?redirect=${this.$route.fullPath}`);
             this.$router.push(`/login`);
         },
+        checkLogin() {
+            if (this.user.id === null || this.user.id === undefined) {
+                this.isLogin = true;
+            }
+        }
     },
 };
 </script>

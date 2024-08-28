@@ -1,6 +1,6 @@
 <template>
     <div class="wrap-menu">
-        <ul :class="`menu ${color}`">
+        <ul :class="`menu ${isLogin ? color : ''}`">
             <li><a href="https://gosucorp.vn/vi" target="_blank">Gosucorp</a></li>
             <li><a href="https://s20.gosu.vn/news" target="_blank">S20</a></li>
             <li><a href="#" target="_blank">Bách Nhật</a></li>
@@ -12,6 +12,13 @@
 <script>
 
 export default {
+    props: {
+        isLogin: {
+            required: true,
+            type: Boolean,
+            default: false
+        }
+    },
     name: "Menu",
     data() {
         return {
@@ -19,12 +26,8 @@ export default {
         }
     },
     created() {
-        //this.emitter.off("");
     },
     mounted() {
-        // this.emitter.on("", data => {
-        //     this.color = data;
-        // });
     },
 }
 </script>
