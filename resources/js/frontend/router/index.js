@@ -1,8 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 /* Layout */
 import Login from '@frontend/views/login';
-import Dashboard from '@frontend/views/dashboard';
-import Home from '@frontend/views/home';
+import Home from '@frontend/views/birthday12';
 import Page404 from '@frontend/views/error-page/404';
 import Page401 from '@frontend/views/error-page/401';
 import Profile from '@frontend/views/profile/index';
@@ -80,7 +79,7 @@ export const constantRoutes = [
                 component: Home,
                 name: 'Home',
                 meta: {
-                    title: 'Gosu',
+                    title: 'GOSU',
                     icon: 'ri-home-4-fill',
                     affix: true
                 }
@@ -99,6 +98,16 @@ export const constantRoutes = [
                 name: 'moonWalk',
                 meta: {
                     title: 'Cổng mặt trời',
+                    icon: 'ri-home-4-fill',
+                    affix: true
+                }
+            },
+            {
+                path: 'map',
+                component: Map,
+                name: 'Map',
+                meta: {
+                    title: 'Game Map',
                     icon: 'ri-home-4-fill',
                     affix: true
                 }
