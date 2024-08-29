@@ -7,16 +7,18 @@
                     <h2 class="title-h2">CÙNG NHÌN LẠI MỘT HÀNH TRÌNH DÀI</h2>
                     <div class="wrap-moonwalk__timeline">
                         <swiper :grabCursor="true" :autoHeight=true :slidesPerView="5" :spaceBetween="0"
-                            class="mySwiper">
+                            class="mySwiper" @swiper="onSwiper" @slideChange="onSlideChange">
                             <swiper-slide v-for="(item, key) in listTimeLine" :key="key">
-                                <div :class="`item ${item.isActive ? 'active' : ''}`">
-                                    <div v-if="item.isActive" class="listImages">
+                                <div
+                                    :class="`item ${item.isActive ? 'active' : ''} ${item.isShow ? 'leftContent' : ''}`">
+                                    <div v-if="item.isActive" :class="`listImages`">
                                         <div class="item_img" v-for="(url, key) in item.listImages" :key="key">
                                             <el-image class="images" :src="`/static/uploads/sinhnhat/default.png`"
-                                                style="width: 260px; height: 183px;" :fit="`cover`" />
+                                                style="width: 200px; height: 150px;" :fit="`cover`" />
                                         </div>
                                     </div>
-                                    <div class="item__year" @click="handleShowData(item.year)">
+                                    <div :class="`item__year ${item.isLast ? 'lastItem' : ''}`"
+                                        @click="handleShowData(item.year)">
                                         <span class="icon"></span>
                                         <span class="year">{{ item.year }}</span>
                                     </div>
@@ -47,8 +49,8 @@
                                 <div v-for="(user, key) in listEmployee" :key="key" :class="`leaf leaf_${key}`"></div>
                             </div>
                         </div>
-                        <div class="search">
-                            <h6 class="title-h6"> Nguyệt đa thần trụ</h6>
+                        <div class="wrap-search">
+                            <search-employee></search-employee>
                         </div>
                     </div>
                 </el-col>
@@ -60,23 +62,27 @@
 
 <script>
 import treeImg from "@/assets/images/sinhnhat/tree.png";
+import SearchEmployee from "@frontend/components/SearchEmployee";
 import { dataTimeline, dataEmployee } from './timeline';
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import 'swiper/css';
 export default {
-    components: { Swiper, SwiperSlide },
+    components: { Swiper, SwiperSlide, SearchEmployee },
     data() {
         return {
             listTimeLine: false,
             listEmployee: false,
             tree: treeImg,
             treeWidth: 475,
-            treeHeight: 410
+            treeHeight: 410,
+            indexSlider: 4
         }
     },
     created() {
         this.listTimeLine = dataTimeline().map((item, index) => {
             item['isActive'] = false;
+            item['isLast'] = false;
+            item['isShow'] = false;
             return item;
         });
         // Khởi tạo danh sách nhân viên với vị trí hợp lệ
@@ -138,6 +144,21 @@ export default {
                 return item;
             });
         },
+        onSwiper(swiper) {
+            let index = swiper.activeIndex + this.indexSlider;
+            this.handleCheckShowContent(index)
+        },
+        onSlideChange(swiper) {
+            let index = swiper.activeIndex + this.indexSlider;;
+            this.handleCheckShowContent(index)
+        },
+        handleCheckShowContent(number) {
+            this.listTimeLine = this.listTimeLine.map((item, index) => {
+                item['isLast'] = index == number ? true : false;
+                item['isShow'] = index == number || index == (number - 1) ? true : false;
+                return item;
+            });
+        }
         // shuffleArray(array) {
         //     for (let i = array.length - 1; i > 0; i--) {
         //         const j = Math.floor(Math.random() * (i + 1));
@@ -148,12 +169,12 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@for $i from 0 through 190 {
-    .leaf_#{$i} {
-        top: #{random(300)}px;
-        left: #{random(300)}px;
-    }
-}
+// @for $i from 0 through 190 {
+//     .leaf_#{$i} {
+//         top: #{random(300)}px;
+//         left: #{random(300)}px;
+//     }
+// }
 
 .wrap-moonwalk {
     padding: 100px 40px 80px;
@@ -209,7 +230,7 @@ export default {
 
 
     .swiper {
-        padding-top: 200px;
+        padding-top: 190px;
         padding-bottom: 15px;
     }
 
@@ -223,7 +244,12 @@ export default {
             grid-column-gap: 20px;
             grid-row-gap: 0px;
             position: absolute;
-            top: -200px;
+            top: -170px;
+
+            .item_img {
+                display: block;
+                position: relative;
+            }
 
             :deep(.el-image__inner) {
                 border-radius: 20px;
@@ -243,6 +269,12 @@ export default {
                 background-color: #000;
                 bottom: 0px;
                 left: 0;
+            }
+
+            &.lastItem {
+                &:before {
+                    background: linear-gradient(90deg, #000 25%, #fff 100%);
+                }
             }
 
             .icon {
@@ -271,7 +303,7 @@ export default {
             padding: 20px;
             position: relative;
             background-color: #ffffff;
-            font-size: 24px;
+            font-size: 20px;
             font-family: 'Inter';
             color: #000;
 
@@ -316,6 +348,25 @@ export default {
                 }
             }
         }
+
+        &.leftContent {
+            .listImages {
+                left: -270%;
+            }
+
+            .item__content {
+                left: -250%;
+
+                .line {
+                    left: auto;
+                    right: 20px;
+                }
+            }
+        }
+    }
+
+    .container-true {
+        position: relative;
     }
 
     .trunk {
@@ -332,14 +383,14 @@ export default {
             top: 0
         }
 
-        .leaf {
-            position: absolute;
-            z-index: 1;
-            width: 20px;
-            height: 20px;
-            border-radius: 100%;
-            background-color: red;
-        }
+        // .leaf {
+        //     position: absolute;
+        //     z-index: 1;
+        //     width: 20px;
+        //     height: 20px;
+        //     border-radius: 100%;
+        //     background-color: red;
+        // }
 
         .trunk_tree {
             img {
@@ -347,9 +398,5 @@ export default {
             }
         }
     }
-
-    // :deep(.is-align-center) {
-    //     align-items: center;
-    // }
 }
 </style>
