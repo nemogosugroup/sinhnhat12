@@ -1,24 +1,21 @@
 <template>
-    <div>
-        <h1>WHEEL CONTENT</h1>
-    </div>
+    <BoardView></BoardView>
 </template>
-<script>
 
+<script>
+import BoardView from './components/BoardView.vue'
 export default {
-    name: 'Wheel',
-    components: {},
+    components: { BoardView },
     data() {
         return {
-        }
+        };
     },
-    filters: {},
-    created() {
+    mounted() {
     },
-    watch: {},
-    methods: {}
-}
-
+    methods: {
+    },
+};
 </script>
-<style lang="scss" scoped>
+<style scoped>
+@import "~@style/style2048.scss";
 </style>

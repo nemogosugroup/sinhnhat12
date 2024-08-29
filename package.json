@@ -44,6 +44,7 @@
         "vue-plugin-load-script": "^2.1.1",
         "vue-router": "^4.2.5",
         "vue-splitpane": "^1.0.6",
+        "vue3-flip-countdown": "^0.1.6",
         "vue3-typed-js": "^0.0.1",
         "vuedraggable": "^2.24.3",
         "vuex": "^4.1.0",
