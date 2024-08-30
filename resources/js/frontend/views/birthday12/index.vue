@@ -34,7 +34,7 @@
                     <el-col :span="24">
                         <el-row>
                             <el-col :span="4">
-                                <img :src="mapElm.MapIconBell" alt="">
+                                <img @click="goToQuestList" :src="mapElm.MapIconBell" alt="">
                                 <b class="alert_count bell">15</b>
                             </el-col>
                             <el-col :span="20">
@@ -88,6 +88,8 @@
     <map-dialog
         :dialog-visible="dialogVisible"
         :dialog-type="dialogType"
+        :cave-type="caveType"
+        :first-time="isFirstTime"
         @hideDialog="handleHideDialog"
     ></map-dialog>
 
@@ -119,6 +121,7 @@ export default {
             isFirstTime: true,
             dialogVisible: false,
             dialogType: null, // GATE, CAVE, WHEEL
+            caveType: "nguyet_nhu", // nguyet_nhu, nguyet_nhiem, nguyet_thach, nguyet_ky
             mapElm: {
                 DefaultAvatar: DefaultAvatar,
                 DownArrow: DownArrow,
@@ -146,9 +149,15 @@ export default {
     },
 
     methods: {
+        goToQuestList() {
+            this.dialogType = "CAVE";
+            this.caveType = "nguyet_nhiem";
+            this.handleShowDialog();
+        },
         goTo(pos) {
             if (pos !== "GATE") {
                 this.dialogType = pos;
+                this.caveType = "nguyet_nhu";
                 this.handleShowDialog();
             } else {
                 alert("GO TO GATE NOW");
@@ -160,8 +169,9 @@ export default {
         handleHideDialog() {
             this.dialogVisible = false;
         },
-        handleLogout() {
-            console.log("log out")
+        async handleLogout() {
+            await this.$store.dispatch("user/logout");
+            this.$router.push(`/login`);
         }
     },
 }
@@ -175,7 +185,7 @@ export default {
     overflow: hidden;
     background-repeat: no-repeat;
     background-size: contain;
-    background-position: 100% 45px;
+    background-position: 100% 80px;
     padding: 100px 20px 0;
 
     .row_1 {
@@ -251,9 +261,11 @@ export default {
                 position: absolute;
                 color: #fff;
                 top: 60px;
-                left: 27px;
+                left: 7px;
                 transform: translate(50%, -50%);
                 font-size: 12px;
+                width: 30px;
+                text-align: center;
 
                 &.silk {
                     top: 59px;
