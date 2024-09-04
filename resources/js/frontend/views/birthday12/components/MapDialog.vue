@@ -46,14 +46,14 @@
 import CaveContent from "../components/cave"
 import WheelContent from "../components/wheel"
 
-import DialogBg from "../../../../assets/images/birthday12/map/dialog/dialog_bg.png"
-import DialogCloseBtn from "../../../../assets/images/birthday12/map/dialog/dialog_close_btn.png"
-import DialogGabi from "../../../../assets/images/birthday12/map/dialog/dialog_gabi.png"
-import DialogCaveLogo from "../../../../assets/images/birthday12/map/dialog/dialog_cave.svg"
-import DialogCaveTitle from "../../../../assets/images/birthday12/map/dialog/dialog_cave_text.png"
-import DialogWheelLogo from "../../../../assets/images/birthday12/map/dialog/dialog_wheel.svg"
-import DialogWheelTitle from "../../../../assets/images/birthday12/map/dialog/dialog_wheel_text.png"
-import BubbleCallout from "../../../../assets/images/birthday12/map/bubble_callout.png"
+import DialogBg from "@/assets/images/birthday12/map/dialog/dialog_bg.png"
+import DialogCloseBtn from "@/assets/images/birthday12/map/dialog/dialog_close_btn.png"
+import DialogGabi from "@/assets/images/birthday12/map/dialog/dialog_gabi.png"
+import DialogCaveLogo from "@/assets/images/birthday12/map/dialog/dialog_cave.svg"
+import DialogCaveTitle from "@/assets/images/birthday12/map/dialog/dialog_cave_text.png"
+import DialogWheelLogo from "@/assets/images/birthday12/map/dialog/dialog_wheel.svg"
+import DialogWheelTitle from "@/assets/images/birthday12/map/dialog/dialog_wheel_text.png"
+import BubbleCallout from "@/assets/images/birthday12/map/bubble_callout.png"
 
 export default {
     name: 'MapDialog',

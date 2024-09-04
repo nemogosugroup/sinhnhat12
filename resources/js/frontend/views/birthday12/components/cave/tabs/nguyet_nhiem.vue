@@ -69,7 +69,7 @@
     </div>
 </template>
 <script>
-import iconMochi from "../../../../../../assets/images/birthday12/map/dialog/icon_mochi.png";
+import iconMochi from "@/assets/images/birthday12/map/dialog/icon_mochi.png";
 import {ElMessage} from "element-plus";
 
 export default {

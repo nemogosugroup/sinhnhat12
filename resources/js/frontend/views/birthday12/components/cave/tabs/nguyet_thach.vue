@@ -80,13 +80,13 @@
     </div>
 </template>
 <script>
-import avatar1 from "../../../../../../assets/images/birthday12/map/dialog/ranks/avatar_1.png";
-import avatar2 from "../../../../../../assets/images/birthday12/map/dialog/ranks/avatar_2.png";
-import MedalTop1 from "../../../../../../assets/images/birthday12/map/dialog/ranks/medal_top1.png";
-import MedalTop2 from "../../../../../../assets/images/birthday12/map/dialog/ranks/medal_top2.png";
-import MedalTop3 from "../../../../../../assets/images/birthday12/map/dialog/ranks/medal_top3.png";
-import MedalTopN from "../../../../../../assets/images/birthday12/map/dialog/ranks/medal_top_n.png";
-import iconSilk from "../../../../../../assets/images/birthday12/map/dialog/icon_silk.png";
+import avatar1 from "@/assets/images/birthday12/map/dialog/ranks/avatar_1.png";
+import avatar2 from "@/assets/images/birthday12/map/dialog/ranks/avatar_2.png";
+import MedalTop1 from "@/assets/images/birthday12/map/dialog/ranks/medal_top1.png";
+import MedalTop2 from "@/assets/images/birthday12/map/dialog/ranks/medal_top2.png";
+import MedalTop3 from "@/assets/images/birthday12/map/dialog/ranks/medal_top3.png";
+import MedalTopN from "@/assets/images/birthday12/map/dialog/ranks/medal_top_n.png";
+import iconSilk from "@/assets/images/birthday12/map/dialog/icon_silk.png";
 
 export default {
     name: 'NguyetThachTab',
