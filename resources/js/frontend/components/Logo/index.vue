@@ -5,8 +5,8 @@
                 <img v-if="icon" :src="icon" class="sidebar-logo">
             </router-link> -->
             <router-link class="sidebar-logo-link" to="/">
-                <img v-if="isLogin" :src="logo" class="sidebar-logo">
-                <img v-else :src="LogoWhite" class="sidebar-logo">
+                <img v-if="isWhiteColor" :src="LogoWhite" class="sidebar-logo">
+                <img v-else :src="logo" class="sidebar-logo">
             </router-link>
         </transition>
     </div>
@@ -27,13 +27,17 @@ export default {
     data() {
         return {
             logo: imagesLogo,
-            LogoWhite: LogoWhite
+            LogoWhite: LogoWhite,
+            isBachNhat: false,
         }
     },
     computed: {
-        isLogin(newVal) {
-            return newVal
+        isWhiteColor() {
+            return this.$router.currentRoute.value.name === "BachNhat" || this.isLogin;
         }
+    },
+    mounted() {
+        this.isBachNhat = this.$router.currentRoute.value.name === "BachNhat";
     },
     created() {
     },

@@ -41,9 +41,6 @@ export default {
         this.emitter.off("login-complete");
     },
     computed: {
-        showSlogan(newValue) {
-            return newValue.showSlogan
-        }
     },
     mounted() {
         this.emitter.on("login-complete", data => {

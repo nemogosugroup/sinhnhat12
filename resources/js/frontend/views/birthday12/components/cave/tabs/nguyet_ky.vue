@@ -24,8 +24,8 @@
     </div>
 </template>
 <script>
-import iconSilk from "../../../../../../assets/images/birthday12/map/dialog/icon_silk.png";
-import iconMochi from "../../../../../../assets/images/birthday12/map/dialog/icon_mochi.png";
+import iconSilk from "@/assets/images/birthday12/map/dialog/icon_silk.png";
+import iconMochi from "@/assets/images/birthday12/map/dialog/icon_mochi.png";
 
 export default {
     name: 'NguyetKyTab',

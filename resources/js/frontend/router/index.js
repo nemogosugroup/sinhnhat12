@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 /* Layout */
 import Login from '@frontend/views/login';
 import Home from '@frontend/views/birthday12';
+import BachNhat from '@frontend/views/bachnhat';
 import Page404 from '@frontend/views/error-page/404';
 import Page401 from '@frontend/views/error-page/401';
 import Profile from '@frontend/views/profile/index';
@@ -33,7 +34,7 @@ export const constantRoutes = [
                 component: Login,
                 name: 'Login',
                 meta: {
-                    title: 'Gosu',
+                    title: 'GOSU',
                     affix: true
                 },
                 beforeEnter(to, from, next) {
@@ -80,6 +81,16 @@ export const constantRoutes = [
                 name: 'Home',
                 meta: {
                     title: 'GOSU',
+                    icon: 'ri-home-4-fill',
+                    affix: true
+                }
+            },
+            {
+                path: '/bachnhat',
+                component: BachNhat,
+                name: 'BachNhat',
+                meta: {
+                    title: 'Bách Nhật',
                     icon: 'ri-home-4-fill',
                     affix: true
                 }

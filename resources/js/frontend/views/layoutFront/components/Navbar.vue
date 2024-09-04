@@ -34,6 +34,12 @@ export default {
     },
     created() {
         this.checkLogin();
+        this.emitter.off("clicked-logout");
+    },
+    mounted() {
+        this.emitter.on("clicked-logout", val => {
+            this.isLogin = val;
+        });
     },
     methods: {
         toggleSideBar() {

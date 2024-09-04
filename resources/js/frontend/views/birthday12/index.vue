@@ -1,5 +1,10 @@
 <template>
     <div id="sn12Map" :style="`background-image: url(${mapElm.MapBg})`">
+        <div class="sub_bg">
+            <video autoplay muted loop id="myVideo">
+                <source src="/videos/bg_video_clouds.mp4" type="video/mp4">
+            </video>
+        </div>
         <el-row class="row_1">
             <el-col :span="24">
                 <h1 class="map_title">{{ "ĐƯỜNG TƠ TRĂNG" }}</h1>
@@ -95,20 +100,20 @@
 
 </template>
 <script>
-import DefaultAvatar from '../../../assets/images/default_avatar.png'
-import DownArrow from '../../../assets/images/birthday12/map/map_down_arrow.png'
+import DefaultAvatar from '@/assets/images/default_avatar.png'
+import DownArrow from '@/assets/images/birthday12/map/map_down_arrow.png'
 
-import MapBg from '../../../assets/images/birthday12/map/map_bg_moon_to_earth.png'
-import MapBgUserBoard from '../../../assets/images/birthday12/map/map_bg_user_board.png'
-import MapCave from '../../../assets/images/birthday12/map/map_cave.svg'
-import MapCaveText from '../../../assets/images/birthday12/map/map_cave_text.svg'
-import MapGate from '../../../assets/images/birthday12/map/map_gate.svg'
-import MapGateText from '../../../assets/images/birthday12/map/map_gate_text.svg'
-import MapWheel from '../../../assets/images/birthday12/map/map_wheel.svg'
-import MapWheelText from '../../../assets/images/birthday12/map/map_wheel_text.svg'
-import MapIconBell from '../../../assets/images/birthday12/map/map_icon_bell.png'
-import MapIconSilk from '../../../assets/images/birthday12/map/map_icon_silk.png'
-import MapIconMochi from '../../../assets/images/birthday12/map/map_icon_mochi.png'
+import MapBg from '@/assets/images/birthday12/map/map_bg_moon_to_earth.png'
+import MapBgUserBoard from '@/assets/images/birthday12/map/map_bg_user_board.png'
+import MapCave from '@/assets/images/birthday12/map/map_cave.svg'
+import MapCaveText from '@/assets/images/birthday12/map/map_cave_text.svg'
+import MapGate from '@/assets/images/birthday12/map/map_gate.svg'
+import MapGateText from '@/assets/images/birthday12/map/map_gate_text.svg'
+import MapWheel from '@/assets/images/birthday12/map/map_wheel.svg'
+import MapWheelText from '@/assets/images/birthday12/map/map_wheel_text.svg'
+import MapIconBell from '@/assets/images/birthday12/map/map_icon_bell.png'
+import MapIconSilk from '@/assets/images/birthday12/map/map_icon_silk.png'
+import MapIconMochi from '@/assets/images/birthday12/map/map_icon_mochi.png'
 
 import MapDialog from "@frontend/views/birthday12/components/MapDialog.vue";
 import {mapGetters} from "vuex";
@@ -171,7 +176,9 @@ export default {
         },
         async handleLogout() {
             await this.$store.dispatch("user/logout");
+            this.emitter.emit("clicked-logout", true);
             this.$router.push(`/login`);
+            // || window.location.href = "/login";
         }
     },
 }
@@ -187,6 +194,18 @@ export default {
     background-size: contain;
     background-position: 100% 80px;
     padding: 100px 20px 0;
+
+    .sub_bg {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: -1;
+        filter: invert(1);
+        opacity: 0.55;
+    }
 
     .row_1 {
         .map_title {
@@ -294,8 +313,8 @@ export default {
         .ports {
             .port_wrapper {
                 position: relative;
-                right: 60px;
-                bottom: 100px;
+                right: 70px;
+                bottom: 65px;
 
                 &.cave {
                     &:after {
@@ -305,7 +324,7 @@ export default {
                         right: 100px;
                         width: 100px;
                         height: 100px;
-                        background-image: url("../../../assets/images/birthday12/map/map_cave_rabbit.svg");
+                        background-image: url("@/assets/images/birthday12/map/map_cave_rabbit.svg");
                         background-repeat: no-repeat;
                     }
 
@@ -317,7 +336,7 @@ export default {
                             height: 150px;
                             top: -30%;
                             left: 42%;
-                            background-image: url("../../../assets/images/birthday12/map/map_down_arrow.png");
+                            background-image: url("@/assets/images/birthday12/map/map_down_arrow.png");
                             background-repeat: no-repeat;
                             background-size: contain;
                             animation: bounce 1s infinite, blink 1s infinite;
