@@ -3,25 +3,25 @@
         <div class="left_nav">
             <el-row>
                 <el-col :span="24">
-                    <div class="text" :class="{active: type === 'nguyet_nhu'}" @click="changeTab('nguyet_nhu')">
+                    <div class="tab_text" :class="{active: type === 'nguyet_nhu'}" @click="changeTab('nguyet_nhu')">
                         {{ "NGUYỆT NHŨ" }}
                     </div>
                     <hr class="custom_hr">
                 </el-col>
                 <el-col :span="24" class="nguyet_nhiem" :class="{is_first_time: isFirstTime}">
-                    <div class="text" :class="{active: type === 'nguyet_nhiem'}" @click="changeTab('nguyet_nhiem')">
+                    <div class="tab_text" :class="{active: type === 'nguyet_nhiem'}" @click="changeTab('nguyet_nhiem')">
                         {{ "NGUYỆT NHIỆM" }}
                     </div>
                     <hr class="custom_hr">
                 </el-col>
                 <el-col :span="24">
-                    <div class="text" :class="{active: type === 'nguyet_thach'}" @click="changeTab('nguyet_thach')">
+                    <div class="tab_text" :class="{active: type === 'nguyet_thach'}" @click="changeTab('nguyet_thach')">
                         {{ "NGUYỆT THẠCH" }}
                     </div>
                     <hr class="custom_hr">
                 </el-col>
                 <el-col :span="24">
-                    <div class="text" :class="{active: type === 'nguyet_ky'}" @click="changeTab('nguyet_ky')">
+                    <div class="tab_text" :class="{active: type === 'nguyet_ky'}" @click="changeTab('nguyet_ky')">
                         {{ "NGUYỆT KÝ" }}
                     </div>
                 </el-col>
@@ -133,7 +133,7 @@ export default {
         top: 180px;
         max-width: 80px;
 
-        .text {
+        .tab_text {
             cursor: pointer;
             text-align: center;
             color: #fff;
