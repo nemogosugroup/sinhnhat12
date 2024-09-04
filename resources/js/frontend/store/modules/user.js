@@ -1,16 +1,26 @@
-import RepositoryFactory from "@frontend/utils/RepositoryFactory";
-import {getAccessToken, setAccessToken, removeToken, setAuth, getAuth, removeAuth} from '@frontend/utils/auth'
-import router, { resetRouter } from "@frontend/router";
+import RepositoryFactory from '@frontend/utils/RepositoryFactory';
+import {
+    getAccessToken,
+    setAccessToken,
+    removeToken,
+    setAuth,
+    getAuth,
+    removeAuth
+} from '@frontend/utils/auth';
+import router, { resetRouter } from '@frontend/router';
 const UserRepository = RepositoryFactory.get('user');
 const state = {
     token: getAccessToken(),
-    name: "",
-    avatar: "",
-    introduction: "",
-    gold: "",
-    experience: "",
-    data_achievement:false,
+    name: '',
+    avatar: '',
+    introduction: '',
+    gold: '',
+    experience: '',
+    data_achievement: false,
     level: 1,
+    kimto: 0,
+    mochi: 0,
+    bestscore: 0,
     user: {},
     roles: [],
     courses: [],
@@ -66,60 +76,75 @@ const mutations = {
     SET_DATA_ACHIEVEMENT: (state, data) => {
         state.data_achievement = data;
     },
+    SET_DATA_KIMTO: (state, data) => {
+        state.kimTo = data;
+    },
+    SET_DATA_MOCHI: (state, data) => {
+        state.mochi = data;
+    },
+    SET_DATA_BEST_SCORE: (state, data) => {
+        state.bestscore = data;
+    }
 };
 
 const actions = {
     // user login
-    login({commit}, userInfo) {
+    login({ commit }, userInfo) {
         const { email, password } = userInfo;
         return new Promise((resolve, reject) => {
-            UserRepository.login({email: email, password: password}).then(response => {
-                const { data } = response;
-                if (data.success) {
-                    let token = data.data.access_token;
-                    let roles = data.data.roles;
-                    let training = data.data.training;
-                    let users = data.data;
-                    commit('SET_INFO', users);
-                    commit('SET_TOKEN', token);
-                    commit('SET_ROLES', roles);
-                    commit('SET_NAME', data.data.fullname);
-                    commit('SET_TRAINING', training);
-                    commit('SET_GOLD', data.data.gold);
-                    commit('SET_EXPERIENCE', data.data.experience);
-                    commit('SET_LEVEL', data.data.level);
-                    commit('SET_DATA_MEDAL', data.data_medal);
-                    if(data.data.equipments){
-                        let equipments = data.data.equipments.map(item => {
-                            return item.id
-                        });
-                        commit('SET_EQUIPMENTS', equipments);
+            UserRepository.login({ email: email, password: password })
+                .then((response) => {
+                    const { data } = response;
+                    if (data.success) {
+                        let token = data.data.access_token;
+                        let roles = data.data.roles;
+                        let training = data.data.training;
+                        let users = data.data;
+                        commit('SET_INFO', users);
+                        commit('SET_TOKEN', token);
+                        commit('SET_ROLES', roles);
+                        commit('SET_NAME', data.data.fullname);
+                        commit('SET_TRAINING', training);
+                        commit('SET_GOLD', data.data.gold);
+                        commit('SET_EXPERIENCE', data.data.experience);
+                        commit('SET_LEVEL', data.data.level);
+                        commit('SET_DATA_MEDAL', data.data_medal);
+                        commit('SET_DATA_KIMTO', data.point_kimto);
+                        commit('SET_DATA_MOCHI', data.point_mochi);
+                        if (data.data.equipments) {
+                            let equipments = data.data.equipments.map(
+                                (item) => {
+                                    return item.id;
+                                }
+                            );
+                            commit('SET_EQUIPMENTS', equipments);
+                        }
+                        if (data.data.courses) {
+                            let courses = data.data.courses.map((item) => {
+                                return item.id;
+                            });
+                            commit('SET_COURSES', courses);
+                        }
+                        if (users.achievement_user) {
+                            let achievements = {
+                                medal: users.achievement_user?.medal.title,
+                                achievement:
+                                    users.achievement_user?.category.title
+                            };
+                            commit('SET_DATA_ACHIEVEMENT', achievements);
+                        }
+                        setAccessToken(token);
+                        setAuth(JSON.stringify(data.data));
                     }
-                    if(data.data.courses){
-                        let courses = data.data.courses.map(item => {
-                            return item.id
-                        });
-                        commit('SET_COURSES', courses);
-                    }
-                    if(users.achievement_user){
-                        let achievements = {
-                            'medal':users.achievement_user?.medal.title,
-                            'achievement':users.achievement_user?.category.title,
-                        };
-                        commit('SET_DATA_ACHIEVEMENT', achievements);
-                    }                   
-                    setAccessToken(token)
-                    setAuth(JSON.stringify(data.data))
-                }
-                resolve(response)
-            }).catch(e => {
-                console.log(`error`, e);
-                reject(e)
-            })
-
-        }).catch(error => {
-            reject(error)
-        })
+                    resolve(response);
+                })
+                .catch((e) => {
+                    console.log(`error`, e);
+                    reject(e);
+                });
+        }).catch((error) => {
+            reject(error);
+        });
     },
 
     // get user info
@@ -142,55 +167,58 @@ const actions = {
                         commit('SET_EXPERIENCE', data.data.experience);
                         commit('SET_LEVEL', data.data.level);
                         commit('SET_DATA_MEDAL', data.data_medal);
-                        if(data.data.equipments){
-                            let equipments = data.data.equipments.map(item => {
-                                return item.id
-                            });
+                        if (data.data.equipments) {
+                            let equipments = data.data.equipments.map(
+                                (item) => {
+                                    return item.id;
+                                }
+                            );
                             commit('SET_EQUIPMENTS', equipments);
                         }
-                        if(data.data.courses){
-                            let courses = data.data.courses.map(item => {
-                                return item.id
+                        if (data.data.courses) {
+                            let courses = data.data.courses.map((item) => {
+                                return item.id;
                             });
                             commit('SET_COURSES', courses);
                         }
-                        if(users.achievement_user){
+                        if (users.achievement_user) {
                             let achievements = {
-                                'medal':users.achievement_user?.medal.title,
-                                'achievement':users.achievement_user?.category.title,
+                                medal: users.achievement_user?.medal.title,
+                                achievement:
+                                    users.achievement_user?.category.title
                             };
                             commit('SET_DATA_ACHIEVEMENT', achievements);
-                        }     
-                        setAccessToken(token)
-                        setAuth(JSON.stringify(data.data))
+                        }
+                        setAccessToken(token);
+                        setAuth(JSON.stringify(data.data));
                     }
-                    resolve(response)
+                    resolve(response);
                 })
                 .catch((error) => {
                     reject(error);
                 });
         });
     },
-     // get user info
+    // get user info
     getRoles({ commit, state }) {
         return new Promise((resolve, reject) => {
             UserRepository.getRoles(state.token)
                 .then((response) => {
-                    const { data } = response;                    
+                    const { data } = response;
                     if (!data) {
-                        commit("SET_TOKEN", "");
-                        commit("SET_ROLES", []);
+                        commit('SET_TOKEN', '');
+                        commit('SET_ROLES', []);
                         removeToken();
-                        reject("Verification failed, please Login again.");
+                        reject('Verification failed, please Login again.');
                     }
                     let results = data['data'];
 
                     // roles must be a non-empty array
                     if (!results['roles'] || results['roles'].length <= 0) {
-                        reject("Verification failed, please Login again.");
+                        reject('Verification failed, please Login again.');
                     }
 
-                    commit("SET_ROLES", results['roles']);
+                    commit('SET_ROLES', results['roles']);
                     // commit("SET_NAME", name);
                     // commit("SET_AVATAR", avatar);
                     // commit("SET_INTRODUCTION", introduction);
@@ -206,11 +234,11 @@ const actions = {
         return new Promise((resolve, reject) => {
             UserRepository.logout(state.token)
                 .then(() => {
-                    commit("SET_TOKEN", "");
-                    commit("SET_ROLES", []);
+                    commit('SET_TOKEN', '');
+                    commit('SET_ROLES', []);
                     removeToken();
                     resetRouter();
-                    dispatch("tagsView/delAllViews", null, { root: true });
+                    dispatch('tagsView/delAllViews', null, { root: true });
                     resolve();
                 })
                 .catch((error) => {
@@ -222,8 +250,8 @@ const actions = {
     // remove token
     resetAccessToken({ commit }) {
         return new Promise((resolve) => {
-            commit("SET_TOKEN", "");
-            commit("SET_ROLES", []);
+            commit('SET_TOKEN', '');
+            commit('SET_ROLES', []);
             removeToken();
             resolve();
         });
@@ -250,10 +278,10 @@ const actions = {
         // router.addRoutes(accessRoutes);
 
         // reset visited views and cached views
-        dispatch("tagsView/delAllViews", null, { root: true });
+        dispatch('tagsView/delAllViews', null, { root: true });
     },
 
-    update({ commit, state }, data){
+    update({ commit, state }, data) {
         if (data) {
             let roles = data.roles;
             let users = data;
@@ -269,7 +297,7 @@ const actions = {
             if (data.level) {
                 commit('SET_LEVEL', data.level);
             }
-            setAuth(JSON.stringify(data))
+            setAuth(JSON.stringify(data));
         }
     },
 
@@ -283,7 +311,7 @@ const actions = {
                         let training = data.data.training;
                         commit('SET_TRAINING', training);
                     }
-                    resolve(response)
+                    resolve(response);
                 })
                 .catch((error) => {
                     reject(error);
@@ -300,7 +328,7 @@ const actions = {
                         let detail = data.data;
                         commit('SET_TRAINING_DETAIL', detail);
                     }
-                    resolve(response)
+                    resolve(response);
                 })
                 .catch((error) => {
                     reject(error);
@@ -322,11 +350,23 @@ const actions = {
     //         }
     //     }
     // }
+    updateDataUser({ commit, state }, data) {
+        console.log('dataStore', data);
+        if (data.kimTo) {
+            commit('SET_DATA_KIMTO', data.kimTo);
+        }
+        if (data.moChi) {
+            commit('SET_DATA_MOCHI', data.moChi);
+        }
+        if (data.bestScore) {
+            commit('SET_DATA_BEST_SCORE', data.bestScore);
+        }
+    }
 };
 
 export default {
     namespaced: true,
     state,
     mutations,
-    actions,
+    actions
 };

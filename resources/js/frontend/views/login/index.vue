@@ -174,15 +174,16 @@ export default {
                                 })
 
                                 //console.log("check this.redirectUri",this.redirectUri);
-                                if (this.redirectUri) {
+                                // if (this.redirectUri) {
 
-                                    //console.log("check this.redirectUri 2",this.redirectUri);
-                                    window.location.href = this.redirectUri + '?token=' + getAccessToken() + '&state=' + this.oAuthState;
-                                } else {
-                                    //console.log("check this.redirect",this.redirect);
-                                    window.location.href = "/";
-                                }
-
+                                //     //console.log("check this.redirectUri 2",this.redirectUri);
+                                //     window.location.href = this.redirectUri + '?token=' + getAccessToken() + '&state=' + this.oAuthState;
+                                // } else {
+                                //     //console.log("check this.redirect",this.redirect);
+                                //     window.location.href = "/";
+                                // }
+                                this.showSlogan = true;
+                                this.showDialog = false;
                             } else {
                                 this.$message({
                                     message: data.message,
