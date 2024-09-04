@@ -17,7 +17,7 @@
                     </el-col>
                     <el-col :span="10">
                         <el-row class="align-item-center" :gutter="10" justify="end">
-                            <span class="point-reward">{{ dataBoard.pointKimTo.value + kimto }} <img
+                            <span class="point-reward">{{ dataBoard.pointSilk.value + silk }} <img
                                     :src="iconSilk" /></span>
                             <span class="point-reward">{{ mochi }} <img :src="iconMochi" /></span>
                         </el-row>
@@ -45,9 +45,10 @@
                     <el-col :span="12">
                         <div class="countDown">
                             <span>countdown</span>
-                            <Countdown :deadline="`${dataBoard.deadline.value}`" :showLabels="false" :showDays="false"
-                                :showHours="false" mainFlipBackgroundColor="#E6F5DF" secondFlipBackgroundColor='#E6F5DF'
-                                mainColor="#000" secondFlipColor="#000" :flipAnimation="true" />
+                            <Countdown :deadline="`${dataBoard.deadline.value}`" :stop="stopCountDown"
+                                :showLabels="false" :showDays="false" :showHours="false"
+                                mainFlipBackgroundColor="#E6F5DF" secondFlipBackgroundColor='#E6F5DF' mainColor="#000"
+                                secondFlipColor="#000" :flipAnimation="false" />
                         </div>
                         <div class="play-again">
                             <el-button type="warning" class="reset" @click="onRestart">Play Again</el-button>
@@ -96,13 +97,14 @@ export default {
     data() {
         return {
             iconSilk: MapIconSilk,
-            iconMochi: MapIconMochi
+            iconMochi: MapIconMochi,
         }
     },
     setup() {
         const board = ref(new Board());
+        const stopCountDown = ref(false);
         const store = useStore();
-        const kimto = computed(() => store.getters['kimto']);
+        const silk = computed(() => store.getters['silk']);
         const mochi = computed(() => store.getters['mochi']);
         const bestScore = computed(() => store.getters['bestscore']);
         const createDefaultData = () => {
@@ -113,17 +115,17 @@ export default {
                 timer: null, // timer interval
                 intervalData: null, // reset interval
                 countMinutes: Math.round(moment().add(minutes, 'minutes').diff(moment()) / 1000), // count seconds
-                pointKimTo: ref(0),
-                levelKimTo: {
+                pointSilk: ref(0),
+                levelSilk: {
                     'lv1': { 'point': 5, 'check': true },
-                    'lv2': { 'point': 10, 'check': true },
-                    'lv3': { 'point': 15, 'check': true },
-                    'lv4': { 'point': 20, 'check': true },
-                    'lv5': { 'point': 25, 'check': true }
+                    'lv2': { 'point': 5, 'check': true },
+                    'lv3': { 'point': 5, 'check': true },
+                    'lv4': { 'point': 5, 'check': true },
+                    'lv5': { 'point': 5, 'check': true }
                 },
                 checkBonnus: false,
-                scoreBonnus: 0, // kiểm tra điểm bonnus nếu score đạt trên 3500 bắt đầu tính toán để cộng dồn kimto
-                kimToBonnus: 5, // set giá trị mặc định của kim tơ
+                scoreBonnus: 0, // kiểm tra điểm bonnus nếu score đạt trên 3500 bắt đầu tính toán để cộng dồn silk
+                silkBonnus: 5, // set giá trị mặc định của kim tơ
                 start: true,
                 pointMaxBonnus: 3500,
                 pointBonnus: 500,
@@ -131,7 +133,6 @@ export default {
             };
         };
         let dataBoard = createDefaultData();
-
         const handleKeyDown = (event) => {
             if (board.value.hasWon()) {
                 return;
@@ -172,18 +173,19 @@ export default {
             dataBoard.deadline.value = moment().add(minutes, 'minutes').format('YYYY-MM-DD HH:mm:ss');
             dataBoard.timer = null; // timer interval
             dataBoard.intervalData = null; // reset interval
-            dataBoard.pointKimTo.value = 0;
+            dataBoard.pointSilk.value = 0;
             dataBoard.scoreBonnus = 0;
             dataBoard.start = true;
             dataBoard.checkBonnus = false;
-            dataBoard.levelKimTo = {
+            dataBoard.levelSilk = {
                 'lv1': { 'point': 5, 'check': true },
-                'lv2': { 'point': 10, 'check': true },
-                'lv3': { 'point': 15, 'check': true },
-                'lv4': { 'point': 20, 'check': true },
-                'lv5': { 'point': 25, 'check': true }
+                'lv2': { 'point': 5, 'check': true },
+                'lv3': { 'point': 5, 'check': true },
+                'lv4': { 'point': 5, 'check': true },
+                'lv5': { 'point': 5, 'check': true }
             };
-            dataBoard.dataLog = []
+            dataBoard.dataLog = [];
+            stopCountDown.value = false;
             startTimer();
         };
 
@@ -214,9 +216,10 @@ export default {
         startTimer();
 
         const onRestart = () => {
-            board.value = new Board();
-            if (dataBoard.countMinutes > 0 && score > 0)
+            // nếu đang chơi chưa hết timer reset game thì lưu dữ liệu lại
+            if (dataBoard.countMinutes > 0 && board.value.score > 0 && !stopCountDown.value)
                 submitScore();
+            board.value = new Board();
             resetTimer();
         };
 
@@ -225,6 +228,7 @@ export default {
             clearInterval(dataBoard.timer);
             clearInterval(dataBoard.intervalData);
             dataBoard.endTime = moment().format('YYYY-MM-DD HH:mm:ss');
+            stopCountDown.value = true;
             try {
                 let formData = {
                     score: board.value.score,
@@ -237,7 +241,6 @@ export default {
             } catch (error) {
                 console.error('error', error);
             }
-
         }
 
         onMounted(() => {
@@ -264,9 +267,9 @@ export default {
 
         const calculatePoint = (score) => {
             levels.forEach(level => {
-                const currentLevel = dataBoard.levelKimTo[level.levelKey];
+                const currentLevel = dataBoard.levelSilk[level.levelKey];
                 if (score > level.min && score <= level.max && currentLevel.check) {
-                    dataBoard.pointKimTo.value += currentLevel.point;
+                    dataBoard.pointSilk.value += currentLevel.point;
                     currentLevel.check = false;
                 }
             });
@@ -278,7 +281,7 @@ export default {
             }
 
             if ((dataBoard.scoreBonnus >= dataBoard.pointMaxBonnus) && ((score - dataBoard.scoreBonnus) >= dataBoard.pointBonnus)) {
-                dataBoard.pointKimTo.value += dataBoard.kimToBonnus; //cộng thêm 5 kim tơ điểm nếu đặt mốc
+                dataBoard.pointSilk.value += dataBoard.silkBonnus; //cộng thêm 5 kim tơ điểm nếu đặt mốc
                 dataBoard.scoreBonnus = dataBoard.scoreBonnus + dataBoard.pointBonnus; //cộng thêm 500 điểm nếu đặt mốc
             }
 
@@ -292,8 +295,9 @@ export default {
             submitScore,
             dataBoard,
             mochi,
-            kimto,
-            bestScore
+            silk,
+            bestScore,
+            stopCountDown
         };
     },
     components: {
@@ -325,8 +329,8 @@ export default {
 :deep(.flip-clock__piece:last-child:before) {
     content: ":";
     position: absolute;
-    left: -12px;
-    font-size: 3rem;
+    left: -9px;
+    font-size: 35px;
     top: 50%;
     transform: translate(0px, -60%);
     color: #000
@@ -349,6 +353,7 @@ export default {
         align-items: center;
         align-content: stretch;
         font-size: 18px;
+        font-weight: 700;
 
         &:first-child {
             margin-right: 5px;

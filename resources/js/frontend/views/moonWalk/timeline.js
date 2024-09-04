@@ -1,10 +1,10 @@
 const dataTimeline = () => {
     let data = [];
     let count = 0;
-    let kimto = 500;
+    let silk = 500;
     for (let year = 2012; year <= 2024; year++) {
         const _data = {};
-        _data['showDataTimeLine'] = count * kimto;
+        _data['showDataTimeLine'] = count * silk;
         _data['year'] = year;
         _data['listImages'] = [
             { url: '/static/uploads/sinhnhat/default.png' },

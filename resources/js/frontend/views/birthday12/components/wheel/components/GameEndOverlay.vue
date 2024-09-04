@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import { toRefs, ref, computed } from "vue";
+import { toRefs, ref, computed, watch } from "vue";
 export default {
     props: {
         board: {
@@ -30,13 +30,16 @@ export default {
         });
         const contents = computed(() => {
             if (board.value.hasWon()) {
-                props.onsubmit && props.onsubmit();
                 return "<div class='youWin'></div>";
             } else if (board.value.hasLost()) {
-                props.onsubmit && props.onsubmit();
                 return "<div class='gameOver'></div>";
             } else {
                 return "";
+            }
+        });
+        watch(show, (newValue, oldValue) => {
+            if (newValue && !oldValue) {
+                props.onsubmit && props.onsubmit();
             }
         });
         const restart = () => {

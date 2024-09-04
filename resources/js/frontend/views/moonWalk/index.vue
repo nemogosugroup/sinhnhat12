@@ -80,14 +80,14 @@ export default {
         }
     },
     computed: {
-        ...mapGetters(["kimto"]),
+        ...mapGetters(["silk"]),
     },
     created() {
         this.listTimeLine = dataTimeline().map((item, index) => {
             item['isActive'] = false;
             item['isLast'] = false;
             item['isShow'] = false;
-            item['showTimeline'] = this.kimto >= item.showDataTimeLine ? true : false;
+            item['showTimeline'] = this.silk >= item.showDataTimeLine ? true : false;
             return item;
         });
 

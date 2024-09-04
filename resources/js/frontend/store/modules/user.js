@@ -18,7 +18,7 @@ const state = {
     experience: '',
     data_achievement: false,
     level: 1,
-    kimto: 0,
+    silk: 0,
     mochi: 0,
     bestscore: 0,
     user: {},
@@ -76,8 +76,8 @@ const mutations = {
     SET_DATA_ACHIEVEMENT: (state, data) => {
         state.data_achievement = data;
     },
-    SET_DATA_KIMTO: (state, data) => {
-        state.kimTo = data;
+    SET_DATA_SILK: (state, data) => {
+        state.silk = data;
     },
     SET_DATA_MOCHI: (state, data) => {
         state.mochi = data;
@@ -109,8 +109,9 @@ const actions = {
                         commit('SET_EXPERIENCE', data.data.experience);
                         commit('SET_LEVEL', data.data.level);
                         commit('SET_DATA_MEDAL', data.data_medal);
-                        commit('SET_DATA_KIMTO', data.point_kimto);
-                        commit('SET_DATA_MOCHI', data.point_mochi);
+                        commit('SET_DATA_SILK', data.data.point_kimto);
+                        commit('SET_DATA_MOCHI', data.data.point_mochi);
+                        commit('SET_DATA_BEST_SCORE', data.data.score);
                         if (data.data.equipments) {
                             let equipments = data.data.equipments.map(
                                 (item) => {
@@ -167,6 +168,9 @@ const actions = {
                         commit('SET_EXPERIENCE', data.data.experience);
                         commit('SET_LEVEL', data.data.level);
                         commit('SET_DATA_MEDAL', data.data_medal);
+                        commit('SET_DATA_SILK', data.data.point_kimto);
+                        commit('SET_DATA_MOCHI', data.data.point_mochi);
+                        commit('SET_DATA_BEST_SCORE', data.data.score);
                         if (data.data.equipments) {
                             let equipments = data.data.equipments.map(
                                 (item) => {
@@ -335,25 +339,10 @@ const actions = {
                 });
         });
     },
-    // update gold/exp/level of user
-    // updateDataUser({ commit, state }, data){
-    //     console.log('dataStore', data)
-    //     if (data) {
-    //         if (data.gold) {
-    //             commit('SET_GOLD', data.gold);
-    //         }
-    //         if (data.experience) {
-    //             commit('SET_EXPERIENCE', data.experience);
-    //         }
-    //         if (data.level) {
-    //             commit('SET_LEVEL', data.level);
-    //         }
-    //     }
-    // }
+
     updateDataUser({ commit, state }, data) {
-        console.log('dataStore', data);
-        if (data.kimTo) {
-            commit('SET_DATA_KIMTO', data.kimTo);
+        if (data.silk) {
+            commit('SET_DATA_SILK', data.silk);
         }
         if (data.moChi) {
             commit('SET_DATA_MOCHI', data.moChi);
