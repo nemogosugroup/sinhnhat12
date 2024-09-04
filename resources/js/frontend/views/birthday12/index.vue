@@ -190,7 +190,7 @@ export default {
                 this.caveType = "nguyet_nhu";
                 this.handleShowDialog();
             } else {
-                alert("GO TO GATE NOW");
+                this.$router.push(`/moonwalk`);
             }
         },
         handleShowDialog() {
