@@ -76,6 +76,7 @@ var Board = function (size = 4) {
     this.addRandomTile();
     this.setPositions();
     this.won = false;
+    this.isLost = false;
 };
 
 Board.prototype.addTile = function () {
@@ -177,6 +178,7 @@ Board.deltaX = [-1, 0, 1, 0];
 Board.deltaY = [0, -1, 0, 1];
 
 Board.prototype.hasLost = function () {
+    if (this.isLost) return true;
     var canMove = false;
     for (var row = 0; row < this.size; ++row) {
         for (var column = 0; column < this.size; ++column) {
@@ -198,6 +200,7 @@ Board.prototype.hasLost = function () {
             }
         }
     }
-    return !canMove;
+    this.isLost = !canMove; // Cập nhật isLost nếu không thể di chuyển
+    return this.isLost;
 };
 export { Board };

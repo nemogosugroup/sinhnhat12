@@ -1,6 +1,6 @@
 <template>
     <div class="wrap-board">
-        <el-row>
+        <el-row :gutter="10">
             <el-col :span="12">
                 <div class="board">
                     <div v-for="(r_item, r_i) in board.cells" :key="r_i">
@@ -10,77 +10,80 @@
                     <game-end-overlay :board="board" :onrestart="onRestart" :onsubmit="submitScore"></game-end-overlay>
                 </div>
             </el-col>
-            <el-col :span="12">
-                <div class="infoGame">
-                    <el-row :gutter="20">
-                        <el-col :span="12">
-                            <div class="wrap-header">
-                                <h1 class="title-2048">2048</h1>
-                                <div class="reward">
-                                    <span class="point-reward"></span>
-                                    <span class="point-reward">{{ dataBoard.pointKimTo.value }}</span>
-                                </div>
-                            </div>
-
-                        </el-col>
-                    </el-row>
-                    <el-row :gutter="20">
-                        <el-col :span="12">
-                            <div>
-                                <p>Điều hướng các ô số guống nhập thành số chắn lớn hơn trong 5 phút. Điểm càng cao nhận
-                                    càng
-                                    nhiều Kim Tơ</p>
-                                <p><strong></strong>*Số Kim Tơ quy đổi theo từng mnosc điểm in game:</p>
-                                <ul>
-                                    <li><span>Điểm 0000 - 1489: 5 Kim Tơ</span></li>
-                                    <li><span>Điểm 1500 - 1998: 10 Kim Tơ</span></li>
-                                    <li><span>Điểm 2000 - 2498: 15 Kim Tơ</span></li>
-                                    <li><span>Điểm 2500 - 2998: 20 Kim Tơ</span></li>
-                                    <li><span>Điểm 3000 - 3498: 25 Kim Tơ</span></li>
-                                </ul>
-                                <p>Cứ thêm 500 điểm in-game sẽ đc cộng thêm 5 Kim Tơ</p>
-                            </div>
-                        </el-col>
-                    </el-row>
-                    <el-row :gutter="20">
-                        <el-col :span="12">
-                            <div class="countDown">
-                                <span>countdown</span>
-                                <Countdown :deadline="`${dataBoard.deadline.value}`" :showLabels="false"
-                                    :showDays="false" :showHours="false" mainFlipBackgroundColor="#fff"
-                                    secondFlipBackgroundColor='#fff' mainColor="#000" secondFlipColor="#000" />
-                            </div>
-                            <div class="play-again">
-                                <el-button type="warning" class="reset" @click="onRestart">Play Again</el-button>
-                            </div>
-                        </el-col>
-                        <el-col :span="12">
-                            <div class="score">
-                                <span>Current score</span>
-                                <span> {{ score }}</span>
-                            </div>
-                            <div class="score">
-                                <span>Best score</span>
-                                <span>25008</span>
-                            </div>
-                        </el-col>
-                    </el-row>
-                </div>
+            <el-col :span="12" class="infoGame">
+                <el-row class="align-item-center" :gutter="10" justify="space-between">
+                    <el-col :span="14">
+                        <h1 class="title-2048">2048</h1>
+                    </el-col>
+                    <el-col :span="10">
+                        <el-row class="align-item-center" :gutter="10" justify="end">
+                            <span class="point-reward">{{ dataBoard.pointKimTo.value + kimto }} <img
+                                    :src="iconSilk" /></span>
+                            <span class="point-reward">{{ mochi }} <img :src="iconMochi" /></span>
+                        </el-row>
+                    </el-col>
+                </el-row>
+                <el-row :gutter="10">
+                    <el-col :span="24">
+                        <div class="content">
+                            <p>Điều hướng các ô số guống nhập thành số chắn lớn hơn trong 5 phút. Điểm càng cao nhận
+                                càng
+                                nhiều Kim Tơ</p>
+                            <p><strong>*Số Kim Tơ quy đổi theo từng mốc điểm in game:</strong></p>
+                            <ul>
+                                <li><span>Điểm 0000 - 1489: 5 Kim Tơ</span></li>
+                                <li><span>Điểm 1500 - 1998: 10 Kim Tơ</span></li>
+                                <li><span>Điểm 2000 - 2498: 15 Kim Tơ</span></li>
+                                <li><span>Điểm 2500 - 2998: 20 Kim Tơ</span></li>
+                                <li><span>Điểm 3000 - 3498: 25 Kim Tơ</span></li>
+                            </ul>
+                            <p>Cứ thêm 500 điểm in-game sẽ đc cộng thêm 5 Kim Tơ</p>
+                        </div>
+                    </el-col>
+                </el-row>
+                <el-row :gutter="10">
+                    <el-col :span="12">
+                        <div class="countDown">
+                            <span>countdown</span>
+                            <Countdown :deadline="`${dataBoard.deadline.value}`" :showLabels="false" :showDays="false"
+                                :showHours="false" mainFlipBackgroundColor="#E6F5DF" secondFlipBackgroundColor='#E6F5DF'
+                                mainColor="#000" secondFlipColor="#000" :flipAnimation="true" />
+                        </div>
+                        <div class="play-again">
+                            <el-button type="warning" class="reset" @click="onRestart">Play Again</el-button>
+                        </div>
+                    </el-col>
+                    <el-col :span="12">
+                        <div class="score">
+                            <span>Current score</span>
+                            <span> {{ score }}</span>
+                        </div>
+                        <div class="score">
+                            <span>Best score</span>
+                            <span>{{ bestScore }}</span>
+                        </div>
+                    </el-col>
+                </el-row>
             </el-col>
         </el-row>
     </div>
 </template>
 
 <script>
+import RepositoryFactory from '@frontend/utils/RepositoryFactory';
+const game2048Repository = RepositoryFactory.get('game2048');
+
+import MapIconMochi from '@/assets/images/birthday12/map/dialog/icon_mochi.png'
+import MapIconSilk from '@/assets/images/birthday12/map/dialog/icon_silk.png'
 import Cell from "./Cell.vue";
 import TileView from "./TileView.vue";
 import GameEndOverlay from "./GameEndOverlay.vue";
 import { Board } from "../board";
 import { onMounted, onBeforeUnmount, ref, computed } from "vue";
-import RepositoryFactory from '@frontend/utils/RepositoryFactory';
-const game2048Repository = RepositoryFactory.get('game2048');
 import { Countdown } from 'vue3-flip-countdown';
 import moment from 'moment';
+import { useStore } from "vuex";
+
 const levels = [
     { min: 0, max: 1489, levelKey: 'lv1' },
     { min: 1500, max: 1998, levelKey: 'lv2' },
@@ -88,34 +91,20 @@ const levels = [
     { min: 2500, max: 2998, levelKey: 'lv4' },
     { min: 3000, max: 3498, levelKey: 'lv5', bonus: true }
 ];
-let minutes = 1; // set minutes coundown
-const createDefaultData = () => {
-    return {
-        startTime: moment().format('YYYY-MM-DD HH:mm:ss'),
-        endTime: null, // end time
-        deadline: ref(moment().add(minutes, 'minutes').format('YYYY-MM-DD HH:mm:ss')),
-        timer: null, // timer interval
-        intervalData: null, // reset interval
-        countMinutes: Math.round(moment().add(minutes, 'minutes').diff(moment()) / 1000), // count seconds
-        pointKimTo: ref(0),
-        levelKimTo: {
-            'lv1': { 'point': 5, 'check': true },
-            'lv2': { 'point': 10, 'check': true },
-            'lv3': { 'point': 15, 'check': true },
-            'lv4': { 'point': 20, 'check': true },
-            'lv5': { 'point': 25, 'check': true }
-        },
-        scoreBonnus: 0, // kiểm tra điểm bonnus nếu score đạt trên 3500 bắt đầu tính toán để cộng dồn kimto
-        kimToBonnus: 5, // set giá trị mặc định của kim tơ
-        start: true,
-        pointMaxBonnus: 3500,
-        pointBonnus: 500
-    };
-};
+let minutes = 5; // set minutes coundown
 export default {
+    data() {
+        return {
+            iconSilk: MapIconSilk,
+            iconMochi: MapIconMochi
+        }
+    },
     setup() {
         const board = ref(new Board());
-        console.log('board', board);
+        const store = useStore();
+        const kimto = computed(() => store.getters['kimto']);
+        const mochi = computed(() => store.getters['mochi']);
+        const bestScore = computed(() => store.getters['bestscore']);
         const createDefaultData = () => {
             return {
                 startTime: moment().format('YYYY-MM-DD HH:mm:ss'),
@@ -132,11 +121,13 @@ export default {
                     'lv4': { 'point': 20, 'check': true },
                     'lv5': { 'point': 25, 'check': true }
                 },
+                checkBonnus: false,
                 scoreBonnus: 0, // kiểm tra điểm bonnus nếu score đạt trên 3500 bắt đầu tính toán để cộng dồn kimto
                 kimToBonnus: 5, // set giá trị mặc định của kim tơ
                 start: true,
                 pointMaxBonnus: 3500,
-                pointBonnus: 500
+                pointBonnus: 500,
+                dataLog: []
             };
         };
         let dataBoard = createDefaultData();
@@ -159,10 +150,17 @@ export default {
             dataBoard.timer = setInterval(() => {
                 if (dataBoard.countMinutes > 0) {
                     dataBoard.countMinutes--;
+                    let data = {
+                        'score': score.value,
+                        'startTime': dataBoard.startTime,
+                        'endTime': moment().format('YYYY-MM-DD HH:mm:ss'),
+                        'duration': Math.round(moment().diff(moment(dataBoard.startTime)) / 1000)
+                    }
+                    dataBoard.dataLog.push(data);
                 } else {
-                    console.log('countMinutes', dataBoard.countMinutes);
                     clearInterval(dataBoard.timer);
-                    console.log('Hết thờ gian');
+                    board.value.isLost = true;
+                    submitScore();
                 }
             }, 1000);
         };
@@ -177,6 +175,7 @@ export default {
             dataBoard.pointKimTo.value = 0;
             dataBoard.scoreBonnus = 0;
             dataBoard.start = true;
+            dataBoard.checkBonnus = false;
             dataBoard.levelKimTo = {
                 'lv1': { 'point': 5, 'check': true },
                 'lv2': { 'point': 10, 'check': true },
@@ -184,7 +183,7 @@ export default {
                 'lv4': { 'point': 20, 'check': true },
                 'lv5': { 'point': 25, 'check': true }
             };
-
+            dataBoard.dataLog = []
             startTimer();
         };
 
@@ -232,8 +231,9 @@ export default {
                     start: dataBoard.startTime,
                     end: dataBoard.endTime
                 }
-                const { data } = await game2048Repository.create(formData);
-                console.log('data', data);
+                console.log('formData', formData);
+                // const { data } = await game2048Repository.create(formData);
+                // console.log('data', data);
             } catch (error) {
                 console.error('error', error);
             }
@@ -251,9 +251,14 @@ export default {
         const tiles = computed(() => {
             return board.value.tiles.filter((tile) => tile.value != 0);
         });
-
         const score = computed(() => {
             calculatePoint(board.value.score);
+            if (board.value.score > bestScore.value) {
+                let data = {
+                    bestScore: board.value.score
+                }
+                store.dispatch("user/updateDataUser", data);
+            }
             return board.value.score;
         });
 
@@ -263,15 +268,18 @@ export default {
                 if (score > level.min && score <= level.max && currentLevel.check) {
                     dataBoard.pointKimTo.value += currentLevel.point;
                     currentLevel.check = false;
-                    if (level.bonus) {
-                        dataBoard.scoreBonnus = score;
-                    }
                 }
             });
 
-            if (dataBoard.scoreBonnus > dataBoard.pointMaxBonnus && score - dataBoard.scoreBonnus >= dataBoard.pointBonnus) {
-                dataBoard.pointKimTo.value += dataBoard.kimToBonnus;
-                dataBoard.scoreBonnus = score;
+            // kiểm tra nếu điểm 3500 trở lên thì bắt đầu kiểm tra + thêm kim tơ
+            if (!dataBoard.checkBonnus && score >= dataBoard.pointMaxBonnus) {
+                dataBoard.scoreBonnus = dataBoard.pointMaxBonnus;
+                dataBoard.checkBonnus = true;
+            }
+
+            if ((dataBoard.scoreBonnus >= dataBoard.pointMaxBonnus) && ((score - dataBoard.scoreBonnus) >= dataBoard.pointBonnus)) {
+                dataBoard.pointKimTo.value += dataBoard.kimToBonnus; //cộng thêm 5 kim tơ điểm nếu đặt mốc
+                dataBoard.scoreBonnus = dataBoard.scoreBonnus + dataBoard.pointBonnus; //cộng thêm 500 điểm nếu đặt mốc
             }
 
         };
@@ -282,7 +290,10 @@ export default {
             tiles,
             score,
             submitScore,
-            dataBoard
+            dataBoard,
+            mochi,
+            kimto,
+            bestScore
         };
     },
     components: {
@@ -293,7 +304,7 @@ export default {
     },
 };
 </script>
-<style scoped>
+<style lang="scss" scoped>
 :deep(.flip-card__bottom),
 :deep(.flip-card__back-bottom) {
     border-top: 0 !important;
@@ -314,9 +325,122 @@ export default {
 :deep(.flip-clock__piece:last-child:before) {
     content: ":";
     position: absolute;
-    left: -10px;
+    left: -12px;
     font-size: 3rem;
     top: 50%;
-    transform: translate(0px, -50%);
+    transform: translate(0px, -60%);
+    color: #000
+}
+
+.wrap-board {
+    :deep(.el-row) {
+        width: 100%
+    }
+
+    .point-reward {
+        font-family: 'Inter';
+        background-color: #ECF5FC;
+        display: inline-flex;
+        padding: 5px 5px 5px 10px;
+        border-radius: 5px;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: center;
+        align-items: center;
+        align-content: stretch;
+        font-size: 18px;
+
+        &:first-child {
+            margin-right: 5px;
+        }
+
+        img {
+            width: 30px;
+        }
+    }
+
+    .content {
+        position: relative;
+        padding-top: 20px;
+        width: 100%;
+        font-family: 'Inter';
+
+        &::before {
+            content: '';
+            background-image: linear-gradient(90deg, #000 25%, #fff 100%);
+            position: absolute;
+            left: 0;
+            top: 10px;
+            width: 100%;
+            height: 2px;
+        }
+
+
+
+        p {
+            margin: 0 0 20px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 20px
+        }
+    }
+
+    .countDown {
+        background-color: #E6F5DF;
+        padding: 10px;
+        text-align: center;
+        font-family: 'Inter';
+        border-radius: 5px;
+
+        span {
+            text-transform: uppercase;
+            font-size: 14px;
+        }
+    }
+
+    .reset {
+        width: 100%;
+        margin-top: 5px;
+        text-transform: uppercase;
+        color: #000;
+        font-size: 14px;
+        font-family: 'Inter';
+    }
+
+    .score {
+        background-color: #ECF5FC;
+        font-family: 'Inter';
+        border-radius: 5px;
+        font-size: 14px;
+        height: calc(50% - 2.5px);
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        align-content: stretch;
+
+        &:first-child {
+            margin-bottom: 5px;
+        }
+
+        span {
+            color: #000;
+            text-transform: uppercase;
+
+            &:last-child {
+                font-size: 22px;
+                display: block;
+                font-weight: bold;
+            }
+        }
+    }
+}
+
+.el-row {
+    width: 100% !important
 }
 </style>

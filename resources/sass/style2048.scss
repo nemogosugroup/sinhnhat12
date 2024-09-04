@@ -9,7 +9,12 @@
     width: 470px;
     font-weight: bold;
 }
-
+.title-2048 {
+    color: #452c31;
+    font-size: 90px;
+    margin: 0;
+    line-height: 90px;
+}
 .board {
     order: 1;
     width: 470px;
@@ -24,6 +29,7 @@
         rgba(54, 77, 93, 1) 0%,
         rgba(157, 161, 147, 1) 100%
     );
+    margin: 0 auto;
 }
 
 .board .cell,
@@ -53,6 +59,7 @@
     vertical-align: middle;
     border-radius: 7px;
     color: #000;
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .tile {
@@ -201,7 +208,9 @@
 .devicon-github-original-wordmark {
     font-size: 55px;
 }
-
+.align-item-center {
+    align-items: center;
+}
 @media only screen and (max-width: 450px) {
     .header {
         font-size: 4em;

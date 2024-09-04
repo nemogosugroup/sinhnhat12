@@ -1,7 +1,7 @@
 <template>
     <div class="wrap-moonwalk">
         <div class="wrap-moonwalk__content">
-            <el-row justify="center" :align="`center`">
+            <el-row justify="center">
                 <el-col :span="15">
                     <h1 class="title-h1">Cổng moonwalk</h1>
                     <h2 class="title-h2">CÙNG NHÌN LẠI MỘT HÀNH TRÌNH DÀI</h2>
@@ -10,8 +10,8 @@
                             class="mySwiper" @swiper="onSwiper" @slideChange="onSlideChange">
                             <swiper-slide v-for="(item, key) in listTimeLine" :key="key">
                                 <div
-                                    :class="`item ${item.isActive ? 'active' : ''} ${item.isShow ? 'leftContent' : ''}`">
-                                    <div v-if="item.isActive" :class="`listImages`">
+                                    :class="`item ${item.isActive && item.showTimeline ? 'active' : ''} ${item.isShow ? 'leftContent' : ''}`">
+                                    <div v-if="item.isActive && item.showTimeline" :class="`listImages`">
                                         <div class="item_img" v-for="(url, key) in item.listImages" :key="key">
                                             <el-image class="images" :src="`/static/uploads/sinhnhat/default.png`"
                                                 style="width: 200px; height: 150px;" :fit="`cover`" />
@@ -22,7 +22,7 @@
                                         <span class="icon"></span>
                                         <span class="year">{{ item.year }}</span>
                                     </div>
-                                    <div class="item__content" v-if="item.isActive">
+                                    <div class="item__content" v-if="item.isActive && item.showTimeline">
                                         <span class="line"></span>
                                         <div class="item__content__title">{{ item.title }}</div>
                                         <div class="item__content__desc">{{ item.content }}</div>
@@ -66,6 +66,7 @@ import SearchEmployee from "@frontend/components/SearchEmployee";
 import { dataTimeline, dataEmployee } from './timeline';
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import 'swiper/css';
+import { mapGetters } from "vuex";
 export default {
     components: { Swiper, SwiperSlide, SearchEmployee },
     data() {
@@ -78,13 +79,18 @@ export default {
             indexSlider: 4
         }
     },
+    computed: {
+        ...mapGetters(["kimto"]),
+    },
     created() {
         this.listTimeLine = dataTimeline().map((item, index) => {
             item['isActive'] = false;
             item['isLast'] = false;
             item['isShow'] = false;
+            item['showTimeline'] = this.kimto >= item.showDataTimeLine ? true : false;
             return item;
         });
+
         // Khởi tạo danh sách nhân viên với vị trí hợp lệ
         this.listEmployee = dataEmployee().map((item) => {
             return item
@@ -128,8 +134,6 @@ export default {
         //     return tempListEmployee; // Trả về mảng tạm đã chứa tất cả nhân viên với vị trí hợp lệ
         // })();
     },
-    computed: {
-    },
     mounted() {
     },
     methods: {
@@ -158,7 +162,8 @@ export default {
                 item['isShow'] = index == number || index == (number - 1) ? true : false;
                 return item;
             });
-        }
+        },
+
         // shuffleArray(array) {
         //     for (let i = array.length - 1; i > 0; i--) {
         //         const j = Math.floor(Math.random() * (i + 1));
