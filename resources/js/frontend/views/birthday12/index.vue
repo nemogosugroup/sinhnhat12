@@ -75,15 +75,33 @@
                 <el-row>
                     <el-col :span="24" class="port_wrapper text-center">
                         <img class="main_img" :src="mapElm.MapGate" alt="">
-                        <img @click="goTo('GATE')" class="text_img" :src="mapElm.MapGateText" alt="">
+                        <img @click="goTo('GATE')" @mouseover="showBubble('GATE')" @mouseout="hideBubble"
+                             class="text_img" :src="mapElm.MapGateText" alt="">
+                        <div v-if="tooltipType === 'GATE'" class="bubble_tooltip tooltip_GATE">
+                            <VueTyped :strings="[`<b>Cổng Moonwalk:</b> Trang hành trình GOSU12`]" :typeSpeed="15" :backSpeed="30"
+                                      :loop="false">
+                            </VueTyped>
+                        </div>
                     </el-col>
                     <el-col :span="12" class="port_wrapper cave text-center" :class="{is_first_time: isFirstTime}">
                         <img class="main_img" :src="mapElm.MapCave" alt="">
-                        <img @click="goTo('CAVE')" class="text_img" :src="mapElm.MapCaveText" alt="">
+                        <img @click="goTo('CAVE')" @mouseover="showBubble('CAVE')" @mouseout="hideBubble"
+                             class="text_img" :src="mapElm.MapCaveText" alt="">
+                        <div v-if="tooltipType === 'CAVE'" class="bubble_tooltip tooltip_CAVE">
+                            <VueTyped :strings="[`<b>Thố Động:</b> Điểm danh và làm nhiệm vụ ngày`]" :typeSpeed="15" :backSpeed="30"
+                                      :loop="false">
+                            </VueTyped>
+                        </div>
                     </el-col>
                     <el-col :span="12" class="port_wrapper text-center">
                         <img class="main_img" :src="mapElm.MapWheel" alt="">
-                        <img @click="goTo('WHEEL')" class="text_img" :src="mapElm.MapWheelText" alt="">
+                        <img @click="goTo('WHEEL')" @mouseover="showBubble('WHEEL')" @mouseout="hideBubble"
+                             class="text_img" :src="mapElm.MapWheelText" alt="">
+                        <div v-if="tooltipType === 'WHEEL'" class="bubble_tooltip tooltip_WHEEL">
+                            <VueTyped :strings="[`<b>Vòng Quay Mặt Trời:</b> Trò chơi thu thập Kim Tơ`]" :typeSpeed="15" :backSpeed="30"
+                                      :loop="false">
+                            </VueTyped>
+                        </div>
                     </el-col>
                 </el-row>
             </el-col>
@@ -123,6 +141,7 @@ export default {
     components: {MapDialog},
     data() {
         return {
+            tooltipType: null,
             isFirstTime: true,
             dialogVisible: false,
             dialogType: null, // GATE, CAVE, WHEEL
@@ -154,6 +173,12 @@ export default {
     },
 
     methods: {
+        hideBubble() {
+            this.tooltipType = null;
+        },
+        showBubble(pos) {
+            this.tooltipType = pos;
+        },
         goToQuestList() {
             this.dialogType = "CAVE";
             this.caveType = "nguyet_nhiem";
@@ -178,7 +203,6 @@ export default {
             await this.$store.dispatch("user/logout");
             this.emitter.emit("clicked-logout", true);
             this.$router.push(`/login`);
-            // || window.location.href = "/login";
         }
     },
 }
@@ -245,6 +269,7 @@ export default {
                         top: 16px;
                         color: #66494E;
                     }
+
                     span, a {
                         font-family: "LacLongQuan", serif;
                     }
@@ -332,10 +357,10 @@ export default {
                         &:before {
                             content: "";
                             position: absolute;
-                            width: 120px;
-                            height: 150px;
-                            top: -30%;
-                            left: 42%;
+                            width: 100px;
+                            height: 120px;
+                            top: -20%;
+                            left: 43%;
                             background-image: url("@/assets/images/birthday12/map/map_down_arrow.png");
                             background-repeat: no-repeat;
                             background-size: contain;
@@ -380,6 +405,35 @@ export default {
 
                     .text_img {
                         top: 40%;
+                    }
+                }
+
+                .bubble_tooltip {
+                    position: absolute;
+                    width: 100%;
+                    text-align: center;
+                    z-index: 2;
+
+                    &.tooltip_GATE {
+                        bottom: 25px;
+                    }
+
+                    &.tooltip_CAVE {
+                        top: 180px;
+                    }
+
+                    &.tooltip_WHEEL {
+                        top: 210px;
+                    }
+
+                    > div {
+                        display: inline;
+                        padding: 7px 15px;
+                        background: #fff;
+                        border-radius: 7px;
+                        box-shadow: 0 0 5px #000;
+                        font-style: italic;
+                        font-family: "LacLongQuan", serif;
                     }
                 }
             }
