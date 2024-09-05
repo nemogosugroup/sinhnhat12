@@ -46,11 +46,17 @@
                             </div>
                             <!-- :style="{ top: user.top + 'px', left: user.left + 'px' } -->
                             <div class="branches">
-                                <div v-for="(user, key) in listEmployee" :key="key" :class="`leaf leaf_${key}`"></div>
+                                <div v-for="(user, key) in listEmployee" :key="key" :class="`leaf leaf_${key}`"
+                                    @click="handleShowEmployee(user.hoten)">
+                                    <div class="leaf__content">
+                                        <img :src="user.avatar" :alt="user.hoten">
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="wrap-search">
-                            <search-employee></search-employee>
+                            <search-employee ref="searchEmployee" :name-employee="nameEmployee"
+                                @update:name-employee="updateNameEmployee"></search-employee>
                         </div>
                     </div>
                 </el-col>
@@ -63,10 +69,11 @@
 <script>
 import treeImg from "@/assets/images/sinhnhat/tree.png";
 import SearchEmployee from "@frontend/components/SearchEmployee";
-import { dataTimeline, dataEmployee } from './timeline';
+import { dataTimeline } from './timeline';
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import 'swiper/css';
 import { mapGetters } from "vuex";
+import { Employee } from '@frontend/components/SearchEmployee/data';
 export default {
     components: { Swiper, SwiperSlide, SearchEmployee },
     data() {
@@ -76,7 +83,8 @@ export default {
             tree: treeImg,
             treeWidth: 475,
             treeHeight: 410,
-            indexSlider: 4
+            indexSlider: 4,
+            nameEmployee: null,
         }
     },
     computed: {
@@ -92,9 +100,11 @@ export default {
         });
 
         // Khởi tạo danh sách nhân viên với vị trí hợp lệ
-        this.listEmployee = dataEmployee().map((item) => {
-            return item
+        this.listEmployee = Employee.filter((item) => {
+            return item.avatar !== 'https://static.gosucorp.vn/hrm/avatar/none/none_profile.jpg';
         });
+        this.listEmployee = this.listEmployee.slice().sort(() => Math.random() - 0.5);
+        //this.listEmployee = this.shuffleArray(this.listEmployee);
         // this.listEmployee = (() => {
         //     const tempListEmployee = []; // Mảng tạm để lưu trữ các nhân viên với vị trí hợp lệ
         //     const minDistance = 30; // Khoảng cách tối thiểu giữa các nhân viên
@@ -163,17 +173,20 @@ export default {
                 return item;
             });
         },
+        handleShowEmployee(hoten) {
+            this.nameEmployee = hoten;
+            console.log(this.$refs.searchEmployee);
 
-        // shuffleArray(array) {
-        //     for (let i = array.length - 1; i > 0; i--) {
-        //         const j = Math.floor(Math.random() * (i + 1));
-        //         [array[i], array[j]] = [array[j], array[i]];
-        //     }
-        // }
+            this.$refs.searchEmployee.focusSelect();
+        },
+        updateNameEmployee(newName) {
+            this.nameEmployee = newName;
+        }
     }
 }
 </script>
 <style lang="scss" scoped>
+@import "~@style/style_moonwalk.scss";
 // @for $i from 0 through 190 {
 //     .leaf_#{$i} {
 //         top: #{random(300)}px;
@@ -388,14 +401,32 @@ export default {
             top: 0
         }
 
-        // .leaf {
-        //     position: absolute;
-        //     z-index: 1;
-        //     width: 20px;
-        //     height: 20px;
-        //     border-radius: 100%;
-        //     background-color: red;
-        // }
+        .leaf {
+            position: absolute;
+            z-index: 1;
+            width: 30px;
+            height: 30px;
+            border-radius: 100%;
+            overflow: hidden;
+            top: 108%;
+            left: 43%;
+            transform: scale(1);
+            transition: all 1.2s ease;
+            cursor: pointer;
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: fill;
+                object-position: center;
+            }
+
+            &:hover {
+                transition: all .7s ease;
+                transform: scale(2);
+                z-index: 2;
+            }
+        }
 
         .trunk_tree {
             img {

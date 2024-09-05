@@ -109,7 +109,7 @@ const actions = {
                         commit('SET_EXPERIENCE', data.data.experience);
                         commit('SET_LEVEL', data.data.level);
                         commit('SET_DATA_MEDAL', data.data_medal);
-                        commit('SET_DATA_SILK', data.data.point_kimto);
+                        commit('SET_DATA_SILK', data.data.point_silk);
                         commit('SET_DATA_MOCHI', data.data.point_mochi);
                         commit('SET_DATA_BEST_SCORE', data.data.score);
                         if (data.data.equipments) {
@@ -168,7 +168,7 @@ const actions = {
                         commit('SET_EXPERIENCE', data.data.experience);
                         commit('SET_LEVEL', data.data.level);
                         commit('SET_DATA_MEDAL', data.data_medal);
-                        commit('SET_DATA_SILK', data.data.point_kimto);
+                        commit('SET_DATA_SILK', data.data.point_silk);
                         commit('SET_DATA_MOCHI', data.data.point_mochi);
                         commit('SET_DATA_BEST_SCORE', data.data.score);
                         if (data.data.equipments) {
