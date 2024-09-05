@@ -16,8 +16,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('mochi:increase')
-            ->everyTwoHours()
-            ->between('8:00', '18:00');
+            ->cron('0 10,12,14,16,18 * * *');
     }
 
     /**

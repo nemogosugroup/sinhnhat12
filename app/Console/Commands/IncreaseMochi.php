@@ -30,7 +30,7 @@ class IncreaseMochi extends Command
     public function handle(): int
     {
         $now = now();
-        if ($now->between('8:00', '18:00')) {
+        if ($now->between('8:00', '18:30')) {
             User::chunk(100, function ($users) {
                 foreach ($users as $user) {
                     $user->point_mochi += 10;
