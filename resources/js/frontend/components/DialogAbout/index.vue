@@ -55,9 +55,8 @@ export default {
     },
     methods: {
         handleClose() {
-            console.log('Dialog closed');
-            //this.showSlogan = false;
-            window.location.href = "/";
+            this.emitter.emit("clicked-logout", false);
+            this.$router.push({name: "Home"});
         },
         handleComplete() {
             this.isTyped = true;
