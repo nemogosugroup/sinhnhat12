@@ -15,7 +15,9 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+        $schedule->command('mochi:increase')
+            ->everyTwoHours()
+            ->between('8:00', '18:00');
     }
 
     /**
