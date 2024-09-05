@@ -175,8 +175,6 @@ export default {
         },
         handleShowEmployee(hoten) {
             this.nameEmployee = hoten;
-            console.log(this.$refs.searchEmployee);
-
             this.$refs.searchEmployee.focusSelect();
         },
         updateNameEmployee(newName) {

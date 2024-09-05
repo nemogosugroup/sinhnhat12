@@ -473,7 +473,7 @@ const Employee = [
     },
     {
         profileid: '183',
-        trungtam: 'CTCP Trực tuyến GOSU',
+        trungtam: 'Ban Giám Đốc',
         email: 'kien.tran@gosu.vn',
         hoten: 'Trần Trọng Kiên',
         vung: 'HAN',
