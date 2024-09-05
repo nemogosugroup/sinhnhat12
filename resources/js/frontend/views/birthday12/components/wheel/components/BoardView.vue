@@ -8,6 +8,7 @@
                     </div>
                     <tile-view v-for="(tile, i) in tiles" :tile="tile" :key="i"> </tile-view>
                     <game-end-overlay :board="board" :onrestart="onRestart" :onsubmit="submitScore"></game-end-overlay>
+                    <div v-if="!startGame" class='youWin'></div>
                 </div>
             </el-col>
             <el-col :span="12" class="infoGame">
@@ -45,13 +46,14 @@
                     <el-col :span="12">
                         <div class="countDown">
                             <span>countdown</span>
-                            <Countdown :deadline="`${dataBoard.deadline.value}`" :stop="stopCountDown"
-                                :showLabels="false" :showDays="false" :showHours="false"
-                                mainFlipBackgroundColor="#E6F5DF" secondFlipBackgroundColor='#E6F5DF' mainColor="#000"
-                                secondFlipColor="#000" :flipAnimation="false" />
+                            <Countdown :deadline="`${dataBoard.deadline.value}`" :stop="!startGame" :showLabels="false"
+                                :showDays="false" :showHours="false" mainFlipBackgroundColor="#E6F5DF"
+                                secondFlipBackgroundColor='#E6F5DF' mainColor="#000" secondFlipColor="#000"
+                                :flipAnimation="false" />
                         </div>
                         <div class="play-again">
-                            <el-button type="warning" class="reset" @click="onRestart">Play Again</el-button>
+                            <el-button type="warning" class="reset" @click="onRestart">{{ !startGame && score == 0 ?
+                                'Play Game' : 'Play Again' }}</el-button>
                         </div>
                     </el-col>
                     <el-col :span="12">
@@ -102,7 +104,7 @@ export default {
     },
     setup() {
         const board = ref(new Board());
-        const stopCountDown = ref(false);
+        const startGame = ref(false); // kiểm tra trạng thái game
         const store = useStore();
         const silk = computed(() => store.getters['silk']);
         const mochi = computed(() => store.getters['mochi']);
@@ -138,7 +140,7 @@ export default {
                 return;
             }
 
-            if (!dataBoard.start) return;
+            if (!startGame.value) return;
 
             if (event.keyCode >= 37 && event.keyCode <= 40) {
                 event.preventDefault();
@@ -175,7 +177,6 @@ export default {
             dataBoard.intervalData = null; // reset interval
             dataBoard.pointSilk.value = 0;
             dataBoard.scoreBonnus = 0;
-            dataBoard.start = true;
             dataBoard.checkBonnus = false;
             dataBoard.levelSilk = {
                 'lv1': { 'point': 5, 'check': true },
@@ -185,7 +186,7 @@ export default {
                 'lv5': { 'point': 5, 'check': true }
             };
             dataBoard.dataLog = [];
-            stopCountDown.value = false;
+            startGame.value = true;
             startTimer();
         };
 
@@ -217,18 +218,16 @@ export default {
 
         const onRestart = () => {
             // nếu đang chơi chưa hết timer reset game thì lưu dữ liệu lại
-            if (dataBoard.countMinutes > 0 && board.value.score > 0 && !stopCountDown.value)
+            if (dataBoard.countMinutes > 0 && board.value.score > 0 && startGame.value)
                 submitScore();
             board.value = new Board();
             resetTimer();
         };
 
         const submitScore = async () => {
-            dataBoard.start = false;
             clearInterval(dataBoard.timer);
             clearInterval(dataBoard.intervalData);
             dataBoard.endTime = moment().format('YYYY-MM-DD HH:mm:ss');
-            stopCountDown.value = true;
             try {
                 let formData = {
                     score: board.value.score,
@@ -236,6 +235,7 @@ export default {
                     end: dataBoard.endTime
                 }
                 console.log('formData', formData);
+                //startGame.value = false;
                 // const { data } = await game2048Repository.create(formData);
                 // console.log('data', data);
             } catch (error) {
@@ -297,7 +297,7 @@ export default {
             mochi,
             silk,
             bestScore,
-            stopCountDown
+            startGame
         };
     },
     components: {
