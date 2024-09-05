@@ -25,8 +25,13 @@ class User extends Authenticatable
         'avatar',
         'first_name',
         'last_name',
-        'birthday',
         'gender',
+        'birthday',
+        'score',
+        'point_silk',
+        'point_mochi',
+        'first_time',
+        'is_lucky'
     ];
 
     protected $appends = [
@@ -64,18 +69,4 @@ class User extends Authenticatable
     {       
         return date('d-m-Y', strtotime($this->attributes['birthday']));
     }
-    // public function getAchievementUserAttribute()
-    // {
-    //     $result = false;
-    //     if ($this->attributes['achievements']) {
-    //         $result = [];
-    //         $achievements = json_decode($this->attributes['achievements'], true);
-    //         if (empty($achievements)) {
-    //             return null;
-    //         }
-    //         $result['medal'] = Medal::find($achievements['medal']);
-    //         $result['category'] = CategoryMedal::find($achievements['medal_category']);
-    //     }
-    //     return $result;
-    // }
 }
