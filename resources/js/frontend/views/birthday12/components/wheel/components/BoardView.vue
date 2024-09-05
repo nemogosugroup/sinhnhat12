@@ -8,7 +8,7 @@
                     </div>
                     <tile-view v-for="(tile, i) in tiles" :tile="tile" :key="i"> </tile-view>
                     <game-end-overlay :board="board" :onrestart="onRestart" :onsubmit="submitScore"></game-end-overlay>
-                    <div v-if="!startGame" class='youWin'></div>
+                    <div v-if="!checkStartGame" class='youWin'></div>
                 </div>
             </el-col>
             <el-col :span="12" class="infoGame">
@@ -105,6 +105,7 @@ export default {
     setup() {
         const board = ref(new Board());
         const startGame = ref(false); // kiểm tra trạng thái game
+        const checkStartGame = ref(false); // kiểm tra trạng thái game
         const store = useStore();
         const silk = computed(() => store.getters['silk']);
         const mochi = computed(() => store.getters['mochi']);
@@ -187,6 +188,7 @@ export default {
             };
             dataBoard.dataLog = [];
             startGame.value = true;
+            checkStartGame.value = true;
             startTimer();
         };
 
@@ -235,7 +237,7 @@ export default {
                     end: dataBoard.endTime
                 }
                 console.log('formData', formData);
-                //startGame.value = false;
+                startGame.value = false;
                 // const { data } = await game2048Repository.create(formData);
                 // console.log('data', data);
             } catch (error) {
@@ -297,7 +299,8 @@ export default {
             mochi,
             silk,
             bestScore,
-            startGame
+            startGame,
+            checkStartGame
         };
     },
     components: {
