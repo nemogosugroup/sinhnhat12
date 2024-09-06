@@ -1,5 +1,5 @@
 import request from '@frontend/utils/request';
-const resource = '/2048';
+const resource = 'user/2048';
 
 export default {
     list(query) {
@@ -13,13 +13,6 @@ export default {
     create(data) {
         return request({
             url: `${resource}` + '/create',
-            method: 'post',
-            data
-        });
-    },
-    createLog(data) {
-        return request({
-            url: `${resource}` + '/create-log',
             method: 'post',
             data
         });

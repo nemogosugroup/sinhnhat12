@@ -9,7 +9,7 @@ class ScoreLog extends Model
 {
     use HasFactory;
 
-    protected $table = 'quest_logs';
+    protected $table = 'score_logs';
 
     protected $fillable = [
         'user_id',

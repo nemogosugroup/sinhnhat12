@@ -23,20 +23,20 @@ use Illuminate\Support\Str;
 
 class UserRepository implements UserRepositoryInterface
 {
-    
+
     protected $gosuEmployee;
     protected $msg;
     protected $helpers;
     public function __construct(
-        GosuEmployee $gosuEmployee, 
-        Message $message, 
+        GosuEmployee $gosuEmployee,
+        Message $message,
         Helpers $helpers
     ){
         $this->gosuEmployee  = $gosuEmployee;
         $this->msg = $message;
         $this->helpers = $helpers;
     }
-    public function getAllUsers(array $params) 
+    public function getAllUsers(array $params)
     {
         $user = User::with('roles');
         ## Search by name ##
@@ -52,7 +52,7 @@ class UserRepository implements UserRepositoryInterface
         return $data->toArray();
     }
 
-    public function getUserById($id) 
+    public function getUserById($id)
     {
         return User::with('roles')->findOrFail($id);
     }
@@ -62,12 +62,12 @@ class UserRepository implements UserRepositoryInterface
         return User::query()->where('profile_id', $pId)->first();
     }
 
-    public function deleteUser($id) 
+    public function deleteUser($id)
     {
         User::destroy($id);
     }
 
-    public function createUser(array $userDetails) 
+    public function createUser(array $userDetails)
     {
         $userDetails['email_verified_at'] = now();
         $userDetails['remember_token'] = Str::random(10);
@@ -80,11 +80,11 @@ class UserRepository implements UserRepositoryInterface
         }else{
             $user->syncRoles($roleUser);
         }
-        
+
         return $user;
     }
 
-    public function updateUsers(array $updateUsers) 
+    public function updateUsers(array $updateUsers)
     {
         $user = User::findOrFail($updateUsers['id']);
         if ($user) {
@@ -132,9 +132,8 @@ class UserRepository implements UserRepositoryInterface
                 $authUser = Auth::user();
                 $roles = $authUser->roles->pluck('name');
                 $data = $authUser->toArray();
-                $data['access_token'] =  $authUser->createToken($authUser['email'])->plainTextToken; 
+                $data['access_token'] =  $authUser->createToken($authUser['email'])->plainTextToken;
                 $data['roles'] = $roles;
-                $data['training'] = false;
                 $results = array(
                     'message' => $this->msg->loginSuccess(),
                     'data' => $data,
@@ -184,18 +183,9 @@ class UserRepository implements UserRepositoryInterface
             if(Auth::attempt(['email' => $email, 'password' => $password])){
                 $authUser = Auth::user();
                 $roles = $authUser->roles->pluck('name');
-                $data = $authUser->toArray();                
-                $data['access_token'] =  $authUser->createToken($authUser['email'])->plainTextToken; 
+                $data = $authUser->toArray();
+                $data['access_token'] =  $authUser->createToken($authUser['email'])->plainTextToken;
                 $data['roles'] = $roles;
-                // $data['courses'] = $authUser->courses->toArray();
-                // $data['equipments'] = $authUser->equipments->toArray();
-                $profileId = $data['profile_id'];
-                //$profileId = 252;
-                $training = $this->gosuEmployee->training( $profileId );
-                $data['training'] = false;
-                if($training['success']){
-                    $data['training'] = $training['data'];
-                }
                 $results = array(
                     'message' => $this->msg->loginSuccess(),
                     'data' => $data,
@@ -210,17 +200,8 @@ class UserRepository implements UserRepositoryInterface
         $authUser = Auth::user();
         $roles = $authUser->roles->pluck('name');
         $data = $authUser->toArray();
-        // $data['courses'] = $authUser->courses;
-        // $data['equipments'] = $authUser->equipments;
         $data['access_token'] = $authUser->createToken($authUser['email'])->plainTextToken;
         $data['roles'] = $roles;
-        $profileId = $data['profile_id'];
-        //$profileId = 252;
-        //$profileId = 279;
-        $training = $this->gosuEmployee->training( $profileId );
-        if($training['success']){
-            $data['training'] = $training['data'];
-        }
         $results = array(
             'message' => $this->msg->getSuccess(),
             'data' => $data,
@@ -273,10 +254,10 @@ class UserRepository implements UserRepositoryInterface
         $results = $this->gosuEmployee->listEmployee();
         return $results;
     }
-    
+
     // tìm kiếm thông tin nhân sự
     public function store(array $params)
-    {     
+    {
         //$params['profile_id'] = 1;
         if( $params['profile_id'] ){
             $user = User::query();
@@ -286,16 +267,16 @@ class UserRepository implements UserRepositoryInterface
                 if (isset($results['success']) && $results['success']) {
                     $data = $results['data'];
                 }
-            } 
-        } 
-                
+            }
+        }
+
         $results = array(
             'message' => $this->msg->getSuccess(),
             'data' => false,
             'equipped' => [],
             'success' => false,
             'status' => Response::HTTP_OK
-        );           
+        );
         if(isset($data)){
             $equippedItems = false;
             $results = array(

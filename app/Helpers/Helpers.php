@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace App\Helpers;
 use GuzzleHttp\Client;
 use Illuminate\Http\Response;
@@ -9,9 +9,9 @@ use Illuminate\Support\Str;
 class Helpers {
     protected $msg;
     protected $modelUser;
-    protected $ldapHost;  
+    protected $ldapHost;
     public function __construct(
-        Message $message, 
+        Message $message,
         User $modelUser
     ){
         $this->msg = $message;
@@ -46,7 +46,7 @@ class Helpers {
 
         return false;
     }
-    
+
     public function getSlug($title, $model) {
         $slug = Str::slug($title);
         $slugCount = count( $model->whereRaw("slug REGEXP '^{$slug}(-[0-9]*)?$'")->get() );
@@ -112,6 +112,34 @@ class Helpers {
         }
 
         return $data;
+    }
+
+    public function getotalPointSilk(){
+        return User::sum('point_silk');
+    }
+
+    public function convertDataLog(array $arr){
+        $results = [
+            'type' => EVENT_BIRTHDAY12['type']['mochi'],
+            'action' => EVENT_BIRTHDAY12['action']['minus'],
+            'points' => EVENT_BIRTHDAY12['mochi'],
+            'content' => sprintf('Bạn đã sử dụng %d mochi để chơi Vòng Xoay Mặt Trời', EVENT_BIRTHDAY12['mochi']),
+        ];
+        if(count($arr) > 0){
+            if($arr['type'] == EVENT_BIRTHDAY12['type']['silk']){
+                $results = $arr;
+                $results['action'] = EVENT_BIRTHDAY12['action']['plus'];
+                $results['content'] = sprintf('Bạn đã nhận được %d Kim Tơ ở Vòng Xoay Mặt Trời', $arr['points']);
+                $results['points'] = $arr['points'];
+                $results['points'] = $arr['points'];            }
+            if($arr['type'] == EVENT_BIRTHDAY12['type']['mochi']){
+                $results['action'] = EVENT_BIRTHDAY12['action']['plus'];
+                $results['content'] = sprintf('Bạn đã nhận được %d mochi trong nhiệm vụ %d', $arr['point'], $arr['name_quest']);
+                $results['points'] = $arr['points'];
+            }
+        }
+        $results['user_id'] = auth()->user()->id;
+        return $results;
     }
 
 }

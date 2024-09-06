@@ -1,10 +1,7 @@
 <template>
-    <el-dialog
-        v-model="isShowDialog" @close="closeDialog"
-        class="custom_el_dialog"
+    <el-dialog v-model="isShowDialog" class="custom_el_dialog"
         style="width: 100%; height: 100%; background-color: transparent; box-shadow: none; margin: 0 auto"
-        :show-close="false"
-    >
+        :show-close="false">
         <div class="custom_dialog" :class="dialogType" :style="`background-image: url(${dialogElm.DialogBg})`">
 
             <div class="custom_title" :class="dialogType">
@@ -21,23 +18,17 @@
 
             <div class="custom_gabi">
                 <div v-if="isShowBubble" class="bubble_callout"
-                     :style="`background-image: url(${dialogElm.BubbleCallout})`">
+                    :style="`background-image: url(${dialogElm.BubbleCallout})`">
                     <VueTyped :strings="typedContent" :typeSpeed="50" :backSpeed="30" :loop="false"
-                              :onComplete="handleCompleteAll">
+                        :onComplete="handleCompleteAll">
                     </VueTyped>
                 </div>
                 <img :src="dialogElm.DialogGabi" alt="">
             </div>
 
             <div class="custom_content">
-                <cave-content
-                    v-if="dialogType === 'CAVE'"
-                    :cave-type="tabType"
-                    :first-time="isFirstTime"
-                />
-                <wheel-content
-                    v-if="dialogType === 'WHEEL'"
-                />
+                <cave-content v-if="dialogType === 'CAVE'" :cave-type="tabType" :first-time="isFirstTime" />
+                <wheel-content v-if="dialogType === 'WHEEL'" />
             </div>
         </div>
     </el-dialog>
@@ -57,7 +48,7 @@ import BubbleCallout from "@/assets/images/birthday12/map/bubble_callout.png"
 
 export default {
     name: 'MapDialog',
-    components: {CaveContent, WheelContent},
+    components: { CaveContent, WheelContent },
     props: {
         dialogVisible: {
             type: Boolean,

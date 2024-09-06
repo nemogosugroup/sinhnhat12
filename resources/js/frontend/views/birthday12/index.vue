@@ -14,10 +14,7 @@
                     <el-row>
                         <el-col :span="4">
                             <el-avatar :size="50" :src="user.avatar">
-                                <img
-                                    :src="mapElm.DefaultAvatar"
-                                    alt=""
-                                />
+                                <img :src="mapElm.DefaultAvatar" alt="" />
                             </el-avatar>
                         </el-col>
                         <el-col :span="6">
@@ -76,30 +73,30 @@
                     <el-col :span="24" class="port_wrapper text-center">
                         <img class="main_img" :src="mapElm.MapGate" alt="">
                         <img @click="goTo('GATE')" @mouseover="showBubble('GATE')" @mouseout="hideBubble"
-                             class="text_img" :src="mapElm.MapGateText" alt="">
+                            class="text_img" :src="mapElm.MapGateText" alt="">
                         <div v-if="tooltipType === 'GATE'" class="bubble_tooltip tooltip_GATE">
-                            <VueTyped :strings="[`<b>Cổng Moonwalk:</b> Trang hành trình GOSU12`]" :typeSpeed="15" :backSpeed="30"
-                                      :loop="false">
+                            <VueTyped :strings="[`<b>Cổng Moonwalk:</b> Trang hành trình GOSU12`]" :typeSpeed="15"
+                                :backSpeed="30" :loop="false">
                             </VueTyped>
                         </div>
                     </el-col>
-                    <el-col :span="12" class="port_wrapper cave text-center" :class="{is_first_time: isFirstTime}">
+                    <el-col :span="12" class="port_wrapper cave text-center" :class="{ is_first_time: isFirstTime }">
                         <img class="main_img" :src="mapElm.MapCave" alt="">
                         <img @click="goTo('CAVE')" @mouseover="showBubble('CAVE')" @mouseout="hideBubble"
-                             class="text_img" :src="mapElm.MapCaveText" alt="">
+                            class="text_img" :src="mapElm.MapCaveText" alt="">
                         <div v-if="tooltipType === 'CAVE'" class="bubble_tooltip tooltip_CAVE">
-                            <VueTyped :strings="[`<b>Thố Động:</b> Điểm danh và làm nhiệm vụ ngày`]" :typeSpeed="15" :backSpeed="30"
-                                      :loop="false">
+                            <VueTyped :strings="[`<b>Thố Động:</b> Điểm danh và làm nhiệm vụ ngày`]" :typeSpeed="15"
+                                :backSpeed="30" :loop="false">
                             </VueTyped>
                         </div>
                     </el-col>
                     <el-col :span="12" class="port_wrapper text-center">
                         <img class="main_img" :src="mapElm.MapWheel" alt="">
                         <img @click="goTo('WHEEL')" @mouseover="showBubble('WHEEL')" @mouseout="hideBubble"
-                             class="text_img" :src="mapElm.MapWheelText" alt="">
+                            class="text_img" :src="mapElm.MapWheelText" alt="">
                         <div v-if="tooltipType === 'WHEEL'" class="bubble_tooltip tooltip_WHEEL">
-                            <VueTyped :strings="[`<b>Vòng Quay Mặt Trời:</b> Trò chơi thu thập Kim Tơ`]" :typeSpeed="15" :backSpeed="30"
-                                      :loop="false">
+                            <VueTyped :strings="[`<b>Vòng Quay Mặt Trời:</b> Trò chơi thu thập Kim Tơ`]" :typeSpeed="15"
+                                :backSpeed="30" :loop="false">
                             </VueTyped>
                         </div>
                     </el-col>
@@ -108,13 +105,8 @@
         </el-row>
     </div>
 
-    <map-dialog
-        :dialog-visible="dialogVisible"
-        :dialog-type="dialogType"
-        :cave-type="caveType"
-        :first-time="isFirstTime"
-        @hideDialog="handleHideDialog"
-    ></map-dialog>
+    <map-dialog :dialog-visible="dialogVisible" :dialog-type="dialogType" :cave-type="caveType"
+        :first-time="isFirstTime" @hideDialog="handleHideDialog"></map-dialog>
 
 </template>
 <script>
@@ -134,11 +126,12 @@ import MapIconSilk from '@/assets/images/birthday12/map/map_icon_silk.png'
 import MapIconMochi from '@/assets/images/birthday12/map/map_icon_mochi.png'
 
 import MapDialog from "@frontend/views/birthday12/components/MapDialog.vue";
-import {mapGetters} from "vuex";
+import { mapGetters } from "vuex";
+import Emitter from '@frontend/views/birthday12/components/wheel/components/evenEmit.js';
 
 export default {
     name: 'Map',
-    components: {MapDialog},
+    components: { MapDialog },
     data() {
         return {
             tooltipType: null,
@@ -198,6 +191,7 @@ export default {
         },
         handleHideDialog() {
             this.dialogVisible = false;
+            Emitter.emit("reset-game", true);
         },
         async handleLogout() {
             await this.$store.dispatch("user/logout");
@@ -264,13 +258,17 @@ export default {
 
             .el-col {
                 &:not(:first-child) {
-                    span, b, a {
+
+                    span,
+                    b,
+                    a {
                         position: relative;
                         top: 16px;
                         color: #66494E;
                     }
 
-                    span, a {
+                    span,
+                    a {
                         font-family: "LacLongQuan", serif;
                     }
                 }
@@ -426,7 +424,7 @@ export default {
                         top: 210px;
                     }
 
-                    > div {
+                    >div {
                         display: inline;
                         padding: 7px 15px;
                         background: #fff;
@@ -449,9 +447,11 @@ export default {
     0% {
         transform: translateY(0);
     }
+
     50% {
         transform: translateY(-10px);
     }
+
     100% {
         transform: translateY(0);
     }
