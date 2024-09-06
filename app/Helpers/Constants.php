@@ -1,31 +1,18 @@
 <?php
 namespace App\Helpers;
-$action = [
-    'remove'     => 'REMOVE',
-    'approve'    => 'APPROVE', 
-    'disapprove' => 'DISAPPROVE',   
-    'viewed'     => 'VIEWED',    
-    'create'     => 'CREATED',
-    'update'     => 'UPDATED'
+// event birthday 12
+$eventBirthDay12 = [
+    'mochi' => 2, // mỗi lượt chơi vòng xoay mặt trời tốn 2 mochi
+    'time'  => 0.5, // thời gian mỗi lượt chơi
+    'point_lucky' => 6000, // điểm để đạt cột mốc may măn silk
+    'type' => [
+        'mochi' => 'mochi',
+        'silk' => 'silk',
+    ],
+    'action' => [
+        'plus' => 'plus',
+        'minus' => 'minus',
+    ]
 ];
-$equipmentPosition = [
-    ['value' => 1, 'name' => 'Vũ Khí'],
-    ['value' => 2, 'name' => 'Mũ'],
-    ['value' => 3, 'name' => 'Phi Phong'],
-    ['value' => 4, 'name' => 'Y Phục'],
-    ['value' => 5, 'name' => 'Giày'],
-    ['value' => 6, 'name' => 'Huy Hiệu']
-];
-$typeMarket = [
-    'course'     => 'course',
-    'equipment'   => 'equipment',
-];
-// status quest
-$statusQuest = [
-    'pending'  => '01',
-    'received' => '02',
-];
-define('ACTION', $action);
-define('EQUIPMENT_POSITION', $equipmentPosition);
-define('TYPE_MARKET', $typeMarket);
-define('STATUS_QUEST', $statusQuest);
+
+define('EVENT_BIRTHDAY12', $eventBirthDay12);

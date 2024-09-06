@@ -18,8 +18,7 @@
                     </el-col>
                     <el-col :span="10">
                         <el-row class="align-item-center" :gutter="10" justify="end">
-                            <span class="point-reward">{{ dataBoard.pointSilk.value + silk }} <img
-                                    :src="iconSilk" /></span>
+                            <span class="point-reward">{{ dataBoard.pointSilk.value }} <img :src="iconSilk" /></span>
                             <span class="point-reward">{{ mochi }} <img :src="iconMochi" /></span>
                         </el-row>
                     </el-col>
@@ -52,8 +51,9 @@
                                 :flipAnimation="false" />
                         </div>
                         <div class="play-again">
-                            <el-button type="warning" class="reset" @click="onRestart">{{ !startGame && score == 0 ?
-                                'Play Game' : 'Play Again' }}</el-button>
+                            <el-button :loading="loading" type="warning" class="reset" @click="onRestart">{{
+                                !startGame && score == 0 ?
+                                    'Play Game' : 'Play Again' }}</el-button>
                         </div>
                     </el-col>
                     <el-col :span="12">
@@ -86,7 +86,7 @@ import { onMounted, onBeforeUnmount, ref, computed } from "vue";
 import { Countdown } from 'vue3-flip-countdown';
 import moment from 'moment';
 import { useStore } from "vuex";
-
+import Emitter from './evenEmit';
 const levels = [
     { min: 0, max: 1489, levelKey: 'lv1' },
     { min: 1500, max: 1998, levelKey: 'lv2' },
@@ -94,7 +94,7 @@ const levels = [
     { min: 2500, max: 2998, levelKey: 'lv4' },
     { min: 3000, max: 3498, levelKey: 'lv5', bonus: true }
 ];
-let minutes = 5; // set minutes coundown
+
 export default {
     data() {
         return {
@@ -106,10 +106,14 @@ export default {
         const board = ref(new Board());
         const startGame = ref(false); // kiểm tra trạng thái game
         const checkStartGame = ref(false); // kiểm tra trạng thái game
+        const loading = ref(false); // loading button
         const store = useStore();
         const silk = computed(() => store.getters['silk']);
         const mochi = computed(() => store.getters['mochi']);
         const bestScore = computed(() => store.getters['bestscore']);
+        const user = computed(() => store.getters['user']);
+        const minutes = user.value.time_duration;
+        const use_mochi = user.value.use_mochi;
         const createDefaultData = () => {
             return {
                 startTime: moment().format('YYYY-MM-DD HH:mm:ss'),
@@ -164,7 +168,6 @@ export default {
                 } else {
                     clearInterval(dataBoard.timer);
                     board.value.isLost = true;
-                    submitScore();
                 }
             }, 1000);
         };
@@ -232,20 +235,42 @@ export default {
             dataBoard.endTime = moment().format('YYYY-MM-DD HH:mm:ss');
             try {
                 let formData = {
-                    score: board.value.score,
+                    scores: board.value.score,
                     start: dataBoard.startTime,
-                    end: dataBoard.endTime
+                    end: dataBoard.endTime,
+                    point_silk: dataBoard.pointSilk.value,
+                    user_id: user.value.id
                 }
                 console.log('formData', formData);
                 startGame.value = false;
-                // const { data } = await game2048Repository.create(formData);
-                // console.log('data', data);
+                loading.value = true;
+                const { data } = await game2048Repository.create(formData);
+                console.log(data)
+                if (data.success) {
+                    const dataCommit = {
+                        'mochi': mochi.value - use_mochi,
+                        'silk': dataBoard.pointSilk.value + silk.value
+                    }
+                    console.log('dataCommit', dataCommit)
+                    console.log('mochi.value', mochi.value)
+                    console.log('use_mochi.value', use_mochi)
+                    store.dispatch('user/updateDataUser', dataCommit)
+                    loading.value = false;
+                }
+                //loading.value = false;
             } catch (error) {
                 console.error('error', error);
             }
         }
 
         onMounted(() => {
+            Emitter.on("reset-game", () => {
+                submitScore();
+                board.value = new Board();
+                startGame.value = false;
+                checkStartGame.value = false;
+                loading.value = false;
+            });
             window.addEventListener("keydown", handleKeyDown);
         });
 
@@ -260,7 +285,7 @@ export default {
             calculatePoint(board.value.score);
             if (board.value.score > bestScore.value) {
                 let data = {
-                    bestScore: board.value.score
+                    bestscore: board.value.score
                 }
                 store.dispatch("user/updateDataUser", data);
             }
@@ -300,7 +325,8 @@ export default {
             silk,
             bestScore,
             startGame,
-            checkStartGame
+            checkStartGame,
+            loading
         };
     },
     components: {

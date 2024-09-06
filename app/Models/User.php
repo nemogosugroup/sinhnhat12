@@ -35,7 +35,10 @@ class User extends Authenticatable
     ];
 
     protected $appends = [
-        'fullname'
+        'fullname',
+        'total_silk',
+        'use_mochi',
+        'time_duration',
     ];
 
     /**
@@ -56,7 +59,7 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
         'achievements' => 'json',
-    ];  
+    ];
     public function getFullnameAttribute()
     {
         return $this->first_name . ' ' . $this->last_name;
@@ -66,7 +69,23 @@ class User extends Authenticatable
         return $this->attributes['gender'] == 1 ? 'Nam' : 'Nữ';
     }
     public function getBirthdayAttribute()
-    {       
+    {
         return date('d-m-Y', strtotime($this->attributes['birthday']));
+    }
+    public function getTotalSilkAttribute()
+    {
+        return User::sum('point_silk');
+    }
+    public function getTimeDurationAttribute()
+    {
+        return EVENT_BIRTHDAY12['time'];
+    }
+    public function getUseMochiAttribute()
+    {
+        return EVENT_BIRTHDAY12['mochi'];
+    }
+    public function scoreLogs()
+    {
+        return $this->hasMany(ScoreLog::class, 'user_id');
     }
 }
