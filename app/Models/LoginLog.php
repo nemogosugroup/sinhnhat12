@@ -13,6 +13,7 @@ class LoginLog extends Model
 
     protected $fillable = [
         'user_id',
-        'date_number' // 1,2,3,4
+        'date_number', // 1,2,3,4
+        'code' // generate CODE for everyday
     ];
 }

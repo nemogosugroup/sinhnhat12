@@ -16,6 +16,7 @@ class QuestLog extends Model
         'quest_id', // get in QUEST define
         'date_number', // 1,2,3,4
         'code',
-        'is_done'
+        'is_done',
+        'is_received'
     ];
 }

@@ -46,19 +46,13 @@ class Message {
     public function dataExisted(){
         return 'Dữ liệu đã tồn tại!';
     }
-    public function buyCourseSuccess(){
-        return 'Bạn đã đổi khoá học thành công!';
+    public function receiveQuestRewardSuccess(){
+        return 'Nhận thưởng thành công!';
     }
-    public function buyCourseError(){
-        return 'Bạn đổi khoá học không thành công!';
+    public function questNotExists(){
+        return 'Nhiệm vụ không tồn tại!';
     }
-    public function buyEquipmentSuccess(){
-        return 'Bạn đã đổi trang bị thành công!';
-    }
-    public function buyEquipmentError(){
-        return 'Bạn đổi trang bị không thành công!';
-    }
-    public function levelExist(){
-        return 'Level đã tồn tại!';
+    public function questNotComplete(){
+        return 'Nhiệm vụ chưa hoàn thành!';
     }
 }
