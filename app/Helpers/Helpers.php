@@ -6,6 +6,8 @@ use GuzzleHttp\Client;
 use Illuminate\Http\Response;
 use App\Helpers\Message;
 use App\Models\User;
+use App\Models\QuestLog;
+use App\Models\DataLog;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Date;
@@ -16,16 +18,22 @@ class Helpers
 {
     protected $msg;
     protected $modelUser;
+    protected $modelQuestLog;
+    protected $modelDataLog;
     protected $ldapHost;
 
     public function __construct(
-        Message $message,
-        User    $modelUser
+        Message  $message,
+        User     $modelUser,
+        QuestLog $modelQuestLog,
+        DataLog  $modelDataLog
     )
     {
         $this->msg = $message;
         $this->ldapHost = env("LDAP_HOST", "222.255.168.250");
         $this->modelUser = $modelUser;
+        $this->modelQuestLog = $modelQuestLog;
+        $this->modelDataLog = $modelDataLog;
     }
 
     public function bindldap($email, $pass)
@@ -173,7 +181,7 @@ class Helpers
             if ($arr['type'] == EVENT_BIRTHDAY12['type']['silk']) {
                 $results = $arr;
                 $results['action'] = EVENT_BIRTHDAY12['action']['plus'];
-                $results['content'] = sprintf('Bạn đã nhận được %d Kim Tơ ở Vòng Xoay Mặt Trời', $arr['points']);
+                $results['content'] = sprintf('Nhận được %d Kim Tơ ở Vòng Xoay Mặt Trời', $arr['points']);
                 $results['points'] = $arr['points'];
             }
             if ($arr['type'] == EVENT_BIRTHDAY12['type']['mochi']) {
@@ -186,4 +194,88 @@ class Helpers
         return $results;
     }
 
+    public function checkQuestForCurrentDate(int $points){
+
+        // $points => point score
+        // + Tham gia trò chơi Vòng Xoay Mặt Trời 5 lần/ngày (5/5) - 10 Mochi => id nhiệm vụ là 4
+        // + Lần đầu nhận được Kim Tơ trong ngày (1/1) - 5 Mochi  => id nhiệm vụ là 5
+        // + Thu thập được 15 Kim Tơ/ngày (15/15) - 15 Mochi  => id nhiệm vụ là 6
+        // + Thu thập được 50 Kim Tơ/ngày (50/50) - 15 Mochi   => id nhiệm vụ là 7
+        // + Ghi được 1500 điểm trong một lượt chơi tại Vòng Xoay Mặt Trời - 10 Mochi  => id nhiệm vụ là 8
+        // + Hoàn thành các nhiệm vụ trên mỗi ngày (1/1) - 15 Mochi => id nhiệm vụ là 10
+        if($points > 0){
+            $date_number = $this->getCurrentDateNumber();
+            $existsInGame = $this->checkQuestIsDoneForGame(4 ,$date_number);
+            if(count($existsInGame) == 0){
+                $_existsInGame = $this->checkQuestIsDoneForGame(4 ,$date_number, 0);
+                if(count($_existsInGame) == 4){
+                    $this->createQuestForGame(4 ,$date_number);
+                }else{
+                    $this->createQuestForGame(4 ,$date_number, 0);
+                }
+            }
+            $existsAddSilk = $this->checkQuestIsDoneForGame(5 ,$date_number);
+            if(count($existsAddSilk) == 0){
+                $this->createQuestForGame(5 ,$date_number);
+            }
+
+            if($points >= 1500){
+                $existsAdd1500Point = $this->checkQuestIsDoneForGame(8 ,$date_number);
+                if(count($existsAdd1500Point) == 0){
+                    $this->createQuestForGame(8 ,$date_number);
+                }
+            }
+
+            if($points >= 2000){
+                $existsAdd2000Point = $this->checkQuestIsDoneForGame(6 ,$date_number);
+                if(count($existsAdd2000Point) == 0){
+                    $this->createQuestForGame(6 ,$date_number);
+                }
+            }
+
+            if($points >= 6000){
+                $existsAdd6000Point = $this->checkQuestIsDoneForGame(7 ,$date_number);
+                if(count($existsAdd6000Point) == 0){
+                    $this->createQuestForGame(7 ,$date_number);
+                }
+            }
+
+            $countQuestFinish = $this->countQuestIsFinishAll($date_number);
+
+            if(count($countQuestFinish) == 9){
+                $this->createQuestForGame(10 ,$date_number);
+            }
+        }
+    }
+
+    private function checkQuestIsDoneForGame(int $questId, int $date_number, int $isDone = 1){
+        $exists = $this->modelQuestLog->where([
+            ['quest_id', '=', $questId],
+            ['date_number', '=', $date_number],
+            ['user_id', '=', auth()->user()->id],
+            ['is_done', '=', $isDone],
+        ])->get();
+        return $exists;
+    }
+
+
+    private function createQuestForGame(int $questId, int $date_number, int $isDone = 1){
+        $data = array(
+            'quest_id' => $questId,
+            'date_number' => $date_number,
+            'user_id' => auth()->user()->id,
+            'is_done' => $isDone,
+        );
+        $result = $this->modelQuestLog->create($data);
+        return $result;
+    }
+
+    public function countQuestIsFinishAll(int $date_number){
+        $result = $this->modelQuestLog->where([
+            ['date_number', '=', $date_number],
+            ['user_id', '=', auth()->user()->id],
+            ['is_done', '=', 1],
+        ])->get();
+        return $result;
+    }
 }

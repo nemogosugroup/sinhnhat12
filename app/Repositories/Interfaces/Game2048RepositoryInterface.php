@@ -8,4 +8,5 @@ interface Game2048RepositoryInterface
 {
     public function updateUser($id, array $params);
     public function createLog(array $params);
+    public function createQuestLog(array $params);
 }

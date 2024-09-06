@@ -11,6 +11,7 @@ class game2048Repository extends BaseRepository implements Game2048RepositoryInt
     protected $model;
     protected $modelUser;
     protected $modelLog;
+    protected $modelQuestLog;
 
     public function __construct()
     {
@@ -34,10 +35,16 @@ class game2048Repository extends BaseRepository implements Game2048RepositoryInt
         $this->modelUser = $modelUser;
     }
 
-    // set model user
+    // set model log
     public function addModelLog($modelLog)
     {
         $this->modelLog = $modelLog;
+    }
+
+    // set model log
+    public function addModelQuestLog($modelQuestLog)
+    {
+        $this->modelQuestLog = $modelQuestLog;
     }
 
     public function updateUser($id, array $params){
@@ -52,5 +59,9 @@ class game2048Repository extends BaseRepository implements Game2048RepositoryInt
 
     public function createLog(array $attributes){
         return $this->modelLog->create($attributes);
+    }
+
+    public function createQuestLog(array $attributes){
+        return $this->modelQuestLog->create($attributes);
     }
 }
