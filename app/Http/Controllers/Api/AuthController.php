@@ -62,6 +62,8 @@ class AuthController extends Controller
             $email = $request->email;
             $password = $request->password;
             $results = $this->userRepo->loginUser(['email' => $email, 'password' => $password]);
+
+            // check login log
             if (!empty($results['data'])) {
                 $dateNumber = $this->helpers->getCurrentDateNumber();
                 $issetNewLoginLog = $this->loginLogRepo->handleSaveLog($results['data']['id'], $dateNumber);
@@ -70,6 +72,7 @@ class AuthController extends Controller
                     $this->questLogRepo->addQuestLog($results['data']['id'], $dateNumber, 1);
                 }
             }
+
             return response()->json($results);
         } catch (\Throwable $th) {
             $results = array(
@@ -234,6 +237,17 @@ class AuthController extends Controller
     {
         try {
             $results = $this->userRepo->infoUser();
+
+            // check login log
+            if (!empty($results['data'])) {
+                $dateNumber = $this->helpers->getCurrentDateNumber();
+                $issetNewLoginLog = $this->loginLogRepo->handleSaveLog($results['data']['id'], $dateNumber);
+                if ($issetNewLoginLog) {
+                    // complete quest 1 with current date number
+                    $this->questLogRepo->addQuestLog($results['data']['id'], $dateNumber, 1);
+                }
+            }
+
             return response()->json($results);
         } catch (\Throwable $th) {
             $results = array(
