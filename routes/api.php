@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\RoleController;
+use App\Http\Controllers\Api\QuestLogController;
 use App\Http\Controllers\Api\ScoreController;
 use Illuminate\Support\Facades\App;
 
@@ -59,4 +60,10 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::group(['prefix' => 'role'], function () {
         Route::get('list', [RoleController::class, 'list']);
     });
+});
+
+// move up later
+Route::group(['prefix' => 'quest'], function () {
+    Route::post('update', [QuestLogController::class, 'handleUpdateQuest']);
+    Route::post('receive-reward', [QuestLogController::class, 'handleReceiveQuestReward']);
 });

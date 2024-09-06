@@ -19,7 +19,7 @@ class CreateQuestLogsTable extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->tinyInteger('quest_id')->comment('Get in Quest defined');
             $table->tinyInteger('date_number')->comment('1,2,3,4');
-            $table->string('code');
+            $table->string('code')->nullable();
             $table->boolean('is_done')->default(false);
             $table->timestamps();
         });

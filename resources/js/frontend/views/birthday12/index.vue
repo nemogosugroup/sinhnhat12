@@ -35,9 +35,9 @@
                 <el-row>
                     <el-col :span="24">
                         <el-row>
-                            <el-col :span="4">
+                            <el-col :span="4" class="alert_bell" :class="{active: issetAlert}">
                                 <img @click="goToQuestList" :src="mapElm.MapIconBell" alt="">
-                                <b class="alert_count bell">15</b>
+                                <b class="alert_count bell">{{ alertCount }}</b>
                             </el-col>
                             <el-col :span="20">
                                 <span>{{ "Thông báo" }}</span>
@@ -139,6 +139,8 @@ export default {
             dialogVisible: false,
             dialogType: null, // GATE, CAVE, WHEEL
             caveType: "nguyet_nhu", // nguyet_nhu, nguyet_nhiem, nguyet_thach, nguyet_ky
+            issetAlert: true,
+            alertCount: 10,
             mapElm: {
                 DefaultAvatar: DefaultAvatar,
                 DownArrow: DownArrow,
@@ -296,7 +298,14 @@ export default {
         .alerts {
             img {
                 margin-bottom: 5px;
+            }
+
+            .alert_bell {
+                transition: all .3s ease-in-out;
                 cursor: pointer;
+                &.active {
+                    animation: bell_scale 1s infinite;
+                }
             }
 
             .alert_count {
@@ -460,6 +469,18 @@ export default {
 @keyframes blink {
     50% {
         opacity: 0;
+    }
+}
+
+@keyframes bell_scale {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
     }
 }
 </style>

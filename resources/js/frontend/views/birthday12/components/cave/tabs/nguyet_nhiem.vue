@@ -117,7 +117,7 @@ export default {
                         is_done: 0,
                         mochi: 5,
                         progress: {current: 0, max: 1},
-                        desc: "Lần đầu nhận được Kim Tơ trong ngày "
+                        desc: "Lần đầu nhận được Kim Tơ trong ngày"
                     },
                     {
                         number: 6,

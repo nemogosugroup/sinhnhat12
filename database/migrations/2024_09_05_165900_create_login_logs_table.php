@@ -18,6 +18,7 @@ class CreateLoginLogsTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
             $table->tinyInteger('date_number')->comment('1,2,3,4');
+            $table->string('code')->comment('generate CODE for everyday');
             $table->timestamps();
         });
     }
