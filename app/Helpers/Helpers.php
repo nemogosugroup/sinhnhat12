@@ -175,11 +175,10 @@ class Helpers
                 $results['action'] = EVENT_BIRTHDAY12['action']['plus'];
                 $results['content'] = sprintf('Bạn đã nhận được %d Kim Tơ ở Vòng Xoay Mặt Trời', $arr['points']);
                 $results['points'] = $arr['points'];
-                $results['points'] = $arr['points'];
             }
             if ($arr['type'] == EVENT_BIRTHDAY12['type']['mochi']) {
                 $results['action'] = EVENT_BIRTHDAY12['action']['plus'];
-                $results['content'] = sprintf('Bạn đã nhận được %d mochi trong nhiệm vụ %d', $arr['point'], $arr['name_quest']);
+                $results['content'] = sprintf('Nhận được trong nhiệm vụ " %d "', $arr['name_quest']);
                 $results['points'] = $arr['points'];
             }
         }

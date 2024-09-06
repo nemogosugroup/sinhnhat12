@@ -53,11 +53,10 @@ class QuestLogController extends Controller
             }
 
             // check quest completed by quest_logs.is_done = 1
-            //$isDone = $this->questLogRepo->checkQuestIsDone(auth()->user()->id, $questId);
-            $isDone = $this->questLogRepo->checkQuestIsDone(1, $questId);
+            $isDone = $this->questLogRepo->checkQuestIsDone(auth()->user()->id, $questId);
+//            $isDone = $this->questLogRepo->checkQuestIsDone(1, $questId);
             if ($isDone) {
                 // TODO: handle update data log case: receive quest's reward (+mochi)
-                // TODO: waiting for new code use to update data_logs from Mr.Phe
             } else {
                 $results = array(
                     'message' => $this->msg->questNotComplete(),
