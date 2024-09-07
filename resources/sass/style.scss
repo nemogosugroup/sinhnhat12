@@ -1,17 +1,20 @@
-@import url('https://fonts.googleapis.com/css2?family=Phudu:wght@300..900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
-@font-face {
-    font-family: 'LacLongQuan';
-    src: url("./fonts/UVNLacLongQuan_R.otf") format('truetype');
-}
+@import './fonts.scss';
 $fontMenu: #66494e;
 body {
-    font-family: 'Phudu', sans-serif;
+    font-family: 'Myriad Pro', sans-serif;
+    font-weight: 400;
+}
+.font_spiegel {
+    font-family: 'Spiegel', sans-serif;
+    font-weight: normal;
+}
+.font_spiegel {
+    font-family: 'Beaufort', sans-serif;
     font-weight: 400;
 }
 .app-wrapper {
     .wrapper-birthday {
-        font-family: 'Phudu', sans-serif;
+        font-family: 'Myriad Pro', sans-serif;
         font-weight: 400;
         .box-slogan {
             padding: 85px 110px 85px 340px;
@@ -90,7 +93,7 @@ body {
                 height: 100%;
                 background-repeat: no-repeat;
                 background-size: 100%;
-                transition: all .3s ease-in-out;
+                transition: all 0.3s ease-in-out;
                 background-position-y: 0;
                 animation: bg_move 4s infinite;
             }
@@ -103,7 +106,7 @@ body {
                 height: 100%;
                 background-repeat: no-repeat;
                 background-size: 100%;
-                transition: all .3s ease-in-out;
+                transition: all 0.3s ease-in-out;
                 background-position-y: 0;
                 animation: bg_move 4s infinite;
             }
