@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Helpers\Helpers;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -39,6 +40,7 @@ class User extends Authenticatable
         'total_silk',
         'use_mochi',
         'time_duration',
+        'quests',
     ];
 
     /**
@@ -83,6 +85,10 @@ class User extends Authenticatable
     public function getUseMochiAttribute()
     {
         return EVENT_BIRTHDAY12['mochi'];
+    }
+    public function getQuestsAttribute()
+    {
+        return app(Helpers::class)->getUserQuests();
     }
     public function scoreLogs()
     {

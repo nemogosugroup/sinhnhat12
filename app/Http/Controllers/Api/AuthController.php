@@ -68,8 +68,9 @@ class AuthController extends Controller
                 $dateNumber = $this->helpers->getCurrentDateNumber();
                 $issetNewLoginLog = $this->loginLogRepo->handleSaveLog($results['data']['id'], $dateNumber);
                 if ($issetNewLoginLog) {
-                    // complete quest 1 with current date number
+                    // complete quest 1 + 9 with current date number
                     $this->questLogRepo->addQuestLog($results['data']['id'], $dateNumber, 1);
+                    $this->questLogRepo->addQuestLog($results['data']['id'], $dateNumber, 9);
                 }
             }
 

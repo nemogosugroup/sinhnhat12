@@ -54,4 +54,15 @@ class LoginLogRepository extends BaseRepository implements LoginLogRepositoryInt
 
         return false;
     }
+
+    public function getCodeInvite($userId): string
+    {
+        $result = $this->model->query()
+            ->where([
+                'user_id' => $userId,
+                'date_number' => $this->helpers->getCurrentDateNumber()
+            ])->first();
+
+        return !empty($result) ? $result->code : '';
+    }
 }
