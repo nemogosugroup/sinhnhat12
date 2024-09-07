@@ -56,14 +56,13 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::group(['prefix' => '2048'], function () {
             Route::post('create', [ScoreController::class, 'create']);
         });
+        Route::group(['prefix' => 'quest'], function () {
+            Route::post('update', [QuestLogController::class, 'handleUpdateQuest']);
+            Route::post('receive-reward/{id}', [QuestLogController::class, 'handleReceiveQuestReward']);
+        });
     });
+
     Route::group(['prefix' => 'role'], function () {
         Route::get('list', [RoleController::class, 'list']);
     });
-});
-
-// move up later
-Route::group(['prefix' => 'quest'], function () {
-    Route::post('update', [QuestLogController::class, 'handleUpdateQuest']);
-    Route::post('receive-reward', [QuestLogController::class, 'handleReceiveQuestReward']);
 });

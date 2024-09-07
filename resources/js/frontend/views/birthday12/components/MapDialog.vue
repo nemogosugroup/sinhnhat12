@@ -117,7 +117,7 @@ export default {
             console.log("complete bubble")
         },
         closeDialog() {
-            this.isShowDialog = false
+            this.isShowDialog = false;
             this.$emit('hideDialog', {});
         }
     }

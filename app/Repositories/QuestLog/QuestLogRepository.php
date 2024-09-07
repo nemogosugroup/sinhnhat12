@@ -44,22 +44,56 @@ class QuestLogRepository extends BaseRepository implements QuestLogRepositoryInt
             'date_number' => $dateNumber
         ];
 
-        if ($quest['id'] === 1) { // Đăng ký đi chơi công viên(1/1)
+        if ($quest['id'] === 1 || $quest['id'] === 9) { // 1:Đăng ký đi chơi công viên(1/1) || 9:Ghé thăm Thố Động mỗi ngày
             $data['is_done'] = true;
         }
 
         $this->model->query()->create($data);
     }
 
+    public function updateIsReceived($userId, $questId)
+    {
+        $this->model->query()->where([
+            'user_id' => $userId,
+            'quest_id' => $questId,
+            'date_number' => $this->helpers->getCurrentDateNumber(),
+            'is_done' => true,
+            'is_received' => false
+        ])->update([
+            'is_received' => true
+        ]);
+    }
+
     public function checkQuestIsDone($userId, $questId): bool
     {
-        $dateNumber = $this->helpers->getCurrentDateNumber();
-
         return $this->model->query()->where([
             'user_id' => $userId,
             'quest_id' => $questId,
-            'date_number' => $dateNumber,
-            'is_done' => true
+            'date_number' => $this->helpers->getCurrentDateNumber(),
+            'is_done' => true,
+            'is_received' => false
         ])->exists();
+    }
+
+    public function getIsDoneIsReceivedValues($userId, $questId, $dateNumber): array
+    {
+        $result = $this->model->query()->select('is_done', 'is_received')
+            ->where([
+                'user_id' => $userId,
+                'quest_id' => $questId,
+                'date_number' => $dateNumber,
+                'is_done' => true
+            ])->first();
+
+        return !empty($result) ? $result->toArray() : ['is_done' => 0, 'is_received' => 0];
+    }
+
+    public function getProgressCurrentValue($userId, $questId, $dateNumber): int
+    {
+        return $this->model->query()->where([
+                'user_id' => $userId,
+                'quest_id' => $questId,
+                'date_number' => $dateNumber
+            ])->count();
     }
 }

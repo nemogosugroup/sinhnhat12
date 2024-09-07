@@ -5,8 +5,8 @@
         <div class="content_wrapper">
             <div class="content">
                 <el-row
-                    :class="{is_done: item.is_done === 1}"
-                    v-for="(item, idx) in data.quests"
+                    :class="{is_done: item.is_done === 1 && item.is_received === 1}"
+                    v-for="(item, idx) in quests"
                     :key="idx"
                 >
                     <el-col class="mochi" :span="2">
@@ -16,7 +16,7 @@
                     <el-col class="content" :span="17">
 
                         <!--COPY CODE + ENTER CODE-->
-                        <div v-if="item.number === 2 || item.number === 3">
+                        <div v-if="item.id === 2 || item.id === 3">
                             <el-row>
                                 <el-col :span="12">
                                     <div class="content">{{ item.desc }}</div>
@@ -24,7 +24,7 @@
                                         ({{ item.progress.current }}/{{ item.progress.max }})
                                     </div>
                                 </el-col>
-                                <el-col v-if="item.number === 2" :span="12">
+                                <el-col v-if="item.id === 2" :span="12">
                                     <el-row>
                                         <el-col :span="16">
                                             <el-input v-model="item.code" :disabled="true"></el-input>
@@ -57,7 +57,7 @@
                         </div>
                     </el-col>
                     <el-col class="buttons" :span="5">
-                        <el-button v-if="item.is_done === 1" class="btn_done">Xong nhiệm vụ</el-button>
+                        <el-button v-if="item.is_received === 1" class="btn_done">Xong nhiệm vụ</el-button>
                         <el-button v-else class="btn_receive"
                                    :type="item.progress.current === item.progress.max ? 'success': 'primary'"
                                    @click="getQuest(item, idx)">Nhận nhiệm vụ
@@ -71,6 +71,9 @@
 <script>
 import iconMochi from "@/assets/images/birthday12/map/dialog/icon_mochi.png";
 import {ElMessage} from "element-plus";
+import {mapGetters} from "vuex";
+import RepositoryFactory from '@frontend/utils/RepositoryFactory';
+const questsRepository = RepositoryFactory.get('quests');
 
 export default {
     name: 'NguyetNhiemTab',
@@ -80,93 +83,25 @@ export default {
             iconMochi: iconMochi,
             inviteCode: null,
             isLoading: false,
-            data: {
-                date: "18-9",
-                quests: [
-                    {
-                        number: 1,
-                        is_done: 1,
-                        mochi: 5,
-                        progress: {current: 1, max: 1},
-                        desc: "Đăng ký đi chơi công viên"
-                    },
-                    {
-                        number: 2,
-                        is_done: 0,
-                        mochi: 10,
-                        progress: {current: 2, max: 10},
-                        desc: "Rủ 10 thỏ ngọc khác cùng đi chơi",
-                        code: "JAJDAX14" // generate every day = Crypt::encrypt/decrypt(user_id + current day)
-                    },
-                    {
-                        number: 3,
-                        is_done: 0,
-                        mochi: 10,
-                        progress: {current: 4, max: 10},
-                        desc: "Được 10 thỏ ngọc khác rủ đi chơi"
-                    },
-                    {
-                        number: 4,
-                        is_done: 0,
-                        mochi: 20,
-                        progress: {current: 5, max: 5},
-                        desc: "Tham gia trò chơi Vòng Xoay Mặt Trời 5 lần/ngày"
-                    },
-                    {
-                        number: 5,
-                        is_done: 0,
-                        mochi: 5,
-                        progress: {current: 0, max: 1},
-                        desc: "Lần đầu nhận được Kim Tơ trong ngày"
-                    },
-                    {
-                        number: 6,
-                        is_done: 0,
-                        mochi: 15,
-                        progress: {current: 10, max: 15},
-                        desc: "Thu thập được 15 Kim Tơ/ngày"
-                    },
-                    {
-                        number: 7,
-                        is_done: 0,
-                        mochi: 15,
-                        progress: {current: 10, max: 50},
-                        desc: "Thu thập được 50 Kim Tơ/ngày"
-                    },
-                    {
-                        number: 8,
-                        is_done: 0,
-                        mochi: 10,
-                        progress: {current: 0, max: 1},
-                        desc: "Ghi được 1500 điểm trong một lượt chơi tại Vòng Xoay Mặt Trời"
-                    },
-                    {
-                        number: 9,
-                        is_done: 0,
-                        mochi: 5,
-                        progress: {current: 0, max: 1},
-                        desc: "Ghé thăm Thố Động mỗi ngày"
-                    },
-                    {
-                        number: 10,
-                        is_done: 0,
-                        mochi: 15,
-                        progress: {current: 0, max: 1},
-                        desc: "Hoàn thành các nhiệm vụ trên mỗi ngày"
-                    },
-                ]
-            }
+            quests: []
         }
     },
     filters: {},
     created() {
+        this.quests = this.user.quests;
     },
     watch: {},
+    computed: {
+        ...mapGetters(["user"]),
+    },
     methods: {
-        getQuest(quest, idx) {
+        async getQuest(quest, idx) {
             if (quest.progress.current === quest.progress.max) {
-                this.data.quests[idx].is_done = 1;
-                ElMessage.success("Hoàn thành nhiệm vụ!");
+                const { data } = await questsRepository.receiveReward(quest.id);
+                if (data.success) {
+                    this.quests[idx].is_received = 1;
+                    ElMessage.success("Hoàn thành nhiệm vụ!");
+                }
             } else {
                 ElMessage.warning(
                     `(${quest.progress.current}/${quest.progress.max}) Hãy tiếp tục nhiệm vụ!`

@@ -3,30 +3,36 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\DataLog;
+use App\Models\User;
 use App\Repositories\QuestLog\QuestLogRepository;
+use App\Repositories\Game2048\game2048Repository as DataLogRepository;
 use App\Helpers\Message;
 use App\Helpers\Helpers;
 use App\Repositories\User\UserRepository;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 
 class QuestLogController extends Controller
 {
-    protected $userRepo;
     protected $questLogRepo;
+    protected $dataLogRepo;
     protected $msg;
     protected $helpers;
 
     public function __construct(
-        UserRepository     $userRepository,
         QuestLogRepository $questLogRepository,
+        DataLogRepository  $dataLogRepo,
         Message            $message,
-        Helpers            $helpers
+        Helpers            $helpers,
+        DataLog            $modelLog,
+        User               $modelUser
     )
     {
-        $this->userRepo = $userRepository;
         $this->questLogRepo = $questLogRepository;
+        $this->dataLogRepo = $dataLogRepo;
+        $this->dataLogRepo->addModelLog($modelLog);
+        $this->dataLogRepo->addModelUser($modelUser);
         $this->msg = $message;
         $this->helpers = $helpers;
     }
@@ -36,11 +42,9 @@ class QuestLogController extends Controller
         dd($request->all());
     }
 
-    public function handleReceiveQuestReward(Request $request): \Illuminate\Http\JsonResponse
+    public function handleReceiveQuestReward(int $questId): \Illuminate\Http\JsonResponse
     {
         try {
-            $questId = $request->input('quest_id');
-
             // check+get quest by $questId
             $questData = $this->helpers->findQuestById($questId);
             if (count($questData) === 0) {
@@ -52,11 +56,27 @@ class QuestLogController extends Controller
                 return response()->json($results);
             }
 
-            // check quest completed by quest_logs.is_done = 1
+            // check quest completed by quest_logs.is_done = 1 && quest_logs.is_received = 0
             $isDone = $this->questLogRepo->checkQuestIsDone(auth()->user()->id, $questId);
-//            $isDone = $this->questLogRepo->checkQuestIsDone(1, $questId);
             if ($isDone) {
-                // TODO: handle update data log case: receive quest's reward (+mochi)
+                // handle update data log case: receive quest's reward (+mochi)
+                $data = [
+                    'type' => EVENT_BIRTHDAY12['type']['mochi'],
+                    'points' => $questData['mochi'],
+                    'name_quest' => $questData['desc']
+                ];
+                $data = $this->helpers->convertDataLog($data);
+                $dataLog = $this->dataLogRepo->createLog($data);
+
+                // update quest_logs.is_received
+                $this->questLogRepo->updateIsReceived(auth()->user()->id, $questId);
+
+                // update users.point_mochi
+                $dataUser = [
+                    'point_mochi' => auth()->user()->point_mochi + $dataLog['points']
+                ];
+                $this->dataLogRepo->updateUser(auth()->user()->id, $dataUser);
+
             } else {
                 $results = array(
                     'message' => $this->msg->questNotComplete(),

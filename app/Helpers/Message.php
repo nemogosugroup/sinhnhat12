@@ -53,6 +53,6 @@ class Message {
         return 'Nhiệm vụ không tồn tại!';
     }
     public function questNotComplete(){
-        return 'Nhiệm vụ chưa hoàn thành!';
+        return 'Nhận thưởng không hợp lệ!';
     }
 }
