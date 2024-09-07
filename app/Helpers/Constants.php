@@ -5,6 +5,8 @@ $questTmp = [
     [
         'id' => 1,
         'mochi' => 5,
+        'is_done' => 0,
+        'is_received' => 0,
         'progress' => [
             'current' => 0,
             'max' => 1
@@ -14,6 +16,8 @@ $questTmp = [
     [
         'id' => 2,
         'mochi' => 10,
+        'is_done' => 0,
+        'is_received' => 0,
         'progress' => [
             'current' => 0,
             'max' => 10
@@ -24,6 +28,8 @@ $questTmp = [
     [
         'id' => 3,
         'mochi' => 10,
+        'is_done' => 0,
+        'is_received' => 0,
         'progress' => [
             'current' => 0,
             'max' => 10
@@ -33,6 +39,8 @@ $questTmp = [
     [
         'id' => 4,
         'mochi' => 20,
+        'is_done' => 0,
+        'is_received' => 0,
         'progress' => [
             'current' => 0,
             'max' => 5
@@ -42,6 +50,8 @@ $questTmp = [
     [
         'id' => 5,
         'mochi' => 5,
+        'is_done' => 0,
+        'is_received' => 0,
         'progress' => [
             'current' => 0,
             'max' => 1
@@ -51,6 +61,8 @@ $questTmp = [
     [
         'id' => 6,
         'mochi' => 15,
+        'is_done' => 0,
+        'is_received' => 0,
         'progress' => [
             'current' => 0,
             'max' => 15
@@ -60,6 +72,8 @@ $questTmp = [
     [
         'id' => 7,
         'mochi' => 15,
+        'is_done' => 0,
+        'is_received' => 0,
         'progress' => [
             'current' => 0,
             'max' => 50
@@ -69,6 +83,8 @@ $questTmp = [
     [
         'id' => 8,
         'mochi' => 10,
+        'is_done' => 0,
+        'is_received' => 0,
         'progress' => [
             'current' => 0,
             'max' => 1
@@ -78,6 +94,8 @@ $questTmp = [
     [
         'id' => 9,
         'mochi' => 5,
+        'is_done' => 0,
+        'is_received' => 0,
         'progress' => [
             'current' => 0,
             'max' => 1
@@ -87,6 +105,8 @@ $questTmp = [
     [
         'id' => 10,
         'mochi' => 15,
+        'is_done' => 0,
+        'is_received' => 0,
         'progress' => [
             'current' => 0,
             'max' => 1

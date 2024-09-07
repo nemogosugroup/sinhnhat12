@@ -89,7 +89,7 @@ const mutations = {
 
 const actions = {
     // user login
-    login({ commit }, userInfo) {
+    login({ commit }, userInfo) {console.log('login eee')
         const { email, password } = userInfo;
         return new Promise((resolve, reject) => {
             UserRepository.login({ email: email, password: password })

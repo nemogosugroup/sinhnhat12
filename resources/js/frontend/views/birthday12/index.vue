@@ -165,6 +165,7 @@ export default {
 
     },
     created() {
+        this.$store.dispatch("user/getInfo");
     },
 
     methods: {
@@ -191,9 +192,10 @@ export default {
         handleShowDialog() {
             this.dialogVisible = true;
         },
-        handleHideDialog() {
+        async handleHideDialog() {
             this.dialogVisible = false;
             Emitter.emit("reset-game", true);
+            await this.$store.dispatch("user/getInfo");
         },
         async handleLogout() {
             await this.$store.dispatch("user/logout");

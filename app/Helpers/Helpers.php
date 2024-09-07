@@ -2,6 +2,8 @@
 
 namespace App\Helpers;
 
+use App\Repositories\LoginLog\LoginLogRepository;
+use App\Repositories\QuestLog\QuestLogRepository;
 use GuzzleHttp\Client;
 use Illuminate\Http\Response;
 use App\Helpers\Message;
@@ -186,14 +188,14 @@ class Helpers
             }
             if ($arr['type'] == EVENT_BIRTHDAY12['type']['mochi']) {
                 $results['action'] = EVENT_BIRTHDAY12['action']['plus'];
-                $results['content'] = sprintf('Nhận được trong nhiệm vụ " %d "', $arr['name_quest']);
+                $results['content'] = sprintf('Nhận được trong nhiệm vụ: %s', $arr['name_quest']);
                 $results['points'] = $arr['points'];
             }
         }
-        $results['user_id'] = auth()->user()->id;
+        //$results['user_id'] = auth()->user()->id;
+        $results['user_id'] = 1; // TODO: remove after TEST
         return $results;
     }
-
     public function checkQuestForCurrentDate(int $points){
 
         // $points => point score
@@ -276,6 +278,43 @@ class Helpers
             ['user_id', '=', auth()->user()->id],
             ['is_done', '=', 1],
         ])->get();
+        return $result;
+    }
+
+    public function getUserQuests(): array
+    {
+        $result = QUEST_TMP;
+        $dateNumber = $this->getCurrentDateNumber();
+
+        foreach ($result as $idx => $quest) {
+
+            // check in quest_logs and update is_done + is_received
+            $doneReceivedLog = app(QuestLogRepository::class)->getIsDoneIsReceivedValues(
+                auth()->user()->id,
+                $quest['id'],
+                $dateNumber
+            );
+            $result[$idx]['is_done'] = $doneReceivedLog['is_done'];
+            $result[$idx]['is_received'] = $doneReceivedLog['is_received'];
+
+            // check in quest_logs and update progress.min
+            $progressCurrentVal = app(QuestLogRepository::class)->getProgressCurrentValue(
+                auth()->user()->id,
+                $quest['id'],
+                $dateNumber
+            );
+            $result[$idx]['progress']['current'] = $progressCurrentVal;
+            if ($result[$idx]['progress']['current'] === $result[$idx]['progress']['max']) {
+                $result[$idx]['is_done'] = 1;
+            }
+
+            // get code for quest 2
+            if ($quest['id'] === 2) {
+                $result[$idx]['code'] = app(LoginLogRepository::class)->getCodeInvite(auth()->user()->id);
+            }
+
+        }
+
         return $result;
     }
 }
