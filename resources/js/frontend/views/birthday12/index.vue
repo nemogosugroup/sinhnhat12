@@ -35,7 +35,7 @@
                 <el-row>
                     <el-col :span="24">
                         <el-row>
-                            <el-col :span="4" class="alert_bell" :class="{active: issetAlert}">
+                            <el-col :span="4" class="alert_bell" :class="{ active: issetAlert }">
                                 <img @click="goToQuestList" :src="mapElm.MapIconBell" alt="">
                                 <b class="alert_count bell">{{ alertCount }}</b>
                             </el-col>
@@ -127,7 +127,7 @@ import MapIconMochi from '@/assets/images/birthday12/map/map_icon_mochi.png'
 
 import MapDialog from "@frontend/views/birthday12/components/MapDialog.vue";
 import { mapGetters } from "vuex";
-import Emitter from '@frontend/views/birthday12/components/wheel/components/evenEmit.js';
+import { Emitter } from '@frontend/views/birthday12/components/wheel/components/evenEmit.js';
 
 export default {
     name: 'Map',
@@ -303,6 +303,7 @@ export default {
             .alert_bell {
                 transition: all .3s ease-in-out;
                 cursor: pointer;
+
                 &.active {
                     animation: bell_scale 1s infinite;
                 }
@@ -476,9 +477,11 @@ export default {
     0% {
         transform: scale(1);
     }
+
     50% {
         transform: scale(1.05);
     }
+
     100% {
         transform: scale(1);
     }

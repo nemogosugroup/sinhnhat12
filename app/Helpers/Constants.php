@@ -106,7 +106,8 @@ $eventBirthDay12 = [
     'action' => [
         'plus' => 'plus',
         'minus' => 'minus',
-    ]
+    ],
+    'secretKey' => 'jqRIMbaBP+XoHUem/M0Y8dIZ2DHuh7DJ'
 ];
 
 define('EVENT_BIRTHDAY12', $eventBirthDay12);

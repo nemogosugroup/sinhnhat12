@@ -12,6 +12,7 @@ use App\Models\ScoreLog;
 use App\Models\User;
 use App\Models\DataLog;
 use App\Models\QuestLog;
+use phpseclib3\Crypt\AES;
 
 class ScoreController extends Controller
 {
@@ -58,7 +59,16 @@ class ScoreController extends Controller
      */
     public function create(Request $request)
     {
-        $params = $request->all();
+
+        $encryptedData = $request->input('data');
+        $iv = $request->input('iv');
+        $aes = new AES('cbc');
+        $aes->setKey(EVENT_BIRTHDAY12['secretKey']);
+        $aes->setIV($iv);
+        $decryptedData = $aes->decrypt(base64_decode($encryptedData));
+        $dataJson = json_decode($decryptedData, true);
+        //$params = $request->all();
+        $params = $dataJson;
         $data = $this->repo->create($params);
         // update kimto/mochi/bestcore/is_lucky for user
         $dataUser = array(
@@ -93,7 +103,7 @@ class ScoreController extends Controller
 
         $results = array(
             'success' => true,
-            'data' => $data,
+            'data' => 'Hello GOSU 2024',
             'message' => $this->msg->createSuccess(),
             'status' => Response::HTTP_OK
         );

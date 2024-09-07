@@ -86,7 +86,7 @@ import { onMounted, onBeforeUnmount, ref, computed } from "vue";
 import { Countdown } from 'vue3-flip-countdown';
 import moment from 'moment';
 import { useStore } from "vuex";
-import Emitter from './evenEmit';
+import { Emitter, encryptData } from './evenEmit';
 import { ElMessage } from 'element-plus'
 const levels = [
     { min: 0, max: 1489, levelKey: 'lv1' },
@@ -95,6 +95,7 @@ const levels = [
     { min: 2500, max: 2998, levelKey: 'lv4' },
     { min: 3000, max: 3498, levelKey: 'lv5', bonus: true }
 ];
+import CryptoJS from "crypto-js";
 
 export default {
     data() {
@@ -115,6 +116,8 @@ export default {
         const user = computed(() => store.getters['user']);
         const minutes = user.value.time_duration;
         const use_mochi = user.value.use_mochi;
+        const secretKey = 'jqRIMbaBP+XoHUem/M0Y8dIZ2DHuh7DJ';
+        const iv = "M0Y8dIZ2DHXoHUem";
         const createDefaultData = () => {
             return {
                 startTime: moment().format('YYYY-MM-DD HH:mm:ss'),
@@ -219,15 +222,15 @@ export default {
                 openCenter();
                 return false;
             }
-
-            if (dataBoard.countMinutes > 0 && board.value.score > 0 && startGame.value)
-                submitScore();
-
             // kiểm tra mochi
             const dataCommit = {
                 'mochi': mochi.value - use_mochi
             }
             store.dispatch('user/updateDataUser', dataCommit);
+            //if (board.value.score > 0 && startGame.value) {
+            if (startGame.value) {
+                submitScore();
+            }
             board.value = new Board();
             resetTimer();
         };
@@ -246,7 +249,9 @@ export default {
                 }
                 startGame.value = false;
                 loading.value = true;
-                const { data } = await game2048Repository.create(formData);
+                const _encryptData = encryptData(formData, secretKey, iv);
+                console.log('encryptData', _encryptData)
+                const { data } = await game2048Repository.create({ 'data': _encryptData, iv: iv });
                 if (data.success) {
                     const dataCommit = {
                         'silk': dataBoard.pointSilk.value + silk.value
@@ -262,9 +267,17 @@ export default {
 
         onMounted(() => {
             Emitter.on("reset-game", () => {
+                //if (startGame.value && board.value.score > 0) {
                 if (startGame.value) {
                     submitScore();
                 }
+                // else {
+                //     const dataCommit = {
+                //         'mochi': mochi.value + use_mochi
+                //     }
+                //     store.dispatch('user/updateDataUser', dataCommit);
+                // }
+
                 board.value = new Board();
                 startGame.value = false;
                 checkStartGame.value = false;
