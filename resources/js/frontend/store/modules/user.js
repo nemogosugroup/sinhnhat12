@@ -341,14 +341,14 @@ const actions = {
     },
 
     updateDataUser({ commit, state }, data) {
-        console.log('data', data);
-        if (data.silk) {
+        if (data.silk >= 0) {
             commit('SET_DATA_SILK', data.silk);
         }
-        if (data.mochi) {
+        if (data.mochi >= 0) {
+            console.log('data.mochi', data.mochi);
             commit('SET_DATA_MOCHI', data.mochi);
         }
-        if (data.bestscore) {
+        if (data.bestscore >= 0) {
             commit('SET_DATA_BEST_SCORE', data.bestscore);
         }
     }

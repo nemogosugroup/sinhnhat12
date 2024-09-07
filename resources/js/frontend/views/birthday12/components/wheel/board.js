@@ -109,7 +109,8 @@ Board.prototype.moveLeft = function () {
                 this.score += targetTile.value;
             }
             resultRow[target] = targetTile;
-            this.won |= targetTile.value == 2048;
+            //kiểm tra đạt đến mốc thưởng 2048/4096/8192
+            this.won |= targetTile.value == 8192;
             hasChanged |= targetTile.value != this.cells[row][target].value;
         }
         this.cells[row] = resultRow;

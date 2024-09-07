@@ -86,7 +86,8 @@ import { onMounted, onBeforeUnmount, ref, computed } from "vue";
 import { Countdown } from 'vue3-flip-countdown';
 import moment from 'moment';
 import { useStore } from "vuex";
-import Emitter from './evenEmit';
+import { Emitter, encryptData } from './evenEmit';
+import { ElMessage } from 'element-plus'
 const levels = [
     { min: 0, max: 1489, levelKey: 'lv1' },
     { min: 1500, max: 1998, levelKey: 'lv2' },
@@ -94,6 +95,7 @@ const levels = [
     { min: 2500, max: 2998, levelKey: 'lv4' },
     { min: 3000, max: 3498, levelKey: 'lv5', bonus: true }
 ];
+import CryptoJS from "crypto-js";
 
 export default {
     data() {
@@ -114,6 +116,8 @@ export default {
         const user = computed(() => store.getters['user']);
         const minutes = user.value.time_duration;
         const use_mochi = user.value.use_mochi;
+        const secretKey = 'jqRIMbaBP+XoHUem/M0Y8dIZ2DHuh7DJ';
+        const iv = "M0Y8dIZ2DHXoHUem";
         const createDefaultData = () => {
             return {
                 startTime: moment().format('YYYY-MM-DD HH:mm:ss'),
@@ -136,7 +140,6 @@ export default {
                 start: true,
                 pointMaxBonnus: 3500,
                 pointBonnus: 500,
-                dataLog: []
             };
         };
         let dataBoard = createDefaultData();
@@ -158,13 +161,6 @@ export default {
             dataBoard.timer = setInterval(() => {
                 if (dataBoard.countMinutes > 0) {
                     dataBoard.countMinutes--;
-                    let data = {
-                        'score': score.value,
-                        'startTime': dataBoard.startTime,
-                        'endTime': moment().format('YYYY-MM-DD HH:mm:ss'),
-                        'duration': Math.round(moment().diff(moment(dataBoard.startTime)) / 1000)
-                    }
-                    dataBoard.dataLog.push(data);
                 } else {
                     clearInterval(dataBoard.timer);
                     board.value.isLost = true;
@@ -189,7 +185,6 @@ export default {
                 'lv4': { 'point': 5, 'check': true },
                 'lv5': { 'point': 5, 'check': true }
             };
-            dataBoard.dataLog = [];
             startGame.value = true;
             checkStartGame.value = true;
             startTimer();
@@ -223,8 +218,19 @@ export default {
 
         const onRestart = () => {
             // nếu đang chơi chưa hết timer reset game thì lưu dữ liệu lại
-            if (dataBoard.countMinutes > 0 && board.value.score > 0 && startGame.value)
+            if (mochi.value - use_mochi < 0) {
+                openCenter();
+                return false;
+            }
+            // kiểm tra mochi
+            const dataCommit = {
+                'mochi': mochi.value - use_mochi
+            }
+            store.dispatch('user/updateDataUser', dataCommit);
+            //if (board.value.score > 0 && startGame.value) {
+            if (startGame.value) {
                 submitScore();
+            }
             board.value = new Board();
             resetTimer();
         };
@@ -241,19 +247,15 @@ export default {
                     point_silk: dataBoard.pointSilk.value,
                     user_id: user.value.id
                 }
-                console.log('formData', formData);
                 startGame.value = false;
                 loading.value = true;
-                const { data } = await game2048Repository.create(formData);
-                console.log(data)
+                const _encryptData = encryptData(formData, secretKey, iv);
+                console.log('encryptData', _encryptData)
+                const { data } = await game2048Repository.create({ 'data': _encryptData, iv: iv });
                 if (data.success) {
                     const dataCommit = {
-                        'mochi': mochi.value - use_mochi,
                         'silk': dataBoard.pointSilk.value + silk.value
                     }
-                    console.log('dataCommit', dataCommit)
-                    console.log('mochi.value', mochi.value)
-                    console.log('use_mochi.value', use_mochi)
                     store.dispatch('user/updateDataUser', dataCommit)
                     loading.value = false;
                 }
@@ -265,11 +267,22 @@ export default {
 
         onMounted(() => {
             Emitter.on("reset-game", () => {
-                submitScore();
+                //if (startGame.value && board.value.score > 0) {
+                if (startGame.value) {
+                    submitScore();
+                }
+                // else {
+                //     const dataCommit = {
+                //         'mochi': mochi.value + use_mochi
+                //     }
+                //     store.dispatch('user/updateDataUser', dataCommit);
+                // }
+
                 board.value = new Board();
                 startGame.value = false;
                 checkStartGame.value = false;
                 loading.value = false;
+                dataBoard.pointSilk.value = 0
             });
             window.addEventListener("keydown", handleKeyDown);
         });
@@ -313,6 +326,15 @@ export default {
             }
 
         };
+
+        const openCenter = () => {
+            ElMessage({
+                showClose: false,
+                message: 'Bạn đã sử dụng hết Mochi!',
+                type: 'error',
+                center: true,
+            });
+        }
 
         return {
             board,

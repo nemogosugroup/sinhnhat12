@@ -11,6 +11,8 @@ use App\Repositories\Interfaces\Game2048RepositoryInterface;
 use App\Models\ScoreLog;
 use App\Models\User;
 use App\Models\DataLog;
+use App\Models\QuestLog;
+use phpseclib3\Crypt\AES;
 
 class ScoreController extends Controller
 {
@@ -27,7 +29,8 @@ class ScoreController extends Controller
         Helpers $helper,
         ScoreLog $model,
         User $modelUser,
-        DataLog $modelLog
+        DataLog $modelLog,
+        QuestLog $modelQuestLog
     )
     {
         $this->repo = $repo;
@@ -36,6 +39,7 @@ class ScoreController extends Controller
         $this->repo->addModel($model);
         $this->repo->addModelUser($modelUser);
         $this->repo->addModelLog($modelLog);
+        $this->repo->addModelQuestLog($modelQuestLog);
 
     }
     /**
@@ -55,9 +59,18 @@ class ScoreController extends Controller
      */
     public function create(Request $request)
     {
-        $params = $request->all();
-        $data = $this->repo->create($params);
 
+        $encryptedData = $request->input('data');
+        $iv = $request->input('iv');
+        $aes = new AES('cbc');
+        $aes->setKey(EVENT_BIRTHDAY12['secretKey']);
+        $aes->setIV($iv);
+        $decryptedData = $aes->decrypt(base64_decode($encryptedData));
+        $dataJson = json_decode($decryptedData, true);
+        //$params = $request->all();
+        $params = $dataJson;
+        $data = $this->repo->create($params);
+        // update kimto/mochi/bestcore/is_lucky for user
         $dataUser = array(
             'point_silk' => auth()->user()->point_silk + $params['point_silk'],
             'point_mochi' => auth()->user()->point_mochi - EVENT_BIRTHDAY12['mochi']
@@ -74,22 +87,23 @@ class ScoreController extends Controller
                 $dataUser['is_lucky'] = 1;
             }
         }
-
         $this->repo->updateUser(auth()->user()->id, $dataUser);
 
+        // create data logs
         $dataLog = $params;
         $dataLog['type'] = EVENT_BIRTHDAY12['type']['silk'];
         $dataLog['points'] = $params['point_silk'];
-
         $dataLogSilk = $this->helper->convertDataLog( $dataLog );
         $dataLogMochi = $this->helper->convertDataLog([]);
-
         $this->repo->createLog($dataLogSilk);
         $this->repo->createLog($dataLogMochi);
 
+        // create quest log
+        $this->helper->checkQuestForCurrentDate($data['scores']);
+
         $results = array(
             'success' => true,
-            'data' => $data,
+            'data' => 'Hello GOSU 2024',
             'message' => $this->msg->createSuccess(),
             'status' => Response::HTTP_OK
         );
