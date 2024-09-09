@@ -5,16 +5,20 @@
                 <img v-if="icon" :src="icon" class="sidebar-logo">
             </router-link> -->
             <router-link class="sidebar-logo-link" to="/">
-                <img v-if="isWhiteColor" :src="LogoWhite" class="sidebar-logo">
-                <img v-else :src="logo" class="sidebar-logo">
+                <span class="wrap-logo">
+                    <img :src="Logo" class="icon-logo" />
+                    <img :src="Gosu12" class="icon-birthday" />
+                </span>
             </router-link>
         </transition>
     </div>
 </template>
 
 <script>
-import imagesLogo from "@/assets/images/logo/GOSU_full.png";
-import LogoWhite from "@/assets/images/logo/GOSU_full_white.png";
+// import imagesLogo from "@/assets/images/logo/GOSU_full.png";
+// import LogoWhite from "@/assets/images/logo/GOSU_full_white.png";
+import Gosu12 from "@/assets/images/eventBirthday2024/gosu12.svg";
+import Logo from "@/assets/images/eventBirthday2024/icon_logo.svg";
 export default {
     props: {
         isLogin: {
@@ -26,9 +30,10 @@ export default {
     name: 'Logo',
     data() {
         return {
-            logo: imagesLogo,
-            LogoWhite: LogoWhite,
+            Logo: Logo,
+            //LogoWhite: LogoWhite,
             isBachNhat: false,
+            Gosu12: Gosu12,
         }
     },
     computed: {
@@ -92,6 +97,15 @@ export default {
         .sidebar-logo {
             margin-right: 0px;
         }
+    }
+}
+
+.wrap-logo {
+    display: flex;
+    align-items: center;
+
+    .icon-logo {
+        margin-right: 10px;
     }
 }
 </style>

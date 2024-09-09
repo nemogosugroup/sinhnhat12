@@ -1,5 +1,5 @@
 @import './fonts.scss';
-$fontMenu: #66494e;
+$fontMenu: #664b11;
 body {
     font-family: 'Myriad Pro', sans-serif;
     font-weight: 400;
@@ -8,9 +8,12 @@ body {
     font-family: 'Spiegel', sans-serif;
     font-weight: normal;
 }
-.font_spiegel {
+.font_beaufort {
     font-family: 'Beaufort', sans-serif;
     font-weight: 400;
+}
+.w700 {
+    font-weight: 700;
 }
 .app-wrapper {
     .wrapper-birthday {
@@ -37,25 +40,8 @@ body {
             .title-form {
                 text-align: left;
                 margin: 0;
-                font-weight: 700;
-                font-size: 50px;
-                span {
-                    display: block;
-                    white-space: nowrap;
-                    overflow: hidden;
-                    &.line_1 {
-                        animation: animated-text__1 6s steps(30, end) 1s 1
-                                normal both,
-                            animated-cursor__1 900ms steps(30, end) 8;
-                    }
-                    &.line_2 {
-                        animation: animated-text__2 5s steps(30, end) 1s 1
-                                normal both,
-                            animated-cursor__2 900ms steps(30, end) infinite;
-                        -webkit-animation-delay: 5s;
-                        animation-delay: 5s;
-                    }
-                }
+                font-weight: 600;
+                font-size: 18px;
             }
             .content {
                 font-family: 'Inter';
@@ -69,14 +55,12 @@ body {
             padding-top: 0 !important;
         }
         .main-login {
-            /*url(../js/assets/images/sinhnhat/img_left.svg),
-                url(../js/assets/images/sinhnhat/img_right.svg),
-                url(../js/assets/images/sinhnhat/img_bottom.svg);*/
-            background-image: url(../js/assets/images/sinhnhat/bg_login.svg);
+            background-image: url(../js/assets/images/eventBirthday2024/bg_login_event.svg);
             background-repeat: no-repeat;
             background-size: 100%;
             height: 100vh;
             position: relative;
+            background-position: bottom;
             &.bachnhat {
                 background-image: url(../js/assets/images/sinhnhat/bachnhat_bg.jpg);
                 background-size: 100% 100%;
@@ -120,76 +104,17 @@ body {
                 background-repeat: no-repeat;
                 background-size: 100% 100%;
             }
-            &:before {
-                width: 100%;
-                height: 100vh;
-                position: absolute;
-                left: 0;
-                top: 0;
-                background: rgba(0, 0, 0, 0.75);
-                content: '';
-                -webkit-backdrop-filter: blur(10px);
-                backdrop-filter: blur(10px);
-            }
             .display-flex {
-                display: grid;
-                grid-template-columns: 2fr;
-                grid-template-rows: 1fr;
-                gap: 0px 20px;
+                display: flex;
+                flex-direction: column;
+                flex-wrap: nowrap;
                 justify-content: center;
-                justify-items: center;
+                align-items: center;
+                height: 100%;
                 position: relative;
                 z-index: 1;
                 &.bachnhat {
                     bottom: 25px;
-                }
-                .info {
-                    display: flex;
-                    flex-direction: column;
-                    flex-wrap: nowrap;
-                    justify-content: center;
-                    align-items: center;
-                    align-content: center;
-                    .logo {
-                        position: relative;
-                        top: 65px;
-                    }
-                    .title-h1 {
-                        font-size: 160px;
-                        background: #ffffff;
-                        background: linear-gradient(
-                            to bottom,
-                            #ffffff 28%,
-                            #ead87f 87%
-                        );
-                        -webkit-background-clip: text;
-                        -webkit-text-fill-color: transparent;
-                        margin: -10px 0 0;
-                        font-weight: 600;
-                        /*filter: drop-shadow(0 0 0.75rem rgba(234, 216, 127, 0.4)); */
-                        text-shadow: -4px -4px 10px rgba(255, 255, 255, 0.5),
-                            1px 1px 10px rgba(234, 216, 127, 0.3);
-                        /* -webkit-filter: drop-shadow(0 0 0.75rem rgba(234, 216, 127, 0.4));*/
-                        &.bachnhat {
-                            font-size: 140px;
-                        }
-                    }
-                    .date {
-                        font-size: 70px;
-                        background: #ffffff;
-                        background: linear-gradient(
-                            to bottom,
-                            #ffffff 28%,
-                            #ead87f 87%
-                        );
-                        -webkit-background-clip: text;
-                        -webkit-text-fill-color: transparent;
-                        text-shadow: -2px -2px 10px rgba(255, 255, 255, 0.7),
-                            2px 2px 10px rgba(234, 216, 127, 0.4);
-                        &.bachnhat {
-                            font-weight: 500;
-                        }
-                    }
                 }
                 .divider {
                     margin: 20px 0;
@@ -202,29 +127,29 @@ body {
         .more {
             line-height: 60px;
             cursor: pointer;
-            background-image: url(../js/assets/images/sinhnhat/readmore.svg);
-            width: 330px;
-            height: 66px;
+            background-image: url(../js/assets/images/eventBirthday2024/button_login.svg);
+            width: 323px;
+            height: 60px;
             background-size: 100%;
             text-align: center;
-            text-transform: uppercase;
-            color: #66494e;
-            font-size: 32px;
+            color: #664b11;
+            font-size: 22px;
         }
         .button-close {
-            background: url(../js/assets/images/sinhnhat/close.svg);
-            width: 75px;
-            height: 75px;
+            background: url(../js/assets/images/eventBirthday2024/icon_close.svg);
+            width: 58px;
+            height: 58px;
             cursor: pointer;
             position: absolute;
-            right: 23px;
-            top: 15px;
+            right: 75px;
+            top: 130px;
+            background-size: 100%;
         }
         .title-form {
-            font-size: 32px;
-            color: #66494e;
+            font-size: 18px;
+            color: #343d40;
             font-weight: 600;
-            margin: 0 0 14px;
+            margin: 0 0 10px;
             text-align: center;
         }
         .navbar {
@@ -236,8 +161,9 @@ body {
                 display: flex;
                 margin: 0;
                 padding: 0;
+                font-family: 'LacLongQuan';
                 li {
-                    padding: 0 10px;
+                    padding: 0 20px;
                     position: relative;
 
                     &:last-child {
@@ -249,10 +175,9 @@ body {
                     }
                     a {
                         text-transform: uppercase;
-                        font-size: 22px;
+                        font-size: 18px;
                         line-height: 30px;
-                        font-weight: 600;
-                        color: #66494e;
+                        color: #fff;
                         transition: all 0.3s ease-in-out;
                         -webkit-transition: all 0.3s ease-in-out;
                         -moz-transition: all 0.3s ease-in-out;
@@ -261,7 +186,7 @@ body {
                         position: relative;
                         &::after {
                             content: '';
-                            border-bottom: 2px solid #66494e;
+                            border-bottom: 2px solid #fff;
                             width: 0;
                             transition: all 0.3s ease-in-out;
                             -webkit-transition: all 0.3s ease-in-out;
@@ -285,12 +210,16 @@ body {
                         &::before {
                             content: '';
                             position: absolute;
-                            right: -10px;
+                            right: -20px;
                             width: 2px;
-                            height: 20px;
-                            background-color: #66494e;
+                            height: 15px;
+                            background-color: #fff;
                             top: 50%;
-                            transform: translate(0px, -8px);
+                            transform: translate(0px, -5px);
+                            -webkit-transform: translate(0px, -5px);
+                            -moz-transform: translate(0px, -5px);
+                            -ms-transform: translate(0px, -5px);
+                            -o-transform: translate(0px, -5px);
                         }
                     }
                 }
