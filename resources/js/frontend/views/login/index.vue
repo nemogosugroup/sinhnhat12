@@ -33,7 +33,7 @@
             <!-- <span class="bg_left"></span>
             <span class="bg_right"></span>
             <span class="bg_bottom"></span> -->
-            <div class="display-flex">
+            <div class="display-flex" v-if="!showDialog">
                 <div class="info">
                     <div class="logo">
                         <el-image :src="LogoLoginPage" />

@@ -48,6 +48,11 @@ export default {
         ...mapGetters(["user"]),
     },
     methods: {
+        async handleLogout() {
+            await this.$store.dispatch("user/logout");
+            this.emitter.emit("clicked-logout", true);
+            this.$router.push(`/login`);
+        }
     },
 };
 </script>

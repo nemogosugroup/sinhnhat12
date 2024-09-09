@@ -2,10 +2,160 @@
     <div class="wrap-moonwalk">
         <div class="wrap-moonwalk__content">
             <el-row justify="center">
-                <el-col :span="15">
-                    <h1 class="title-h1">Cổng moonwalk</h1>
-                    <h2 class="title-h2">CÙNG NHÌN LẠI MỘT HÀNH TRÌNH DÀI</h2>
-                    <div class="wrap-moonwalk__timeline">
+                <el-col :span="24">
+                    <swiper :slidesPerView="1" :navigation="true" :modules="modules" :spaceBetween="0" class="mySwiper"
+                        @swiper="onSwiper" @slideChange="onSlideChange">
+                        <swiper-slide>
+                            <div class="wrap-timeline">
+                                <el-row>
+                                    <el-col :span="4">
+                                        <div class="images">
+                                            <el-image :src="imgElm.moonWalk" />
+                                        </div>
+                                        <div class="back_button">
+                                            <RouterLink to="/" class="back bg_border font_beaufort">Home
+                                            </RouterLink>
+                                        </div>
+                                    </el-col>
+                                    <el-col :span="20">
+                                        <div class="content_timeline">
+                                            <el-scrollbar ref="scrollbarRef" height="465px" always @scroll="scroll">
+                                                <el-row>
+                                                    <el-col :span="4">
+                                                        <span class="year font_beaufort w600 size68">2022</span>
+                                                        <div class='content font_myriad_con'>
+                                                            Lorem Ipsum is simply dummy text of the printing and
+                                                            typesetting
+                                                            industry. Lorem Ipsum has been the industry's standard dummy
+                                                            text ever since the 1500s, when an unknown printer took a
+                                                            galley
+                                                            of type and scrambled it to make a type specimen book. It
+                                                            has
+                                                            survived not only five centuries, but also the leap into
+                                                            electronic typesetting, remaining essentially unchanged. It
+                                                            was
+                                                            popularised in the 1960s with the release of Letraset sheets
+                                                            containing Lorem Ipsum passages, and more recently with
+                                                            desktop
+                                                            publishing software like Aldus PageMaker including versions
+                                                            of
+                                                            Lorem Ipsum.
+                                                            Lorem Ipsum is simply dummy text of the printing and
+                                                            typesetting
+                                                            industry. Lorem Ipsum has been the industry's standard dummy
+                                                            text ever since the 1500s, when an unknown printer took a
+                                                            galley
+                                                            of type and scrambled it to make a type specimen book. It
+                                                            has
+                                                            survived not only five centuries, but also the leap into
+                                                            electronic typesetting, remaining essentially unchanged. It
+                                                            was
+                                                            popularised in the 1960s with the release of Letraset sheets
+                                                            containing Lorem Ipsum passages, and more recently with
+                                                            desktop
+                                                            publishing software like Aldus PageMaker including versions
+                                                            of
+                                                            Lorem Ipsum.
+                                                        </div>
+                                                    </el-col>
+                                                    <el-col :span="20">
+                                                        <ul class="list_images">
+                                                            <li><el-image :src="imgElm.bannerTimeline" /></li>
+                                                            <li><el-image :src="imgElm.bannerTimeline" /></li>
+                                                            <li><el-image :src="imgElm.bannerTimeline" /></li>
+                                                        </ul>
+                                                    </el-col>
+                                                </el-row>
+                                            </el-scrollbar>
+                                        </div>
+                                    </el-col>
+                                </el-row>
+                                <div class="list-timeline">
+                                    <div class="bg_border total_silk">
+                                        <div class="content_total">
+                                            <span class="icon"></span>
+                                            <div class="title_total">
+                                                <span>Tổng kim tơ</span>
+                                                <span>15000</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <ul class="lists">
+                                        <li class="item_list" v-for="(item, key) in listTimeLine" :key="key">
+                                            <span class="icon_timeline"></span>
+                                            <div class="item__year">
+                                                <span class="year">{{ item.year }}</span>
+                                                <p>
+                                                    <span>10000</span>
+                                                    <span>kimto</span>
+                                                </p>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </swiper-slide>
+                        <swiper-slide>
+                            <div class="wrap_tree">
+                                <div class="container-true">
+                                    <div class="trunk">
+                                        <div class="trunk_tree">
+                                            <img :src="imgElm.nguyetDa" alt="">
+                                        </div>
+                                        <!-- <div class="branches">
+                                            <div v-for="(user, key) in listEmployee" :key="key"
+                                                :class="`leaf leaf_${key}`" @click="handleShowEmployee(user.hoten)">
+                                                <div class="leaf__content">
+                                                    <img :src="user.avatar" :alt="user.hoten">
+                                                </div>
+                                            </div>
+                                        </div> -->
+                                    </div>
+                                    <div class="wrap_nguyetdat_search">
+                                        <div class="title_nguyetda">
+                                            <img :src="imgElm.nguyetDattitle" alt="">
+                                        </div>
+                                        <div class="wrap-search">
+                                            <search-employee ref="searchEmployee" :name-employee="nameEmployee"
+                                                @update:name-employee="updateNameEmployee"></search-employee>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </swiper-slide>
+                    </swiper>
+
+                    <!-- <swiper :grabCursor="true" :autoHeight=true :slidesPerView="5" :spaceBetween="0" class="mySwiper"
+                        @swiper="onSwiper" @slideChange="onSlideChange">
+                        <swiper-slide v-for="(item, key) in listTimeLine" :key="key">
+                            <div
+                                :class="`item ${item.isActive && item.showTimeline ? 'active' : ''} ${item.isShow ? 'leftContent' : ''}`">
+                                <div v-if="item.isActive && item.showTimeline" :class="`listImages`">
+                                    <div class="item_img" v-for="(url, key) in item.listImages" :key="key">
+                                        <el-image class="images" :src="`/static/uploads/sinhnhat/default.png`"
+                                            style="width: 200px; height: 150px;" :fit="`cover`" />
+                                    </div>
+                                </div>
+                                <div :class="`item__year ${item.isLast ? 'lastItem' : ''}`"
+                                    @click="handleShowData(item.year)">
+                                    <span class="icon"></span>
+                                    <span class="year">{{ item.year }}</span>
+                                </div>
+                                <div class="item__content" v-if="item.isActive && item.showTimeline">
+                                    <span class="line"></span>
+                                    <div class="item__content__title">{{ item.title }}</div>
+                                    <div class="item__content__desc">{{ item.content }}</div>
+                                    <div class="item__images">
+                                        <div class="item_img" v-for="(url, key) in item.listImages" :key="key">
+                                            <el-image class="images" :src="`/static/uploads/sinhnhat/default.png`"
+                                                style="width: 60px; height: 60px;" :fit="`cover`" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </swiper-slide>
+                    </swiper> -->
+                    <!-- <div class="wrap-moonwalk__timeline">
                         <swiper :grabCursor="true" :autoHeight=true :slidesPerView="5" :spaceBetween="0"
                             class="mySwiper" @swiper="onSwiper" @slideChange="onSlideChange">
                             <swiper-slide v-for="(item, key) in listTimeLine" :key="key">
@@ -36,15 +186,14 @@
                                 </div>
                             </swiper-slide>
                         </swiper>
-                    </div>
+                    </div> -->
                 </el-col>
-                <el-col :span="9">
+                <!-- <el-col :span="9">
                     <div class="container-true">
                         <div class="trunk">
                             <div class="trunk_tree">
                                 <img :src="tree" alt="">
                             </div>
-                            <!-- :style="{ top: user.top + 'px', left: user.left + 'px' } -->
                             <div class="branches">
                                 <div v-for="(user, key) in listEmployee" :key="key" :class="`leaf leaf_${key}`"
                                     @click="handleShowEmployee(user.hoten)">
@@ -59,7 +208,7 @@
                                 @update:name-employee="updateNameEmployee"></search-employee>
                         </div>
                     </div>
-                </el-col>
+                </el-col> -->
             </el-row>
         </div>
         <RouterLink to="/" class="back"><i class="ri-arrow-left-s-fill"></i> Quay lại công viên</RouterLink>
@@ -68,12 +217,20 @@
 
 <script>
 import treeImg from "@/assets/images/sinhnhat/tree.png";
+import moonWalk from "@/assets/images/eventBirthday2024/icon_moonwalk_title.png";
+import nguyetDattitle from "@/assets/images/eventBirthday2024/icon_nguyet_da_title.png";
+import Arrow from "@/assets/images/eventBirthday2024/icon_muiten.svg";
+import moon from "@/assets/images/eventBirthday2024/icon_moon.png";
+import bannerTimeline from "@/assets/images/eventBirthday2024/banner-wweb.png";
+import nguyetDa from "@/assets/images/eventBirthday2024/nguyet_da.png";
 import SearchEmployee from "@frontend/components/SearchEmployee";
 import { dataTimeline } from './timeline';
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import 'swiper/css';
 import { mapGetters } from "vuex";
 import { Employee } from '@frontend/components/SearchEmployee/data';
+import { Navigation } from 'swiper/modules';
+import 'swiper/css/navigation';
 export default {
     components: { Swiper, SwiperSlide, SearchEmployee },
     data() {
@@ -85,7 +242,20 @@ export default {
             treeHeight: 410,
             indexSlider: 4,
             nameEmployee: null,
+            imgElm: {
+                moonWalk: moonWalk,
+                nguyetDattitle: nguyetDattitle,
+                moon: moon,
+                arrow: Arrow,
+                bannerTimeline: bannerTimeline,
+                nguyetDa: nguyetDa,
+            }
         }
+    },
+    setup() {
+        return {
+            modules: [Navigation],
+        };
     },
     computed: {
         ...mapGetters(["silk"]),
@@ -184,70 +354,125 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import "~@style/style_moonwalk.scss";
-// @for $i from 0 through 190 {
-//     .leaf_#{$i} {
-//         top: #{random(300)}px;
-//         left: #{random(300)}px;
-//     }
-// }
-
 .wrap-moonwalk {
     padding: 100px 40px 80px;
+    background-image: url('../../../assets/images/eventBirthday2024/bg_moonwalk.jpg');
+    background-position: left top;
+    background-repeat: no-repeat;
 
-    .title-h1 {
-        font-size: 150px;
-        background: #ffffff;
-        background: linear-gradient(to bottom, #833602 31%, #A8622E 65%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        margin: 30px 0 0;
-        font-family: 'Phudu';
-        // margin: -10px 0 0;
-        // font-weight: 600;
-        // /* filter: drop-shadow(0 0 0.75rem rgba(234, 216, 127, 0.4)); */
-        // text-shadow: -4px -4px 10px rgba(255, 255, 255, 0.5), 1px 1px 10px rgba(234, 216, 127, 0.3);
-        // /* -webkit-filter: drop-shadow(0 0 0.75rem rgba(234, 216, 127, 0.4));
-    }
-
-    .title-h2 {
-        font-family: 'Inter';
-        font-size: 32px;
-        font-weight: 600;
-        margin: 0;
+    .bg_border {
+        background-image: url('../../../assets/images/eventBirthday2024/bg_border.png');
+        width: 190px;
+        height: 58px;
+        display: flex;
+        align-items: center;
+        font-size: 28px;
+        justify-content: center;
     }
 
     .back {
-        position: absolute;
-        bottom: 20px;
-        left: 40px;
-        font-weight: 500;
-        font-size: 26px;
+        background-image: url('../../../assets/images/eventBirthday2024/bg_border.png');
+        width: 190px;
+        height: 58px;
+        display: flex;
+        align-items: center;
+        font-size: 28px;
+        justify-content: center;
+        color: #f9e3bb;
+        margin-top: 25px;
 
-        &:after {
+        &:before {
             content: '';
-            border-bottom: 2px solid #66494e;
-            position: absolute;
-            width: 0;
+            background-image: url('../../../assets/images/eventBirthday2024/icon_muiten.svg');
+            width: 50px;
+            height: 50px;
+            display: flex;
+            background-size: 100%;
+            background-repeat: no-repeat;
+            transform: rotate(90deg);
+            margin-right: 10px;
+            transition: all .3s ease;
+            position: relative;
             left: 0;
-            bottom: -3px;
-            transition: all .3s ease-in-out;
         }
 
         &:hover {
-            color: #66494e;
-
-            &:after {
-                transition: all .3s ease-in-out;
-                width: 100%;
+            &:before {
+                transition: all .3s ease;
+                left: -5px;
             }
         }
     }
 
+    .content_timeline {
+        .year {
+            color: #73b3c6;
+            display: flex;
+            position: relative;
+            flex-direction: column;
 
-    .swiper {
-        padding-top: 190px;
-        padding-bottom: 15px;
+            &::after {
+                content: '';
+                width: 40px;
+                height: 1px;
+                background-color: #678d81;
+                display: block;
+                margin: 20px 0;
+            }
+        }
+
+        .content {
+            color: #fff;
+            font-size: 18px;
+            line-height: 26px;
+        }
+
+        .list_images {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            justify-content: flex-start;
+            align-items: stretch;
+            align-content: stretch;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+
+            li {
+                padding: 10px;
+
+                :deep(.el-image) {
+                    border-radius: 15px;
+                    box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, .35)
+                }
+
+                :deep(.el-image__inner) {
+                    border-radius: 15px;
+                }
+            }
+        }
+    }
+
+    .list-timeline {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        align-items: center;
+        align-content: stretch;
+        margin-top: 45px;
+
+        .lists {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            justify-content: flex-start;
+            align-items: center;
+            align-content: stretch;
+            margin: 0;
+            list-style: none;
+            padding: 0;
+        }
     }
 
     .item {
