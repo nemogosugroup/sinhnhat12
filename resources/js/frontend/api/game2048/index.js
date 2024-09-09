@@ -30,5 +30,12 @@ export default {
             url: `${resource}` + '/logs-list',
             method: 'get'
         });
-    }
+    },
+
+    setFirstTimeToFalse() {
+        return request({
+            url: `${resource}` + '/set-first-time-to-false',
+            method: 'post'
+        });
+    },
 };
