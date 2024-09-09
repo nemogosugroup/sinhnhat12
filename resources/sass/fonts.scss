@@ -1,0 +1,460 @@
+@import url('https://fonts.googleapis.com/css2?family=Phudu:wght@300..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+@font-face {
+    font-family: 'LacLongQuan';
+    src: url('./fonts/UVNLacLongQuan_R.otf') format('truetype');
+}
+@font-face {
+    font-family: 'Spiegel';
+    src: url('./fonts/event_birthday_fonts/Spiegel-BoldItalic.eot');
+    src: url('./fonts/event_birthday_fonts/Spiegel-BoldItalic.eot?#iefix')
+            format('embedded-opentype'),
+        url('./fonts/event_birthday_fonts/Spiegel-BoldItalic.woff2')
+            format('woff2'),
+        url('./fonts/event_birthday_fonts/Spiegel-BoldItalic.woff')
+            format('woff'),
+        url('./fonts/event_birthday_fonts/Spiegel-BoldItalic.ttf')
+            format('truetype'),
+        url('./fonts/event_birthday_fonts/Spiegel-BoldItalic.svg#Spiegel-BoldItalic')
+            format('svg');
+    font-weight: bold;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Spiegel';
+    src: url('./fonts/event_birthday_fonts/Spiegel-Bold.eot');
+    src: url('./fonts/event_birthday_fonts/Spiegel-Bold.eot?#iefix')
+            format('embedded-opentype'),
+        url('./fonts/event_birthday_fonts/Spiegel-Bold.woff2') format('woff2'),
+        url('./fonts/event_birthday_fonts/Spiegel-Bold.woff') format('woff'),
+        url('./fonts/event_birthday_fonts/Spiegel-Bold.ttf') format('truetype'),
+        url('./fonts/event_birthday_fonts/Spiegel-Bold.svg#Spiegel-Bold')
+            format('svg');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Spiegel';
+    src: url('./fonts/event_birthday_fonts/Spiegel-RegularItalic.eot');
+    src: url('./fonts/event_birthday_fonts/Spiegel-RegularItalic.eot?#iefix')
+            format('embedded-opentype'),
+        url('./fonts/event_birthday_fonts/Spiegel-RegularItalic.woff2')
+            format('woff2'),
+        url('./fonts/event_birthday_fonts/Spiegel-RegularItalic.woff')
+            format('woff'),
+        url('./fonts/event_birthday_fonts/Spiegel-RegularItalic.ttf')
+            format('truetype'),
+        url('./fonts/event_birthday_fonts/Spiegel-RegularItalic.svg#Spiegel-RegularItalic')
+            format('svg');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Spiegel';
+    src: url('./fonts/event_birthday_fonts/Spiegel-Regular.eot');
+    src: url('./fonts/event_birthday_fonts/Spiegel-Regular.eot?#iefix')
+            format('embedded-opentype'),
+        url('./fonts/event_birthday_fonts/Spiegel-Regular.woff2')
+            format('woff2'),
+        url('./fonts/event_birthday_fonts/Spiegel-Regular.woff') format('woff'),
+        url('./fonts/event_birthday_fonts/Spiegel-Regular.ttf')
+            format('truetype'),
+        url('./fonts/event_birthday_fonts/Spiegel-Regular.svg#Spiegel-Regular')
+            format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Spiegel';
+    src: url('./fonts/event_birthday_fonts/Spiegel-SemiBoldItalic.eot');
+    src: url('./fonts/event_birthday_fonts/Spiegel-SemiBoldItalic.eot?#iefix')
+            format('embedded-opentype'),
+        url('./fonts/event_birthday_fonts/Spiegel-SemiBoldItalic.woff2')
+            format('woff2'),
+        url('./fonts/event_birthday_fonts/Spiegel-SemiBoldItalic.woff')
+            format('woff'),
+        url('./fonts/event_birthday_fonts/Spiegel-SemiBoldItalic.ttf')
+            format('truetype'),
+        url('./fonts/event_birthday_fonts/Spiegel-SemiBoldItalic.svg#Spiegel-SemiBoldItalic')
+            format('svg');
+    font-weight: 600;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Spiegel';
+    src: url('./fonts/event_birthday_fonts/Spiegel-SemiBold.eot');
+    src: url('./fonts/event_birthday_fonts/Spiegel-SemiBold.eot?#iefix')
+            format('embedded-opentype'),
+        url('./fonts/event_birthday_fonts/Spiegel-SemiBold.woff2')
+            format('woff2'),
+        url('./fonts/event_birthday_fonts/Spiegel-SemiBold.woff') format('woff'),
+        url('./fonts/event_birthday_fonts/Spiegel-SemiBold.ttf')
+            format('truetype'),
+        url('./fonts/event_birthday_fonts/Spiegel-SemiBold.svg#Spiegel-SemiBold')
+            format('svg');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Beaufort';
+    src: url('./fonts/event_birthday_fonts/BeaufortforLOL-BoldItalic.eot');
+    src: url('./fonts/event_birthday_fonts/BeaufortforLOL-BoldItalic.eot?#iefix')
+            format('embedded-opentype'),
+        url('./fonts/event_birthday_fonts/BeaufortforLOL-BoldItalic.woff2')
+            format('woff2'),
+        url('./fonts/event_birthday_fonts/BeaufortforLOL-BoldItalic.woff')
+            format('woff'),
+        url('./fonts/event_birthday_fonts/BeaufortforLOL-BoldItalic.ttf')
+            format('truetype'),
+        url('./fonts/event_birthday_fonts/BeaufortforLOL-BoldItalic.svg#BeaufortforLOL-BoldItalic')
+            format('svg');
+    font-weight: bold;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Beaufort';
+    src: url('./fonts/event_birthday_fonts/BeaufortforLOL-Bold.eot');
+    src: url('./fonts/event_birthday_fonts/BeaufortforLOL-Bold.eot?#iefix')
+            format('embedded-opentype'),
+        url('./fonts/event_birthday_fonts/BeaufortforLOL-Bold.woff2')
+            format('woff2'),
+        url('./fonts/event_birthday_fonts/BeaufortforLOL-Bold.woff')
+            format('woff'),
+        url('./fonts/event_birthday_fonts/BeaufortforLOL-Bold.ttf')
+            format('truetype'),
+        url('./fonts/event_birthday_fonts/BeaufortforLOL-Bold.svg#BeaufortforLOL-Bold')
+            format('svg');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Beaufort';
+    src: url('./fonts/event_birthday_fonts/BeaufortforLOL-Heavy.eot');
+    src: url('./fonts/event_birthday_fonts/BeaufortforLOL-Heavy.eot?#iefix')
+            format('embedded-opentype'),
+        url('./fonts/event_birthday_fonts/BeaufortforLOL-Heavy.woff2')
+            format('woff2'),
+        url('./fonts/event_birthday_fonts/BeaufortforLOL-Heavy.woff')
+            format('woff'),
+        url('./fonts/event_birthday_fonts/BeaufortforLOL-Heavy.ttf')
+            format('truetype'),
+        url('./fonts/event_birthday_fonts/BeaufortforLOL-Heavy.svg#BeaufortforLOL-Heavy')
+            format('svg');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Beaufort';
+    src: url('./fonts/event_birthday_fonts/BeaufortforLOL-Italic.eot');
+    src: url('./fonts/event_birthday_fonts/BeaufortforLOL-Italic.eot?#iefix')
+            format('embedded-opentype'),
+        url('./fonts/event_birthday_fonts/BeaufortforLOL-Italic.woff2')
+            format('woff2'),
+        url('./fonts/event_birthday_fonts/BeaufortforLOL-Italic.woff')
+            format('woff'),
+        url('./fonts/event_birthday_fonts/BeaufortforLOL-Italic.ttf')
+            format('truetype'),
+        url('./fonts/event_birthday_fonts/BeaufortforLOL-Italic.svg#BeaufortforLOL-Italic')
+            format('svg');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Beaufort';
+    src: url('./fonts/event_birthday_fonts/BeaufortforLOL-Light.eot');
+    src: url('./fonts/event_birthday_fonts/BeaufortforLOL-Light.eot?#iefix')
+            format('embedded-opentype'),
+        url('./fonts/event_birthday_fonts/BeaufortforLOL-Light.woff2')
+            format('woff2'),
+        url('./fonts/event_birthday_fonts/BeaufortforLOL-Light.woff')
+            format('woff'),
+        url('./fonts/event_birthday_fonts/BeaufortforLOL-Light.ttf')
+            format('truetype'),
+        url('./fonts/event_birthday_fonts/BeaufortforLOL-Light.svg#BeaufortforLOL-Light')
+            format('svg');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Beaufort';
+    src: url('./fonts/event_birthday_fonts/BeaufortforLOL-HeavyItalic.eot');
+    src: url('./fonts/event_birthday_fonts/BeaufortforLOL-HeavyItalic.eot?#iefix')
+            format('embedded-opentype'),
+        url('./fonts/event_birthday_fonts/BeaufortforLOL-HeavyItalic.woff2')
+            format('woff2'),
+        url('./fonts/event_birthday_fonts/BeaufortforLOL-HeavyItalic.woff')
+            format('woff'),
+        url('./fonts/event_birthday_fonts/BeaufortforLOL-HeavyItalic.ttf')
+            format('truetype'),
+        url('./fonts/event_birthday_fonts/BeaufortforLOL-HeavyItalic.svg#BeaufortforLOL-HeavyItalic')
+            format('svg');
+    font-weight: 900;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Beaufort';
+    src: url('./fonts/event_birthday_fonts/BeaufortforLOL-LightItalic.eot');
+    src: url('./fonts/event_birthday_fonts/BeaufortforLOL-LightItalic.eot?#iefix')
+            format('embedded-opentype'),
+        url('./fonts/event_birthday_fonts/BeaufortforLOL-LightItalic.woff2')
+            format('woff2'),
+        url('./fonts/event_birthday_fonts/BeaufortforLOL-LightItalic.woff')
+            format('woff'),
+        url('./fonts/event_birthday_fonts/BeaufortforLOL-LightItalic.ttf')
+            format('truetype'),
+        url('./fonts/event_birthday_fonts/BeaufortforLOL-LightItalic.svg#BeaufortforLOL-LightItalic')
+            format('svg');
+    font-weight: 300;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Beaufort';
+    src: url('./fonts/event_birthday_fonts/BeaufortforLOL-Regular.eot');
+    src: url('./fonts/event_birthday_fonts/BeaufortforLOL-Regular.eot?#iefix')
+            format('embedded-opentype'),
+        url('./fonts/event_birthday_fonts/BeaufortforLOL-Regular.woff2')
+            format('woff2'),
+        url('./fonts/event_birthday_fonts/BeaufortforLOL-Regular.woff')
+            format('woff'),
+        url('./fonts/event_birthday_fonts/BeaufortforLOL-Regular.ttf')
+            format('truetype'),
+        url('./fonts/event_birthday_fonts/BeaufortforLOL-Regular.svg#BeaufortforLOL-Regular')
+            format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Beaufort';
+    src: url('./fonts/event_birthday_fonts/BeaufortforLOL-MediumItalic.eot');
+    src: url('./fonts/event_birthday_fonts/BeaufortforLOL-MediumItalic.eot?#iefix')
+            format('embedded-opentype'),
+        url('./fonts/event_birthday_fonts/BeaufortforLOL-MediumItalic.woff2')
+            format('woff2'),
+        url('./fonts/event_birthday_fonts/BeaufortforLOL-MediumItalic.woff')
+            format('woff'),
+        url('./fonts/event_birthday_fonts/BeaufortforLOL-MediumItalic.ttf')
+            format('truetype'),
+        url('./fonts/event_birthday_fonts/BeaufortforLOL-MediumItalic.svg#BeaufortforLOL-MediumItalic')
+            format('svg');
+    font-weight: 500;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Beaufort';
+    src: url('./fonts/event_birthday_fonts/BeaufortforLOL-Medium.eot');
+    src: url('./fonts/event_birthday_fonts/BeaufortforLOL-Medium.eot?#iefix')
+            format('embedded-opentype'),
+        url('./fonts/event_birthday_fonts/BeaufortforLOL-Medium.woff2')
+            format('woff2'),
+        url('./fonts/event_birthday_fonts/BeaufortforLOL-Medium.woff')
+            format('woff'),
+        url('./fonts/event_birthday_fonts/BeaufortforLOL-Medium.ttf')
+            format('truetype'),
+        url('./fonts/event_birthday_fonts/BeaufortforLOL-Medium.svg#BeaufortforLOL-Medium')
+            format('svg');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Myriad Pro';
+    src: url('./fonts/event_birthday_fonts/MyriadPro-Bold.eot');
+    src: url('./fonts/event_birthday_fonts/MyriadPro-Bold.eot?#iefix')
+            format('embedded-opentype'),
+        url('./fonts/event_birthday_fonts/MyriadPro-Bold.woff2') format('woff2'),
+        url('./fonts/event_birthday_fonts/MyriadPro-Bold.woff') format('woff'),
+        url('./fonts/event_birthday_fonts/MyriadPro-Bold.ttf')
+            format('truetype'),
+        url('./fonts/event_birthday_fonts/MyriadPro-Bold.svg#MyriadPro-Bold')
+            format('svg');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Myriad Pro';
+    src: url('./fonts/event_birthday_fonts/MyriadPro-BoldCondIt.eot');
+    src: url('./fonts/event_birthday_fonts/MyriadPro-BoldCondIt.eot?#iefix')
+            format('embedded-opentype'),
+        url('./fonts/event_birthday_fonts/MyriadPro-BoldCondIt.woff2')
+            format('woff2'),
+        url('./fonts/event_birthday_fonts/MyriadPro-BoldCondIt.woff')
+            format('woff'),
+        url('./fonts/event_birthday_fonts/MyriadPro-BoldCondIt.ttf')
+            format('truetype'),
+        url('./fonts/event_birthday_fonts/MyriadPro-BoldCondIt.svg#MyriadPro-BoldCondIt')
+            format('svg');
+    font-weight: bold;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Myriad Pro';
+    src: url('./fonts/event_birthday_fonts/MyriadPro-BoldIt.eot');
+    src: url('./fonts/event_birthday_fonts/MyriadPro-BoldIt.eot?#iefix')
+            format('embedded-opentype'),
+        url('./fonts/event_birthday_fonts/MyriadPro-BoldIt.woff2')
+            format('woff2'),
+        url('./fonts/event_birthday_fonts/MyriadPro-BoldIt.woff') format('woff'),
+        url('./fonts/event_birthday_fonts/MyriadPro-BoldIt.ttf')
+            format('truetype'),
+        url('./fonts/event_birthday_fonts/MyriadPro-BoldIt.svg#MyriadPro-BoldIt')
+            format('svg');
+    font-weight: bold;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Myriad Pro';
+    src: url('./fonts/event_birthday_fonts/MyriadPro-BoldCond.eot');
+    src: url('./fonts/event_birthday_fonts/MyriadPro-BoldCond.eot?#iefix')
+            format('embedded-opentype'),
+        url('./fonts/event_birthday_fonts/MyriadPro-BoldCond.woff2')
+            format('woff2'),
+        url('./fonts/event_birthday_fonts/MyriadPro-BoldCond.woff')
+            format('woff'),
+        url('./fonts/event_birthday_fonts/MyriadPro-BoldCond.ttf')
+            format('truetype'),
+        url('./fonts/event_birthday_fonts/MyriadPro-BoldCond.svg#MyriadPro-BoldCond')
+            format('svg');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Myriad Pro';
+    src: url('./fonts/event_birthday_fonts/MyriadPro-CondIt.eot');
+    src: url('./fonts/event_birthday_fonts/MyriadPro-CondIt.eot?#iefix')
+            format('embedded-opentype'),
+        url('./fonts/event_birthday_fonts/MyriadPro-CondIt.woff2')
+            format('woff2'),
+        url('./fonts/event_birthday_fonts/MyriadPro-CondIt.woff') format('woff'),
+        url('./fonts/event_birthday_fonts/MyriadPro-CondIt.ttf')
+            format('truetype'),
+        url('./fonts/event_birthday_fonts/MyriadPro-CondIt.svg#MyriadPro-CondIt')
+            format('svg');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Myriad Pro';
+    src: url('./fonts/event_birthday_fonts/MyriadPro-Cond.eot');
+    src: url('./fonts/event_birthday_fonts/MyriadPro-Cond.eot?#iefix')
+            format('embedded-opentype'),
+        url('./fonts/event_birthday_fonts/MyriadPro-Cond.woff2') format('woff2'),
+        url('./fonts/event_birthday_fonts/MyriadPro-Cond.woff') format('woff'),
+        url('./fonts/event_birthday_fonts/MyriadPro-Cond.ttf')
+            format('truetype'),
+        url('./fonts/event_birthday_fonts/MyriadPro-Cond.svg#MyriadPro-Cond')
+            format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Myriad Pro';
+    src: url('./fonts/event_birthday_fonts/MyriadPro-SemiboldIt.eot');
+    src: url('./fonts/event_birthday_fonts/MyriadPro-SemiboldIt.eot?#iefix')
+            format('embedded-opentype'),
+        url('./fonts/event_birthday_fonts/MyriadPro-SemiboldIt.woff2')
+            format('woff2'),
+        url('./fonts/event_birthday_fonts/MyriadPro-SemiboldIt.woff')
+            format('woff'),
+        url('./fonts/event_birthday_fonts/MyriadPro-SemiboldIt.ttf')
+            format('truetype'),
+        url('./fonts/event_birthday_fonts/MyriadPro-SemiboldIt.svg#MyriadPro-SemiboldIt')
+            format('svg');
+    font-weight: 600;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Myriad Pro';
+    src: url('./fonts/event_birthday_fonts/MyriadPro-Regular.eot');
+    src: url('./fonts/event_birthday_fonts/MyriadPro-Regular.eot?#iefix')
+            format('embedded-opentype'),
+        url('./fonts/event_birthday_fonts/MyriadPro-Regular.woff2')
+            format('woff2'),
+        url('./fonts/event_birthday_fonts/MyriadPro-Regular.woff')
+            format('woff'),
+        url('./fonts/event_birthday_fonts/MyriadPro-Regular.ttf')
+            format('truetype'),
+        url('./fonts/event_birthday_fonts/MyriadPro-Regular.svg#MyriadPro-Regular')
+            format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Myriad Pro';
+    src: url('./fonts/event_birthday_fonts/MyriadPro-Light.eot');
+    src: url('./fonts/event_birthday_fonts/MyriadPro-Light.eot?#iefix')
+            format('embedded-opentype'),
+        url('./fonts/event_birthday_fonts/MyriadPro-Light.woff2')
+            format('woff2'),
+        url('./fonts/event_birthday_fonts/MyriadPro-Light.woff') format('woff'),
+        url('./fonts/event_birthday_fonts/MyriadPro-Light.ttf')
+            format('truetype'),
+        url('./fonts/event_birthday_fonts/MyriadPro-Light.svg#MyriadPro-Light')
+            format('svg');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Myriad Pro';
+    src: url('./fonts/event_birthday_fonts/MyriadPro-Semibold.eot');
+    src: url('./fonts/event_birthday_fonts/MyriadPro-Semibold.eot?#iefix')
+            format('embedded-opentype'),
+        url('./fonts/event_birthday_fonts/MyriadPro-Semibold.woff2')
+            format('woff2'),
+        url('./fonts/event_birthday_fonts/MyriadPro-Semibold.woff')
+            format('woff'),
+        url('./fonts/event_birthday_fonts/MyriadPro-Semibold.ttf')
+            format('truetype'),
+        url('./fonts/event_birthday_fonts/MyriadPro-Semibold.svg#MyriadPro-Semibold')
+            format('svg');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}

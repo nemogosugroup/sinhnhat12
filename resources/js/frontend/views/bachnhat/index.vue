@@ -17,11 +17,7 @@
                     <el-image :src="Divider" />
                 </div>
                 <div class="countdown">
-                    <countdown
-                        :deadline="countdownDeadline"
-                        :labels="countDownLabels"
-                        :flipAnimation="false"
-                    />
+                    <countdown :deadline="countdownDeadline" :labels="countDownLabels" :flipAnimation="false" />
                 </div>
             </div>
         </el-main>
@@ -37,10 +33,10 @@ import bg_left from "@/assets/images/sinhnhat/img_left.svg";
 import bg_right from "@/assets/images/sinhnhat/img_right.svg";
 import img_bottom from "@/assets/images/sinhnhat/img_bottom.svg";
 
-import {Countdown} from 'vue3-flip-countdown'
+import { Countdown } from 'vue3-flip-countdown'
 export default {
     name: "BachNhat",
-    components: {Countdown},
+    components: { Countdown },
     data() {
         return {
             Logo12: Logo12,
@@ -55,7 +51,7 @@ export default {
             otherQuery: {},
             logo: imagesLogo,
             countdownDeadline: "2024-12-08",
-            countDownLabels: {days: 'ngày', hours: 'giờ', minutes: 'phút', seconds: 'giây',}
+            countDownLabels: { days: 'ngày', hours: 'giờ', minutes: 'phút', seconds: 'giây', }
 
         };
     },
@@ -97,46 +93,6 @@ export default {
 </script>
 <style>
 @import "~@style/style.scss";
-</style>
-<style lang="scss">
-$bg: hsl(213, 25%, 21%);
-// $bg: #432828;
-$light_gray: #616161;
-$cursor: #616161;
-
-@supports (-webkit-mask: none) and (not (cater-color: $cursor)) {
-    .login-container .el-input input {
-        color: $cursor;
-    }
-}
-
-/* reset element-ui css */
-.wrapper-birthday {
-    .login-container {
-        .el-input {
-            display: inline-block;
-            height: 47px;
-            width: calc(100% - 50px);
-
-            input {
-                background: transparent;
-                border: 0px;
-                -webkit-appearance: none;
-                border-radius: 0px;
-                padding: 12px 5px 12px 0px;
-                color: #616161;
-                height: 47px;
-                caret-color: #616161;
-
-                &:-webkit-autofill {
-                    box-shadow: 0 0 0px 1000px #fff inset !important;
-                    -webkit-text-fill-color: #616161 !important;
-                }
-            }
-        }
-
-    }
-}
 </style>
 
 <style lang="scss" scoped>
@@ -264,6 +220,7 @@ $height_logo: 70px;
         }
     }
 }
+
 .countdown {
     :deep(.flip-clock__piece) {
         width: 160px;
@@ -272,6 +229,7 @@ $height_logo: 70px;
         background-size: 100% 100%;
         background-repeat: no-repeat;
         margin: 0 25px;
+
         .no-animation__card {
             font-size: 64px;
             background: linear-gradient(to bottom, #ffffff 28%, #ead87f 87%);
@@ -280,6 +238,7 @@ $height_logo: 70px;
             position: relative;
             top: 25px;
         }
+
         .flip-clock__slot {
             font-family: Inter, serif;
             font-size: 20px;

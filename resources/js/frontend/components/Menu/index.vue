@@ -1,6 +1,6 @@
 <template>
     <div class="wrap-menu">
-        <ul :class="`menu ${isWhiteColor ? color : ''}`">
+        <ul :class="`menu ${color}`">
             <li><a href="https://gosucorp.vn/vi" target="_blank">Gosucorp</a></li>
             <li><a href="https://s20.gosu.vn/news" target="_blank">S20</a></li>
             <li><a href="#" @click="goToBachNhat">Bách Nhật</a></li>
@@ -11,7 +11,7 @@
 
 <script>
 
-import {mapGetters} from "vuex";
+import { mapGetters } from "vuex";
 
 export default {
     props: {
