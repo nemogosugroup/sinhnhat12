@@ -75,7 +75,7 @@
                                         <div class="content_total">
                                             <span class="icon"></span>
                                             <div class="title_total">
-                                                <span>Tổng kim tơ</span>
+                                                <span class="font_myriad_con">Tổng kim tơ</span>
                                                 <span>15000</span>
                                             </div>
                                         </div>
@@ -462,8 +462,34 @@ export default {
         align-content: stretch;
         margin-top: 45px;
 
+        .content_total {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            justify-content: flex-start;
+            align-items: center;
+            align-content: stretch;
+
+            span {
+                &:last-child {
+                    font-size: 22px;
+                    font-weight: 700;
+                }
+
+                font-size: 18px;
+                color:#fff;
+                display: block;
+                text-align: center;
+            }
+        }
+
         .icon {
             background-image: url('../../../assets/images/eventBirthday2024/icon_kimto_2.svg');
+            display: block;
+            width: 47px;
+            height: 46px;
+            background-size: 100%;
+            margin-right: 20px;
         }
 
         .lists {
