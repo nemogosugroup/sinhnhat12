@@ -168,10 +168,12 @@ class UserRepository implements UserRepositoryInterface
                 $user = User::where('email', $email)->first();
                 if($user){
                     $user->password = Hash::make($password);
+                    $user->first_time = true;
                     $user->save();
                 }else{
                     $user = $profile['data'];
                     $user['password'] = Hash::make($password);
+                    $user['first_time'] = true;
                     $this->createUser($user);
                 }
             }
@@ -326,5 +328,10 @@ class UserRepository implements UserRepositoryInterface
         }
 
         return $result;
+    }
+
+    public function setFirstTimeToFalse()
+    {
+        User::query()->where('id', auth()->user()->id)->update(['first_time' => false]);
     }
 }

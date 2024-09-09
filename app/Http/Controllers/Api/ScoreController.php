@@ -155,6 +155,26 @@ class ScoreController extends Controller
             );
             return response()->json([$results], ResponseAlias::HTTP_INTERNAL_SERVER_ERROR);
         }
+    }
 
+    public function setFirstTimeToFalse(): \Illuminate\Http\JsonResponse
+    {
+        try {
+            app(UserRepository::class)->setFirstTimeToFalse();
+            $results = array(
+                'success' => true,
+                'message' => $this->msg->getSuccess(),
+                'status' => ResponseAlias::HTTP_OK
+            );
+            return response()->json($results);
+
+        } catch (\Throwable $th) {
+            $results = array(
+                'message' => $th->getMessage(),
+                'success' => false,
+                'status' => ResponseAlias::HTTP_OK
+            );
+            return response()->json([$results], ResponseAlias::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
 }

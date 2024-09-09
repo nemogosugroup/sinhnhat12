@@ -46,6 +46,9 @@ import DialogWheelLogo from "@/assets/images/birthday12/map/dialog/dialog_wheel.
 import DialogWheelTitle from "@/assets/images/birthday12/map/dialog/dialog_wheel_text.png"
 import BubbleCallout from "@/assets/images/birthday12/map/bubble_callout.png"
 
+import RepositoryFactory from '@frontend/utils/RepositoryFactory';
+import {ElMessage} from "element-plus";
+const game2048Repository = RepositoryFactory.get('game2048');
 export default {
     name: 'MapDialog',
     components: { CaveContent, WheelContent },
@@ -98,6 +101,8 @@ export default {
         });
         this.emitter.on("hide-bubble-callout", () => {
             this.isShowBubble = false;
+            // call api update users.first_time = false
+            this.setFirstTimeToFalse();
         });
     },
     watch: {
@@ -119,6 +124,12 @@ export default {
         closeDialog() {
             this.isShowDialog = false;
             this.$emit('hideDialog', {});
+        },
+        async setFirstTimeToFalse() {
+            const { data } = await game2048Repository.setFirstTimeToFalse();
+            if (data.success) {
+                console.log('updated users.first_time = false')
+            }
         }
     }
 }

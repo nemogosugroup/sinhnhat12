@@ -171,6 +171,7 @@ export default {
             this.alertCount = this.user.alerts;
             this.silkCount = this.user.point_silk;
             this.mochiCount = this.user.point_mochi;
+            this.isFirstTime = this.user.first_time;
         });
     },
 
@@ -206,6 +207,7 @@ export default {
             this.alertCount = this.user.alerts;
             this.silkCount = this.user.point_silk;
             this.mochiCount = this.user.point_mochi;
+            this.isFirstTime = this.user.first_time;
         },
         async handleLogout() {
             await this.$store.dispatch("user/logout");
