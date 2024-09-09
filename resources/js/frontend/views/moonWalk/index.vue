@@ -463,7 +463,7 @@ export default {
         margin-top: 45px;
 
         .icon {
-            background-image: url();
+            background-image: url('../../../assets/images/eventBirthday2024/icon_kimto_2.svg');
         }
 
         .lists {
