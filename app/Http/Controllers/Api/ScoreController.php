@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Repositories\User\UserRepository;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Helpers\Message;
@@ -13,6 +14,7 @@ use App\Models\User;
 use App\Models\DataLog;
 use App\Models\QuestLog;
 use phpseclib3\Crypt\AES;
+use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 
 class ScoreController extends Controller
 {
@@ -110,62 +112,49 @@ class ScoreController extends Controller
         return response()->json($results);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function createLog(Request $request)
+    public function getRanksList(): \Illuminate\Http\JsonResponse
     {
-        //
+        try {
+            $ranks = app(UserRepository::class)->getRanksList();
+            $results = array(
+                'success' => true,
+                'ranks' => $ranks,
+                'message' => $this->msg->getSuccess(),
+                'status' => ResponseAlias::HTTP_OK
+            );
+            return response()->json($results);
+
+        } catch (\Throwable $th) {
+            $results = array(
+                'message' => $th->getMessage(),
+                'success' => false,
+                'status' => ResponseAlias::HTTP_OK
+            );
+            return response()->json([$results], ResponseAlias::HTTP_INTERNAL_SERVER_ERROR);
+        }
+
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function getLogsList(): \Illuminate\Http\JsonResponse
     {
-        //
-    }
+        try {
+            $logs = app(UserRepository::class)->getLogsList();
+            $results = array(
+                'success' => true,
+                'logs' => $logs,
+                'message' => $this->msg->getSuccess(),
+                'status' => ResponseAlias::HTTP_OK
+            );
+            return response()->json($results);
 
-    /**
-     * Display the specified resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Request $request)
-    {
-        //
-    }
+        } catch (\Throwable $th) {
+            $results = array(
+                'message' => $th->getMessage(),
+                'success' => false,
+                'status' => ResponseAlias::HTTP_OK
+            );
+            return response()->json([$results], ResponseAlias::HTTP_INTERNAL_SERVER_ERROR);
+        }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }

@@ -41,6 +41,7 @@ class User extends Authenticatable
         'use_mochi',
         'time_duration',
         'quests',
+        'alerts',
     ];
 
     /**
@@ -89,6 +90,10 @@ class User extends Authenticatable
     public function getQuestsAttribute()
     {
         return app(Helpers::class)->getUserQuests();
+    }
+    public function getAlertsAttribute()
+    {
+        return app(Helpers::class)->getUserAlerts();
     }
     public function scoreLogs()
     {

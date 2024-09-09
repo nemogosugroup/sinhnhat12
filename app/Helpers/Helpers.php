@@ -4,6 +4,7 @@ namespace App\Helpers;
 
 use App\Repositories\LoginLog\LoginLogRepository;
 use App\Repositories\QuestLog\QuestLogRepository;
+use App\Repositories\User\UserRepository;
 use GuzzleHttp\Client;
 use Illuminate\Http\Response;
 use App\Helpers\Message;
@@ -138,7 +139,7 @@ class Helpers
     public function getCurrentDateNumber(): int
     {
         $arrDates = [
-            8 => Carbon::now()->format('d/m/Y'), // just for TEST
+            7 => Carbon::now()->format('d/m/Y'), // just for TEST
             1 => '18/09/2024',
             2 => '19/09/2024',
             3 => '20/09/2024',
@@ -192,8 +193,9 @@ class Helpers
                 $results['points'] = $arr['points'];
             }
         }
-        //$results['user_id'] = auth()->user()->id;
-        $results['user_id'] = 1; // TODO: remove after TEST
+        $results['user_id'] = auth()->user()->id;
+        $results['date_number'] = $this->getCurrentDateNumber();
+
         return $results;
     }
     public function checkQuestForCurrentDate(int $points){
@@ -308,11 +310,51 @@ class Helpers
                 $result[$idx]['is_done'] = 1;
             }
 
+            if ($quest['id'] === 6 || $quest['id'] === 7) {
+                // change progress.current = silk in current date but not greater than max
+                $silksOfCurrentDate = $this->modelDataLog->query()->where([
+                    'user_id' => auth()->user()->id,
+                    'date_number' => $dateNumber,
+                    'type' => EVENT_BIRTHDAY12['type']['silk'],
+                    'action' => EVENT_BIRTHDAY12['action']['plus'],
+                ])->sum('points');
+
+                $result[$idx]['progress']['current'] = (int) min($silksOfCurrentDate, $result[$idx]['progress']['max']);
+                // check if current = max will add quest_logs & quest_logs.is_done = 1
+                if (
+                    $result[$idx]['is_done'] === 0 &&
+                    $result[$idx]['progress']['current'] === $result[$idx]['progress']['max']
+                ) {
+                    $result[$idx]['is_done'] = 1;
+                    // add quest_logs
+                    app(QuestLogRepository::class)->addQuestLog(auth()->user()->id, $dateNumber, $quest['id']);
+                }
+            }
+
             // get code for quest 2
             if ($quest['id'] === 2) {
                 $result[$idx]['code'] = app(LoginLogRepository::class)->getCodeInvite(auth()->user()->id);
             }
 
+        }
+
+        return $result;
+    }
+
+    public function getUserAlerts(): int
+    {
+        $result = 0;
+        $dateNumber = $this->getCurrentDateNumber();
+
+        foreach (QUEST_TMP as $quest) {
+            $doneReceivedLog = app(QuestLogRepository::class)->getIsDoneIsReceivedValues(
+                auth()->user()->id,
+                $quest['id'],
+                $dateNumber
+            );
+            if ($doneReceivedLog['is_done'] === 1 && $doneReceivedLog['is_received'] === 0) {
+                $result += 1;
+            }
         }
 
         return $result;

@@ -6,21 +6,22 @@ use App\Http\Controllers\Controller;
 use App\Models\DataLog;
 use App\Models\User;
 use App\Repositories\QuestLog\QuestLogRepository;
+use App\Repositories\LoginLog\LoginLogRepository;
 use App\Repositories\Game2048\game2048Repository as DataLogRepository;
 use App\Helpers\Message;
 use App\Helpers\Helpers;
-use App\Repositories\User\UserRepository;
-use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 
 class QuestLogController extends Controller
 {
+    protected $loginLogRepo;
     protected $questLogRepo;
     protected $dataLogRepo;
     protected $msg;
     protected $helpers;
 
     public function __construct(
+        LoginLogRepository $loginLogRepository,
         QuestLogRepository $questLogRepository,
         DataLogRepository  $dataLogRepo,
         Message            $message,
@@ -29,17 +30,13 @@ class QuestLogController extends Controller
         User               $modelUser
     )
     {
+        $this->loginLogRepo = $loginLogRepository;
         $this->questLogRepo = $questLogRepository;
         $this->dataLogRepo = $dataLogRepo;
         $this->dataLogRepo->addModelLog($modelLog);
         $this->dataLogRepo->addModelUser($modelUser);
         $this->msg = $message;
         $this->helpers = $helpers;
-    }
-
-    public function handleUpdateQuest(Request $request)
-    {
-        dd($request->all());
     }
 
     public function handleReceiveQuestReward(int $questId): \Illuminate\Http\JsonResponse
@@ -59,7 +56,7 @@ class QuestLogController extends Controller
             // check quest completed by quest_logs.is_done = 1 && quest_logs.is_received = 0
             $isDone = $this->questLogRepo->checkQuestIsDone(auth()->user()->id, $questId);
             if ($isDone) {
-                // handle update data log case: receive quest's reward (+mochi)
+                // handle update data_logs case: receive quest's reward (+mochi)
                 $data = [
                     'type' => EVENT_BIRTHDAY12['type']['mochi'],
                     'points' => $questData['mochi'],
@@ -88,6 +85,48 @@ class QuestLogController extends Controller
 
             $results = array(
                 'message' => $this->msg->receiveQuestRewardSuccess(),
+                'success' => true,
+                'status' => ResponseAlias::HTTP_OK
+            );
+            return response()->json($results);
+        } catch (\Throwable $th) {
+            $results = array(
+                'message' => $th->getMessage(),
+                'success' => false,
+                'status' => ResponseAlias::HTTP_OK
+            );
+            return response()->json($results);
+        }
+    }
+
+    public function handleInviteCode(string $code): \Illuminate\Http\JsonResponse
+    {
+        try {
+            // check code with current date
+            $codeValid = $this->loginLogRepo->validateCode($code);
+            if (!$codeValid['value']) {
+                $results = array(
+                    'message' => $codeValid['message'],
+                    'success' => false,
+                    'status' => ResponseAlias::HTTP_OK
+                );
+                return response()->json($results);
+            }
+
+            // add quest_logs for receiver + owner code
+            $dateNumber = $this->helpers->getCurrentDateNumber();
+                // add quest for code's owner
+            $this->questLogRepo->addQuestLog($codeValid['code_owner'], $dateNumber, 2);
+                // add quest for code's receiver
+            $this->questLogRepo->addQuestLog(auth()->user()->id, $dateNumber, 3, $code);
+
+            $questsDone = $this->helpers->countQuestIsFinishAll($dateNumber);
+            if(count($questsDone) === 9) {
+                $this->questLogRepo->addQuestLog($codeValid['code_owner'], $dateNumber, 10);
+            }
+
+            $results = array(
+                'message' => $this->msg->inviteCodeSuccess(),
                 'success' => true,
                 'status' => ResponseAlias::HTTP_OK
             );

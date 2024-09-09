@@ -37,11 +37,18 @@
                                 <el-col v-else :span="12">
                                     <el-row>
                                         <el-col :span="16">
-                                            <el-input v-model="inviteCode"
-                                                      placeholder="Nhập code thỏ ngọc"></el-input>
+                                            <el-input
+                                                v-model="inviteCode"
+                                                placeholder="Nhập code thỏ ngọc"
+                                                :disabled="item.is_done === 1"
+                                            ></el-input>
                                         </el-col>
                                         <el-col :span="8">
-                                            <el-button @click="submitInviteCode" :loading="isLoading">Nhập Code
+                                            <el-button
+                                                @click="submitInviteCode"
+                                                :loading="isLoading"
+                                                :disabled="item.is_done === 1"
+                                            >Nhập Code
                                             </el-button>
                                         </el-col>
                                     </el-row>
@@ -90,6 +97,9 @@ export default {
     created() {
         this.quests = this.user.quests;
     },
+    mounted() {
+        this.quests = this.user.quests;
+    },
     watch: {},
     computed: {
         ...mapGetters(["user"]),
@@ -117,25 +127,23 @@ export default {
                     console.error('Có lỗi xảy ra khi sao chép:', err);
                 });
         },
-        submitInviteCode() {
+        async submitInviteCode() {
             if (!this.inviteCode) {
                 ElMessage.warning(`Vui lòng nhập Code!`);
             } else {
                 this.isLoading = true;
-                // call api invite code
-
-                setTimeout(() => {
-                    const result = 1; // 0 = code fail, 1 = success, 2 = max code
-                    if (result === 1) {
-                        // success
-                        ElMessage.success(`Nhập code ${this.inviteCode} thành công!`);
-                    } else if (result === 2) {
-                        ElMessage.warning(`Bạn đã nhập đủ số lượng, nhiệm vụ hoàn thành!`);
-                    } else {
-                        ElMessage.error(`Code ${this.inviteCode} không hợp lệ!`);
-                    }
+                const { data } = await questsRepository.handleInviteCode(this.inviteCode);
+                if (data.success) {
+                    this.inviteCode = null;
+                    await this.$store.dispatch("user/getInfo").then(() => {
+                        this.quests = this.user.quests;
+                    });
+                    ElMessage.success(data.message);
                     this.isLoading = false;
-                }, 1000);
+                } else {
+                    ElMessage.warning(data.message);
+                    this.isLoading = false;
+                }
             }
         }
     }

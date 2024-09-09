@@ -8,4 +8,10 @@ export default {
             method: "post",
         });
     },
+    handleInviteCode(code) {
+        return request({
+            url: `${resource}` + `/invite-code/${code}`,
+            method: "post",
+        });
+    },
 };

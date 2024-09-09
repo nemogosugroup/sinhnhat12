@@ -55,10 +55,12 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::get('/', [AuthController::class, 'user']);
         Route::group(['prefix' => '2048'], function () {
             Route::post('create', [ScoreController::class, 'create']);
+            Route::get('ranks-list', [ScoreController::class, 'getRanksList']);
+            Route::get('logs-list', [ScoreController::class, 'getLogsList']);
         });
         Route::group(['prefix' => 'quest'], function () {
-            Route::post('update', [QuestLogController::class, 'handleUpdateQuest']);
             Route::post('receive-reward/{id}', [QuestLogController::class, 'handleReceiveQuestReward']);
+            Route::post('invite-code/{code}', [QuestLogController::class, 'handleInviteCode']);
         });
     });
 

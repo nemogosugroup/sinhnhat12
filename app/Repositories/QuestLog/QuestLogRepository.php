@@ -35,7 +35,7 @@ class QuestLogRepository extends BaseRepository implements QuestLogRepositoryInt
         return $data->toArray();
     }
 
-    public function addQuestLog($userId, $dateNumber, $questId, $data = []): void
+    public function addQuestLog($userId, $dateNumber, $questId, $code = ''): void
     {
         $quest = $this->helpers->findQuestById($questId);
         $data = [
@@ -44,11 +44,52 @@ class QuestLogRepository extends BaseRepository implements QuestLogRepositoryInt
             'date_number' => $dateNumber
         ];
 
-        if ($quest['id'] === 1 || $quest['id'] === 9) { // 1:Đăng ký đi chơi công viên(1/1) || 9:Ghé thăm Thố Động mỗi ngày
+        if (
+            $quest['id'] === 1 || // 1:Đăng ký đi chơi công viên(1/1)
+            $quest['id'] === 9 || // 9:Ghé thăm Thố Động mỗi ngày
+            $quest['id'] === 6 || // 6:Thu thập được 15 Kim Tơ/ngày
+            $quest['id'] === 7 || // 7:Thu thập được 50 Kim Tơ/ngày
+            $quest['id'] === 10   // 10:Hoàn thành các nhiệm vụ mỗi ngày
+        ) {
             $data['is_done'] = true;
         }
 
+        if ($quest['id'] === 2 || $quest['id'] === 3) { // 2:Rủ 10 người(10/10) || 3:Được 10 người rủ(10/10)
+            $data['code'] = $quest['id'] === 3 ? $code : null;
+            $isLastQuest = $this->checkIsLastCodeQuest($userId, $questId, $dateNumber);
+            if ($isLastQuest) {
+                $data['is_done'] = true;
+            }
+        }
+
         $this->model->query()->create($data);
+
+        if ($quest['id'] === 2 || $quest['id'] === 3) { // 2:Rủ 10 người(10/10) || 3:Được 10 người rủ(10/10)
+            $this->checkAndUpdateFinalQuest($userId, $dateNumber);
+        }
+    }
+
+    private function checkAndUpdateFinalQuest($userId, $dateNumber)
+    {
+        $countAll = $this->model->query()->where([
+            'user_id' => $userId,
+            'date_number' => $dateNumber,
+            'is_done' => true
+        ])->count();
+        if ($countAll === 9) {
+            $this->addQuestLog($userId, $dateNumber, 10);
+        }
+    }
+
+    private function checkIsLastCodeQuest($userId, $questId, $dateNumber): bool
+    {
+        $count = $this->model->query()->where([
+            'user_id' => $userId,
+            'quest_id' => $questId,
+            'date_number' => $dateNumber
+        ])->count();
+
+        return $count === 9;
     }
 
     public function updateIsReceived($userId, $questId)
@@ -91,9 +132,9 @@ class QuestLogRepository extends BaseRepository implements QuestLogRepositoryInt
     public function getProgressCurrentValue($userId, $questId, $dateNumber): int
     {
         return $this->model->query()->where([
-                'user_id' => $userId,
-                'quest_id' => $questId,
-                'date_number' => $dateNumber
-            ])->count();
+            'user_id' => $userId,
+            'quest_id' => $questId,
+            'date_number' => $dateNumber
+        ])->count();
     }
 }

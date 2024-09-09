@@ -16,6 +16,7 @@ class DataLog extends Model
         'type', // MOCHI/SILK
         'action', // PLUS/MINUS
         'points',
+        'date_number',
         'start', // only for TYPE = SILK
         'end', // only for TYPE = SILK
         'content'
