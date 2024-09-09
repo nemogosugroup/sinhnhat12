@@ -1,24 +1,27 @@
 <template>
     <div class="logo">
         <transition name="sidebarLogoFade">
-            <!-- <router-link v-if="collapse" key="collapse" class="sidebar-logo-link" to="/">
-                <img v-if="icon" :src="icon" class="sidebar-logo">
-            </router-link> -->
-            <router-link class="sidebar-logo-link" to="/">
-                <span class="wrap-logo">
-                    <img :src="Logo" class="icon-logo" />
-                    <img :src="Gosu12" class="icon-birthday" />
-                </span>
-            </router-link>
+            <el-row :gutter="20">
+                <el-col :span="8">
+                    <router-link class="sidebar-logo-link" to="/">
+                        <span class="wrap-logo">
+                            <img :src="Logo" class="icon-logo" />
+                            <img :src="Gosu12" class="icon-birthday" />
+                        </span>
+                    </router-link>
+                </el-col>
+                <el-col :span="16" v-if="!isLogin">
+                    <Profile />
+                </el-col>
+            </el-row>
         </transition>
     </div>
 </template>
 
 <script>
-// import imagesLogo from "@/assets/images/logo/GOSU_full.png";
-// import LogoWhite from "@/assets/images/logo/GOSU_full_white.png";
 import Gosu12 from "@/assets/images/eventBirthday2024/gosu12.svg";
 import Logo from "@/assets/images/eventBirthday2024/icon_logo.svg";
+import Profile from "../Profile";
 export default {
     props: {
         isLogin: {
@@ -28,10 +31,10 @@ export default {
         }
     },
     name: 'Logo',
+    components: { Profile },
     data() {
         return {
             Logo: Logo,
-            //LogoWhite: LogoWhite,
             isBachNhat: false,
             Gosu12: Gosu12,
         }
