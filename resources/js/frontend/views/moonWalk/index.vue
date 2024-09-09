@@ -462,6 +462,10 @@ export default {
         align-content: stretch;
         margin-top: 45px;
 
+        .icon {
+            background-image: url();
+        }
+
         .lists {
             display: flex;
             flex-direction: row;
