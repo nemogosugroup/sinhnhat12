@@ -1,22 +1,17 @@
 <?php
 
 namespace App\Repositories\User;
-use App\Repositories\Medal\UserMedalRepository;
-use GrahamCampbell\ResultType\Success;
+use App\Models\DataLog;
 use Illuminate\Http\Response;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use App\Repositories\Interfaces\UserRepositoryInterface;
-//use App\Repositories\BaseRepository;
 use App\Models\User;
-use App\Helpers\GosuApi;
 use App\Helpers\GosuEmployee;
 use App\Helpers\Helpers;
 use App\Helpers\Message;
 use App\Models\Acl;
 use App\Models\Role;
-use App\Models\UserCourse;
-use App\Models\UserEquipment;
-use App\Models\UserMission;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
@@ -288,5 +283,48 @@ class UserRepository implements UserRepositoryInterface
             );
         }
         return $results;
+    }
+
+    public function getRanksList(): array
+    {
+        $result = [];
+
+        $usersData = User::query()->orderByDesc('score')->get()->toArray();
+        foreach (array_chunk($usersData, 50) as $users) {
+            foreach ($users as $user) {
+                if ($user['id'] != 1) {
+                    $result[] = [
+                        'user_id' => $user['id'],
+                        'name' => $user['fullname'],
+                        'points' => $user['score'],
+                        'silks' => $user['point_silk'],
+                        'avatar' => $user['avatar']
+                    ];
+                }
+            }
+        }
+
+        return $result;
+    }
+
+    public function getLogsList(): array
+    {
+        $result = [];
+
+        $logsData = DataLog::query()->where('user_id', auth()->user()->id)->latest()->get()->toArray();
+        foreach (array_chunk($logsData, 50) as $logs) {
+            foreach ($logs as $log) {
+                $result[] = [
+                    'time' => Carbon::parse($log['created_at'])->timezone('+07:00')->format('d-m-Y H:i:s'),
+                    'content' => $log['content'],
+                    'value' => [
+                        'number' => ($log['action'] === 'minus' ? '-' : '') . $log['points'],
+                        'type' => strtoupper($log['type'])
+                    ]
+                ];
+            }
+        }
+
+        return $result;
     }
 }

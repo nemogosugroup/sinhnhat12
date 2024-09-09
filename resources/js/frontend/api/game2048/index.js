@@ -16,14 +16,19 @@ export default {
             method: 'post',
             data
         });
-    }
+    },
 
-    // update(query) {
-    //     let data = query['data'];
-    //     return request({
-    //         url: `${resource}` + "/update/"+`${query.id}`,
-    //         method: 'post',
-    //         data
-    //     })
-    // },
+    getRanks() {
+        return request({
+            url: `${resource}` + '/ranks-list',
+            method: 'get'
+        });
+    },
+
+    getLogs() {
+        return request({
+            url: `${resource}` + '/logs-list',
+            method: 'get'
+        });
+    }
 };

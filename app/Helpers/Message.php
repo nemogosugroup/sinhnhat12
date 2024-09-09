@@ -55,4 +55,19 @@ class Message {
     public function questNotComplete(){
         return 'Nhận thưởng không hợp lệ!';
     }
+    public function inviteCodeSuccess(){
+        return 'Nhập code thành công!';
+    }
+    public function inviteCodeInvalid($code){
+        return "Code ".$code." không hợp lệ!";
+    }
+    public function inviteCodeExpired($code){
+        return "Code ".$code." đã hết lượt sử dụng!";
+    }
+    public function inviteCodeUsed($code){
+        return "Code ".$code." đã được sử dụng!";
+    }
+    public function inviteMaxQuest3(){
+        return "Bạn đã xong nhiệm vụ nhập code!";
+    }
 }

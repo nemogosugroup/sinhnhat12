@@ -88,6 +88,9 @@ import MedalTop3 from "@/assets/images/birthday12/map/dialog/ranks/medal_top3.pn
 import MedalTopN from "@/assets/images/birthday12/map/dialog/ranks/medal_top_n.png";
 import iconSilk from "@/assets/images/birthday12/map/dialog/icon_silk.png";
 
+import RepositoryFactory from '@frontend/utils/RepositoryFactory';
+const game2048Repository = RepositoryFactory.get('game2048');
+
 export default {
     name: 'NguyetThachTab',
     components: {},
@@ -102,82 +105,26 @@ export default {
             MedalTopN: MedalTopN,
             searchValue: null,
             isSearching: false,
-            searchData: {
-                // idx: 0,
-                // name: "Thỏ Ngọc 1",
-                // points: 200000,
-                // silks: 100,
-                // avatar: avatar1
-            },
-            ranks: [
-                {
-                    name: "Trần Văn A",
-                    points: 200000,
-                    silks: 100,
-                    avatar: avatar1
-                },
-                {
-                    name: "Nguyễn Văn B",
-                    points: 195000,
-                    silks: 95,
-                    avatar: avatar2
-                },
-                {
-                    name: "Lê Thị C",
-                    points: 180000,
-                    silks: 80,
-                    avatar: avatar2
-                },
-                {
-                    name: "Hồ Quang D",
-                    points: 170000,
-                    silks: 75,
-                    avatar: avatar1
-                },
-                {
-                    name: "Trương E",
-                    points: 165000,
-                    silks: 70,
-                    avatar: avatar2
-                },
-                {
-                    name: "David F",
-                    points: 160000,
-                    silks: 60,
-                    avatar: avatar1
-                },
-                {
-                    name: "Michael G",
-                    points: 150000,
-                    silks: 50,
-                    avatar: avatar2
-                },
-                {
-                    name: "Nguyễn Xuân H",
-                    points: 135000,
-                    silks: 45,
-                    avatar: avatar1
-                },
-                {
-                    name: "Trần Ngọc I",
-                    points: 120000,
-                    silks: 30,
-                    avatar: avatar1
-                },
-                {
-                    name: "Lê Kim K",
-                    points: 110000,
-                    silks: 20,
-                    avatar: avatar2
-                },
-            ]
+            searchData: {},
+            ranks: []
         }
     },
     filters: {},
     created() {
+        this.fetch();
+    },
+    mounted() {
+
     },
     watch: {},
     methods: {
+        async fetch() {
+            const { data } = await game2048Repository.getRanks();
+            console.log(data);
+            if (data.success) {
+                this.ranks = data.ranks;
+            }
+        },
         searchPlayer() {
             this.searchData = {};
             this.isSearching = this.searchValue;
@@ -355,6 +302,7 @@ export default {
                                     border-radius: 50%;
                                     position: relative;
                                     z-index: 3;
+                                    object-fit: cover;
                                 }
 
                                 &:before {

@@ -4,12 +4,12 @@
         <hr class="custom_hr">
         <div class="content_wrapper">
             <div class="content">
-                <el-row v-for="(item, idx) in data" :key="idx">
+                <el-row v-for="(item, idx) in logs" :key="idx">
                     <el-col class="time" :span="6">
                         <div>{{ item.time }}</div>
                     </el-col>
                     <el-col class="content" :span="16">
-                        <div>{{ item.content }}</div>
+                        <div :title="item.content">{{ item.content }}</div>
                     </el-col>
                     <el-col class="value" :span="2">
                         <div>
@@ -27,6 +27,8 @@
 import iconSilk from "@/assets/images/birthday12/map/dialog/icon_silk.png";
 import iconMochi from "@/assets/images/birthday12/map/dialog/icon_mochi.png";
 
+import RepositoryFactory from '@frontend/utils/RepositoryFactory';
+const game2048Repository = RepositoryFactory.get('game2048');
 export default {
     name: 'NguyetKyTab',
     components: {},
@@ -34,75 +36,23 @@ export default {
         return {
             iconSilk: iconSilk,
             iconMochi: iconMochi,
-            data: [
-                {
-                    time: "24-09-18 16:09:20",
-                    content: "Nhận nhiệm vụ 1 tại bảng thử thách",
-                    value: {number: 5, type: "SILK"}
-                },
-                {
-                    time: "24-09-18 16:09:20",
-                    content: "Nhận nhiệm vụ 1 tại bảng thử thách",
-                    value: {number: 10, type: "MOCHI"}
-                },
-                {
-                    time: "24-09-18 16:09:20",
-                    content: "Nhận nhiệm vụ 1 tại bảng thử thách",
-                    value: {number: 15, type: "MOCHI"}
-                },
-                {
-                    time: "24-09-18 16:09:20",
-                    content: "Nhận nhiệm vụ 1 tại bảng thử thách",
-                    value: {number: 20, type: "SILK"}
-                },
-                {
-                    time: "24-09-18 16:09:20",
-                    content: "Nhận nhiệm vụ 1 tại bảng thử thách",
-                    value: {number: 5, type: "SILK"}
-                },
-                {
-                    time: "24-09-18 16:09:20",
-                    content: "Nhận nhiệm vụ 1 tại bảng thử thách",
-                    value: {number: 10, type: "MOCHI"}
-                },
-                {
-                    time: "24-09-18 16:09:20",
-                    content: "Nhận nhiệm vụ 1 tại bảng thử thách",
-                    value: {number: 15, type: "MOCHI"}
-                },
-                {
-                    time: "24-09-18 16:09:20",
-                    content: "Nhận nhiệm vụ 1 tại bảng thử thách",
-                    value: {number: 20, type: "SILK"}
-                },
-                {
-                    time: "24-09-18 16:09:20",
-                    content: "Nhận nhiệm vụ 1 tại bảng thử thách",
-                    value: {number: 5, type: "SILK"}
-                },
-                {
-                    time: "24-09-18 16:09:20",
-                    content: "Nhận nhiệm vụ 1 tại bảng thử thách",
-                    value: {number: 10, type: "MOCHI"}
-                },
-                {
-                    time: "24-09-18 16:09:20",
-                    content: "Nhận nhiệm vụ 1 tại bảng thử thách",
-                    value: {number: 15, type: "MOCHI"}
-                },
-                {
-                    time: "24-09-18 16:09:20",
-                    content: "Nhận nhiệm vụ 1 tại bảng thử thách",
-                    value: {number: 20, type: "SILK"}
-                },
-            ]
+            logs: []
         }
     },
     filters: {},
     created() {
+        this.fetch();
     },
     watch: {},
-    methods: {}
+    methods: {
+        async fetch() {
+            const { data } = await game2048Repository.getLogs();
+            console.log(data);
+            if (data.success) {
+                this.logs = data.logs;
+            }
+        },
+    }
 }
 
 </script>
@@ -149,7 +99,11 @@ export default {
             padding: 5px;
             &.content {
                 > div {
+                    cursor: pointer;
                     text-align: left;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
                 }
             }
             > div {

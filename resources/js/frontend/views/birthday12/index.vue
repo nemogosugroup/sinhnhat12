@@ -48,7 +48,7 @@
                         <el-row>
                             <el-col :span="4">
                                 <img :src="mapElm.MapIconSilk" alt="">
-                                <b class="alert_count silk">15</b>
+                                <b class="alert_count silk">{{ silkCount }}</b>
                             </el-col>
                             <el-col :span="20">
                                 <span>{{ "Kim tơ" }}</span>
@@ -59,7 +59,7 @@
                         <el-row>
                             <el-col :span="4">
                                 <img :src="mapElm.MapIconMochi" alt="">
-                                <b class="alert_count mochi">15</b>
+                                <b class="alert_count mochi">{{ mochiCount }}</b>
                             </el-col>
                             <el-col :span="20">
                                 <span>{{ "Mochi" }}</span>
@@ -139,8 +139,10 @@ export default {
             dialogVisible: false,
             dialogType: null, // GATE, CAVE, WHEEL
             caveType: "nguyet_nhu", // nguyet_nhu, nguyet_nhiem, nguyet_thach, nguyet_ky
-            issetAlert: true,
-            alertCount: 10,
+            issetAlert: 0,
+            alertCount: 0,
+            silkCount: 0,
+            mochiCount: 0,
             mapElm: {
                 DefaultAvatar: DefaultAvatar,
                 DownArrow: DownArrow,
@@ -162,10 +164,14 @@ export default {
         ...mapGetters(["user"]),
     },
     mounted() {
-
     },
     created() {
-        this.$store.dispatch("user/getInfo");
+        this.$store.dispatch("user/getInfo").then(() => {
+            this.issetAlert = this.user.alerts > 0;
+            this.alertCount = this.user.alerts;
+            this.silkCount = this.user.point_silk;
+            this.mochiCount = this.user.point_mochi;
+        });
     },
 
     methods: {
@@ -196,6 +202,10 @@ export default {
             this.dialogVisible = false;
             Emitter.emit("reset-game", true);
             await this.$store.dispatch("user/getInfo");
+            this.issetAlert = this.user.alerts > 0;
+            this.alertCount = this.user.alerts;
+            this.silkCount = this.user.point_silk;
+            this.mochiCount = this.user.point_mochi;
         },
         async handleLogout() {
             await this.$store.dispatch("user/logout");
