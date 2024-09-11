@@ -1,7 +1,10 @@
 <template>
     <div class="wrap-board">
-        <el-row :gutter="10">
-            <el-col :span="12">
+        <span class="point-reward point-silk"><img :src="iconSilk" /><span class="point">{{ dataBoard.pointSilk.value
+                }}</span></span>
+        <span class="point-reward point-mochi"><img :src="iconMochi" /><span class="point">{{ mochi }}</span></span>
+        <el-row :gutter="10" style="position: relative; top:-35px">
+            <el-col :span="13">
                 <div class="board">
                     <div v-for="(r_item, r_i) in board.cells" :key="r_i">
                         <cell v-for="(c_item, c_i) in r_item" :key="c_i"></cell>
@@ -11,25 +14,18 @@
                     <div v-if="!checkStartGame" class='youWin'></div>
                 </div>
             </el-col>
-            <el-col :span="12" class="infoGame">
+            <el-col :span="11" class="infoGame">
                 <el-row class="align-item-center" :gutter="10" justify="space-between">
-                    <el-col :span="14">
-                        <h1 class="title-2048">2048</h1>
-                    </el-col>
-                    <el-col :span="10">
-                        <el-row class="align-item-center" :gutter="10" justify="end">
-                            <span class="point-reward">{{ dataBoard.pointSilk.value }} <img :src="iconSilk" /></span>
-                            <span class="point-reward">{{ mochi }} <img :src="iconMochi" /></span>
-                        </el-row>
+                    <el-col :span="24">
+                        <h1 class="title-2048 font_beaufort w900">{{ mapData.title2048 }}</h1>
                     </el-col>
                 </el-row>
                 <el-row :gutter="10">
                     <el-col :span="24">
                         <div class="content">
                             <p>Điều hướng các ô số guống nhập thành số chắn lớn hơn trong 5 phút. Điểm càng cao nhận
-                                càng
-                                nhiều Kim Tơ</p>
-                            <p><strong>*Số Kim Tơ quy đổi theo từng mốc điểm in game:</strong></p>
+                                càng nhiều Kim Tơ</p>
+                            <p><strong class="w900">*Số Kim Tơ quy đổi theo từng mốc điểm in game:</strong></p>
                             <ul>
                                 <li><span>Điểm 0000 - 1489: 5 Kim Tơ</span></li>
                                 <li><span>Điểm 1500 - 1998: 10 Kim Tơ</span></li>
@@ -44,27 +40,34 @@
                 <el-row :gutter="10">
                     <el-col :span="12">
                         <div class="countDown">
-                            <span>countdown</span>
+                            <span>{{ mapData.countdown }}</span>
                             <Countdown :deadline="`${dataBoard.deadline.value}`" :stop="!startGame" :showLabels="false"
-                                :showDays="false" :showHours="false" mainFlipBackgroundColor="#E6F5DF"
-                                secondFlipBackgroundColor='#E6F5DF' mainColor="#000" secondFlipColor="#000"
+                                :showDays="false" :showHours="false" mainFlipBackgroundColor="#DCF0F8"
+                                secondFlipBackgroundColor='#DCF0F8' mainColor="#121F24" secondFlipColor="#121F24"
                                 :flipAnimation="false" />
                         </div>
                         <div class="play-again">
-                            <el-button :loading="loading" type="warning" class="reset" @click="onRestart">{{
-                                !startGame && score == 0 ?
-                                    'Play Game' : 'Play Again' }}</el-button>
+                            <el-button :loading="loading" class="reset" @click="onRestart">
+                                <div class='img'><img :src="iconMochi2" alt=""> <span class="count">{{ use_mochi
+                                        }}</span></div>
+                                <div>{{
+                                    !startGame && score == 0 ?
+                                        mapData.play : mapData.play_again }}</div>
+                            </el-button>
                         </div>
                     </el-col>
                     <el-col :span="12">
-                        <div class="score">
-                            <span>Current score</span>
-                            <span> {{ score }}</span>
+                        <div class="wrap-score">
+                            <div class="score">
+                                <span>{{ mapData.currentScore }}</span>
+                                <span> {{ score }}</span>
+                            </div>
+                            <div class="score">
+                                <span>{{ mapData.bestScore }}</span>
+                                <span>{{ bestScore }}</span>
+                            </div>
                         </div>
-                        <div class="score">
-                            <span>Best score</span>
-                            <span>{{ bestScore }}</span>
-                        </div>
+
                     </el-col>
                 </el-row>
             </el-col>
@@ -76,8 +79,9 @@
 import RepositoryFactory from '@frontend/utils/RepositoryFactory';
 const game2048Repository = RepositoryFactory.get('game2048');
 
-import MapIconMochi from '@/assets/images/birthday12/map/dialog/icon_mochi.png'
-import MapIconSilk from '@/assets/images/birthday12/map/dialog/icon_silk.png'
+import MapIconMochi from '@/assets/images/eventBirthday2024/icon_mochi.svg'
+import MapIconSilk from '@/assets/images/eventBirthday2024/icon_kimto.svg'
+import MapIconMochi2 from '@/assets/images/eventBirthday2024/icon_mochi_2.svg'
 import Cell from "./Cell.vue";
 import TileView from "./TileView.vue";
 import GameEndOverlay from "./GameEndOverlay.vue";
@@ -102,6 +106,15 @@ export default {
         return {
             iconSilk: MapIconSilk,
             iconMochi: MapIconMochi,
+            iconMochi2: MapIconMochi2,
+            mapData: {
+                'currentScore': 'Điểm hiện tại',
+                'bestScore': 'Điểm cao nhất',
+                'countdown': 'Điếm ngược',
+                'play': 'Chơi game',
+                'play_again': 'Chơi lại',
+                'title2048': 2048
+            }
         }
     },
     setup() {
@@ -348,7 +361,8 @@ export default {
             bestScore,
             startGame,
             checkStartGame,
-            loading
+            loading,
+            use_mochi
         };
     },
     components: {
@@ -373,6 +387,15 @@ export default {
     width: auto !important;
 }
 
+:deep(.flip-clock__piece) {
+    font-size: 36px;
+}
+
+:deep(.no-animation__card) {
+    font-size: 36px;
+    font-weight: 600;
+}
+
 :deep(.flip-clock__piece:last-child) {
     position: relative;
 }
@@ -381,37 +404,42 @@ export default {
     content: ":";
     position: absolute;
     left: -9px;
-    font-size: 35px;
+    font-size: 36px;
     top: 50%;
-    transform: translate(0px, -60%);
-    color: #000
+    transform: translate(0px, -55%);
+    color: #121F24;
+    font-weight: 600;
 }
 
 .wrap-board {
+    position: relative;
+
     :deep(.el-row) {
         width: 100%
     }
 
     .point-reward {
-        font-family: 'Inter';
-        background-color: #ECF5FC;
         display: inline-flex;
-        padding: 5px 5px 5px 10px;
-        border-radius: 5px;
-        flex-direction: row;
-        flex-wrap: nowrap;
-        justify-content: center;
-        align-items: center;
-        align-content: stretch;
         font-size: 18px;
         font-weight: 700;
+        position: absolute;
+        left: -120px;
+        bottom: -30px;
+        color: #fff;
 
-        &:first-child {
-            margin-right: 5px;
+        &.point-mochi {
+            bottom: 50px;
+
+            .point {
+                right: 17px;
+            }
         }
 
-        img {
-            width: 30px;
+        .point {
+            position: absolute;
+            right: 12px;
+            bottom: 4px;
+            text-shadow: 1px 1px #000, -1px -1px #000;
         }
     }
 
@@ -419,16 +447,17 @@ export default {
         position: relative;
         padding-top: 20px;
         width: 100%;
-        font-family: 'Inter';
+        color: #121f24;
+        font-size: 16px;
 
         &::before {
             content: '';
-            background-image: linear-gradient(90deg, #000 25%, #fff 100%);
+            background-color: #60A8AC;
             position: absolute;
             left: 0;
             top: 10px;
             width: 100%;
-            height: 2px;
+            height: 1px;
         }
 
 
@@ -445,14 +474,14 @@ export default {
     }
 
     .countDown {
-        background-color: #E6F5DF;
+        background-color: #DCF0F8;
         padding: 10px;
         text-align: center;
-        font-family: 'Inter';
-        border-radius: 5px;
+        border-radius: 10px;
+        font-weight: 600;
 
         span {
-            text-transform: uppercase;
+            color: #25617A;
             font-size: 14px;
         }
     }
@@ -460,18 +489,48 @@ export default {
     .reset {
         width: 100%;
         margin-top: 5px;
-        text-transform: uppercase;
-        color: #000;
-        font-size: 14px;
-        font-family: 'Inter';
+        color: #fff;
+        font-size: 18px;
+        font-weight: 600;
+        background-image: url('../../../../../../assets/images/eventBirthday2024/button.svg');
+        border-radius: 10px;
+        background-size: 100%;
+        height: 60px;
+        border: 0;
+        background-repeat: no-repeat;
+        position: relative;
+
+        .img {
+            position: relative;
+            left: -15px;
+            top: -6px;
+
+            .count {
+                position: absolute;
+                bottom: 8px;
+                left: 40px;
+                text-shadow: 1px 1px #000, -1px -1px #000;
+            }
+        }
+
+    }
+
+    .wrap-score {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        align-content: stretch;
+        border: 1px solid #C2EEFF;
+        border-radius: 10px;
+        padding: 10px 20px;
     }
 
     .score {
-        background-color: #ECF5FC;
-        font-family: 'Inter';
+        font-weight: 600;
         border-radius: 5px;
         font-size: 14px;
-        height: calc(50% - 2.5px);
         display: flex;
         flex-direction: column;
         flex-wrap: wrap;
@@ -480,17 +539,28 @@ export default {
         align-content: stretch;
 
         &:first-child {
-            margin-bottom: 5px;
+            &:after {
+                display: block;
+                background: #307388;
+                height: 1px;
+                width: 50px;
+                margin: 8px auto;
+                content: '';
+            }
         }
 
         span {
-            color: #000;
-            text-transform: uppercase;
+            color: #121F24;
 
             &:last-child {
-                font-size: 22px;
+                font-size: 36px;
                 display: block;
-                font-weight: bold;
+            }
+        }
+
+        &:last-child {
+            span:last-child {
+                color: #3FC2F9;
             }
         }
     }

@@ -1,5 +1,5 @@
 <template>
-    <div :class="`wrap-moonwalk ${isActive ? 'active' : ''}`">
+    <div :class="`wrap-moonwalk ${isActiveSlider ? 'active' : ''}`">
         <div class="wrap-moonwalk__content">
             <el-row justify="center">
                 <el-col :span="24">
@@ -133,6 +133,7 @@ export default {
             indexSlider: 4,
             nameEmployee: null,
             indexActive: 0,
+            isActiveSlider: false,
             nameSilk: 'Kim tơ',
             showDataTimeLine: [],
             imgElm: {
@@ -185,16 +186,16 @@ export default {
         },
         onSwiper(swiper) {
             if (swiper.activeIndex == 1) {
-                this.isActive = true
+                this.isActiveSlider = true
             } else {
-                this.isActive = false
+                this.isActiveSlider = false
             }
         },
         onSlideChange(swiper) {
             if (swiper.activeIndex == 1) {
-                this.isActive = true
+                this.isActiveSlider = true
             } else {
-                this.isActive = false
+                this.isActiveSlider = false
             }
         },
         handleCheckShowContent(number) {
@@ -503,9 +504,21 @@ export default {
             .trunk_tree {
                 img {
                     width: 125.5%;
+                    position: relative;
                 }
 
-                &:before {}
+                &:before {
+                    content: '';
+                    background-image: url('../../../assets/images/eventBirthday2024/icon_moon.png');
+                    width: 100px;
+                    height: 100px;
+                    position: absolute;
+                    background-size: 100%;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(calc(-50% + -50px), calc(-50% + 45px));
+                    background-repeat: no-repeat;
+                }
             }
 
             .branches {
