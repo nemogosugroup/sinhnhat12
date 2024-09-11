@@ -1,10 +1,11 @@
 <template>
-    <div class="wrap-moonwalk">
+    <div :class="`wrap-moonwalk ${isActive ? 'active' : ''}`">
         <div class="wrap-moonwalk__content">
             <el-row justify="center">
                 <el-col :span="24">
-                    <swiper :slidesPerView="1" :navigation="true" :modules="modules" :spaceBetween="0" class="mySwiper"
-                        @swiper="onSwiper" @slideChange="onSlideChange">
+                    <swiper :slidesPerView="1" :cssMode="true" :navigation="true" :pagination="true" :mousewheel="true"
+                        :keyboard="true" :modules="modules" :spaceBetween="0" class="mySwiper" @swiper="onSwiper"
+                        @slideChange="onSlideChange">
                         <swiper-slide>
                             <div class="wrap-timeline">
                                 <el-row>
@@ -19,50 +20,19 @@
                                     </el-col>
                                     <el-col :span="20">
                                         <div class="content_timeline">
-                                            <el-scrollbar ref="scrollbarRef" height="465px" always @scroll="scroll">
+                                            <el-scrollbar ref="scrollbarRef" height="465px" always>
                                                 <el-row>
                                                     <el-col :span="4">
-                                                        <span class="year font_beaufort w600 size68">2022</span>
-                                                        <div class='content font_myriad_con'>
-                                                            Lorem Ipsum is simply dummy text of the printing and
-                                                            typesetting
-                                                            industry. Lorem Ipsum has been the industry's standard dummy
-                                                            text ever since the 1500s, when an unknown printer took a
-                                                            galley
-                                                            of type and scrambled it to make a type specimen book. It
-                                                            has
-                                                            survived not only five centuries, but also the leap into
-                                                            electronic typesetting, remaining essentially unchanged. It
-                                                            was
-                                                            popularised in the 1960s with the release of Letraset sheets
-                                                            containing Lorem Ipsum passages, and more recently with
-                                                            desktop
-                                                            publishing software like Aldus PageMaker including versions
-                                                            of
-                                                            Lorem Ipsum.
-                                                            Lorem Ipsum is simply dummy text of the printing and
-                                                            typesetting
-                                                            industry. Lorem Ipsum has been the industry's standard dummy
-                                                            text ever since the 1500s, when an unknown printer took a
-                                                            galley
-                                                            of type and scrambled it to make a type specimen book. It
-                                                            has
-                                                            survived not only five centuries, but also the leap into
-                                                            electronic typesetting, remaining essentially unchanged. It
-                                                            was
-                                                            popularised in the 1960s with the release of Letraset sheets
-                                                            containing Lorem Ipsum passages, and more recently with
-                                                            desktop
-                                                            publishing software like Aldus PageMaker including versions
-                                                            of
-                                                            Lorem Ipsum.
-                                                        </div>
+                                                        <span class="year font_beaufort w600 size68">{{
+                                                            showDataTimeLine.year }}</span>
+                                                        <div class='content font_myriad_con'>{{ showDataTimeLine.content
+                                                            }}</div>
                                                     </el-col>
                                                     <el-col :span="20">
-                                                        <ul class="list_images">
-                                                            <li><el-image :src="imgElm.bannerTimeline" /></li>
-                                                            <li><el-image :src="imgElm.bannerTimeline" /></li>
-                                                            <li><el-image :src="imgElm.bannerTimeline" /></li>
+                                                        <ul class="list_images" v-if="showDataTimeLine.listImages">
+                                                            <li v-for="(item, key) in showDataTimeLine.listImages"
+                                                                :key="key"><el-image :src="item.url" />
+                                                            </li>
                                                         </ul>
                                                     </el-col>
                                                 </el-row>
@@ -75,19 +45,20 @@
                                         <div class="content_total">
                                             <span class="icon"></span>
                                             <div class="title_total">
-                                                <span>Tổng kim tơ</span>
-                                                <span>15000</span>
+                                                <span class="font_myriad_con">Tổng kim tơ</span>
+                                                <span>{{ user.total_silk }}</span>
                                             </div>
                                         </div>
                                     </div>
                                     <ul class="lists">
-                                        <li class="item_list" v-for="(item, key) in listTimeLine" :key="key">
-                                            <span class="icon_timeline"></span>
+                                        <li class="item_list" v-for="item in listTimeLine" :key="item.index">
+                                            <span :class="`icon_timeline ${indexActive == item.index ? 'active' : ''}`"
+                                                @click="handleActiveTimeline(item)"></span>
                                             <div class="item__year">
-                                                <span class="year">{{ item.year }}</span>
+                                                <span class="year font_myriad_con w700">{{ item.year }}</span>
                                                 <p>
-                                                    <span>10000</span>
-                                                    <span>kimto</span>
+                                                    <span>{{ item.mileStoneSilk }}</span>
+                                                    <span>{{ nameSilk }}</span>
                                                 </p>
                                             </div>
                                         </li>
@@ -98,120 +69,39 @@
                         <swiper-slide>
                             <div class="wrap_tree">
                                 <div class="container-true">
+                                    <div class="wrap_nguyetdat_search">
+                                        <div class="title_nguyetda">
+                                            <div class="tree_title"><img :src="imgElm.nguyetDattitle" alt=""></div>
+
+                                            <div class="wrap-search">
+                                                <search-employee ref="searchEmployee"></search-employee>
+                                            </div>
+                                        </div>
+
+                                    </div>
                                     <div class="trunk">
                                         <div class="trunk_tree">
                                             <img :src="imgElm.nguyetDa" alt="">
                                         </div>
-                                        <!-- <div class="branches">
-                                            <div v-for="(user, key) in listEmployee" :key="key"
-                                                :class="`leaf leaf_${key}`" @click="handleShowEmployee(user.hoten)">
-                                                <div class="leaf__content">
-                                                    <img :src="user.avatar" :alt="user.hoten">
+                                        <div class="branches">
+                                            <div v-for="(item, key) in listDepartMent" :key="key"
+                                                :class="`font_myriad_con leaf leaf_${key}`"
+                                                @click="handleShowEmployee(item.data)">
+                                                <div class="info">
+                                                    <span>{{ item.name }}</span>
+                                                    <span class="w700">{{ item.data }}</span>
                                                 </div>
+
                                             </div>
-                                        </div> -->
-                                    </div>
-                                    <div class="wrap_nguyetdat_search">
-                                        <div class="title_nguyetda">
-                                            <img :src="imgElm.nguyetDattitle" alt="">
-                                        </div>
-                                        <div class="wrap-search">
-                                            <search-employee ref="searchEmployee" :name-employee="nameEmployee"
-                                                @update:name-employee="updateNameEmployee"></search-employee>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </swiper-slide>
                     </swiper>
-
-                    <!-- <swiper :grabCursor="true" :autoHeight=true :slidesPerView="5" :spaceBetween="0" class="mySwiper"
-                        @swiper="onSwiper" @slideChange="onSlideChange">
-                        <swiper-slide v-for="(item, key) in listTimeLine" :key="key">
-                            <div
-                                :class="`item ${item.isActive && item.showTimeline ? 'active' : ''} ${item.isShow ? 'leftContent' : ''}`">
-                                <div v-if="item.isActive && item.showTimeline" :class="`listImages`">
-                                    <div class="item_img" v-for="(url, key) in item.listImages" :key="key">
-                                        <el-image class="images" :src="`/static/uploads/sinhnhat/default.png`"
-                                            style="width: 200px; height: 150px;" :fit="`cover`" />
-                                    </div>
-                                </div>
-                                <div :class="`item__year ${item.isLast ? 'lastItem' : ''}`"
-                                    @click="handleShowData(item.year)">
-                                    <span class="icon"></span>
-                                    <span class="year">{{ item.year }}</span>
-                                </div>
-                                <div class="item__content" v-if="item.isActive && item.showTimeline">
-                                    <span class="line"></span>
-                                    <div class="item__content__title">{{ item.title }}</div>
-                                    <div class="item__content__desc">{{ item.content }}</div>
-                                    <div class="item__images">
-                                        <div class="item_img" v-for="(url, key) in item.listImages" :key="key">
-                                            <el-image class="images" :src="`/static/uploads/sinhnhat/default.png`"
-                                                style="width: 60px; height: 60px;" :fit="`cover`" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </swiper-slide>
-                    </swiper> -->
-                    <!-- <div class="wrap-moonwalk__timeline">
-                        <swiper :grabCursor="true" :autoHeight=true :slidesPerView="5" :spaceBetween="0"
-                            class="mySwiper" @swiper="onSwiper" @slideChange="onSlideChange">
-                            <swiper-slide v-for="(item, key) in listTimeLine" :key="key">
-                                <div
-                                    :class="`item ${item.isActive && item.showTimeline ? 'active' : ''} ${item.isShow ? 'leftContent' : ''}`">
-                                    <div v-if="item.isActive && item.showTimeline" :class="`listImages`">
-                                        <div class="item_img" v-for="(url, key) in item.listImages" :key="key">
-                                            <el-image class="images" :src="`/static/uploads/sinhnhat/default.png`"
-                                                style="width: 200px; height: 150px;" :fit="`cover`" />
-                                        </div>
-                                    </div>
-                                    <div :class="`item__year ${item.isLast ? 'lastItem' : ''}`"
-                                        @click="handleShowData(item.year)">
-                                        <span class="icon"></span>
-                                        <span class="year">{{ item.year }}</span>
-                                    </div>
-                                    <div class="item__content" v-if="item.isActive && item.showTimeline">
-                                        <span class="line"></span>
-                                        <div class="item__content__title">{{ item.title }}</div>
-                                        <div class="item__content__desc">{{ item.content }}</div>
-                                        <div class="item__images">
-                                            <div class="item_img" v-for="(url, key) in item.listImages" :key="key">
-                                                <el-image class="images" :src="`/static/uploads/sinhnhat/default.png`"
-                                                    style="width: 60px; height: 60px;" :fit="`cover`" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </swiper-slide>
-                        </swiper>
-                    </div> -->
                 </el-col>
-                <!-- <el-col :span="9">
-                    <div class="container-true">
-                        <div class="trunk">
-                            <div class="trunk_tree">
-                                <img :src="tree" alt="">
-                            </div>
-                            <div class="branches">
-                                <div v-for="(user, key) in listEmployee" :key="key" :class="`leaf leaf_${key}`"
-                                    @click="handleShowEmployee(user.hoten)">
-                                    <div class="leaf__content">
-                                        <img :src="user.avatar" :alt="user.hoten">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="wrap-search">
-                            <search-employee ref="searchEmployee" :name-employee="nameEmployee"
-                                @update:name-employee="updateNameEmployee"></search-employee>
-                        </div>
-                    </div>
-                </el-col> -->
             </el-row>
         </div>
-        <RouterLink to="/" class="back"><i class="ri-arrow-left-s-fill"></i> Quay lại công viên</RouterLink>
     </div>
 </template>
 
@@ -224,7 +114,7 @@ import moon from "@/assets/images/eventBirthday2024/icon_moon.png";
 import bannerTimeline from "@/assets/images/eventBirthday2024/banner-wweb.png";
 import nguyetDa from "@/assets/images/eventBirthday2024/nguyet_da.png";
 import SearchEmployee from "@frontend/components/SearchEmployee";
-import { dataTimeline } from './timeline';
+import { dataTimeline, dataDepartMent } from './timeline';
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import 'swiper/css';
 import { mapGetters } from "vuex";
@@ -236,12 +126,15 @@ export default {
     data() {
         return {
             listTimeLine: false,
-            listEmployee: false,
+            listDepartMent: false,
             tree: treeImg,
             treeWidth: 475,
             treeHeight: 410,
             indexSlider: 4,
             nameEmployee: null,
+            indexActive: 0,
+            nameSilk: 'Kim tơ',
+            showDataTimeLine: [],
             imgElm: {
                 moonWalk: moonWalk,
                 nguyetDattitle: nguyetDattitle,
@@ -258,83 +151,51 @@ export default {
         };
     },
     computed: {
-        ...mapGetters(["silk"]),
+        ...mapGetters(["user"]),
     },
     created() {
         this.listTimeLine = dataTimeline().map((item, index) => {
-            item['isActive'] = false;
+            item['index'] = index;
             item['isLast'] = false;
             item['isShow'] = false;
-            item['showTimeline'] = this.silk >= item.showDataTimeLine ? true : false;
+            item['showTimeline'] = this.user.total_silk >= item.mileStoneSilk ? true : false;
             return item;
         });
+        this.showDataTimeLine = this.listTimeLine[0];
+        this.indexActive = this.showDataTimeLine.index;
 
-        // Khởi tạo danh sách nhân viên với vị trí hợp lệ
-        this.listEmployee = Employee.filter((item) => {
-            return item.avatar !== 'https://static.gosucorp.vn/hrm/avatar/none/none_profile.jpg';
+        this.listDepartMent = dataDepartMent().map((item, index) => {
+            return item;
         });
-        this.listEmployee = this.listEmployee.slice().sort(() => Math.random() - 0.5);
-        //this.listEmployee = this.shuffleArray(this.listEmployee);
-        // this.listEmployee = (() => {
-        //     const tempListEmployee = []; // Mảng tạm để lưu trữ các nhân viên với vị trí hợp lệ
-        //     const minDistance = 30; // Khoảng cách tối thiểu giữa các nhân viên
-        //     const branchWidth = 550; // Chiều rộng của tán cây
-        //     const branchHeight = 400; // Chiều cao của tán cây
-        //     const treeWidth = 500; // Chiều rộng cây
-        //     const treeHeight = 705; // Chiều cao cây
-
-        //     // Lặp qua từng nhân viên
-        //     dataEmployee().forEach((item, index) => {
-        //         let isValidPosition = false;
-        //         let top, left;
-
-        //         // Lặp cho đến khi tìm được vị trí hợp lệ
-        //         while (!isValidPosition) {
-        //             // Sinh vị trí ngẫu nhiên
-        //             top = Math.random() * branchHeight;
-        //             left = Math.random() * branchWidth + (treeWidth - branchWidth) / 2; // Đảm bảo nằm trong vùng tán cây
-
-        //             // Kiểm tra khoảng cách với các nhân viên đã có trước đó
-        //             isValidPosition = true; // Giả sử vị trí là hợp lệ
-        //             for (const prevItem of tempListEmployee) {
-        //                 const distance = Math.sqrt(Math.pow(top - prevItem.top, 2) + Math.pow(left - prevItem.left, 2));
-        //                 if (distance < minDistance) {
-        //                     isValidPosition = false;
-        //                     break;
-        //                 }
-        //             }
-        //         }
-
-        //         // Gán vị trí hợp lệ cho item hiện tại và thêm vào mảng tạm
-        //         item.top = top;
-        //         item.left = left;
-        //         tempListEmployee.push(item);
-        //     });
-
-        //     return tempListEmployee; // Trả về mảng tạm đã chứa tất cả nhân viên với vị trí hợp lệ
-        // })();
+        this.listDepartMent = this.listDepartMent.slice().sort(() => Math.random() - 0.5);
     },
     mounted() {
     },
     methods: {
-        handleShowData(year) {
-            this.listTimeLine = this.listTimeLine.map((item) => {
-                //item.isActive = false;
-                if (item.year == year) {
-                    item.isActive = !item.isActive
-                } else {
-                    item.isActive = false;
-                }
-                return item;
-            });
+        handleActiveTimeline(item) {
+            if (item.showTimeline) {
+                this.showDataTimeLine = this.listTimeLine[item.index];
+                this.indexActive = this.showDataTimeLine.index;
+            } else {
+                this.$message({
+                    message: 'Chưa thể mở được mốc năm ' + item.year,
+                    type: 'error',
+                })
+            }
         },
         onSwiper(swiper) {
-            let index = swiper.activeIndex + this.indexSlider;
-            this.handleCheckShowContent(index)
+            if (swiper.activeIndex == 1) {
+                this.isActive = true
+            } else {
+                this.isActive = false
+            }
         },
         onSlideChange(swiper) {
-            let index = swiper.activeIndex + this.indexSlider;;
-            this.handleCheckShowContent(index)
+            if (swiper.activeIndex == 1) {
+                this.isActive = true
+            } else {
+                this.isActive = false
+            }
         },
         handleCheckShowContent(number) {
             this.listTimeLine = this.listTimeLine.map((item, index) => {
@@ -343,8 +204,9 @@ export default {
                 return item;
             });
         },
-        handleShowEmployee(hoten) {
-            this.nameEmployee = hoten;
+        handleShowEmployee(dept) {
+            this.nameEmployee = dept;
+            this.emitter.emit("search-dept", dept);
             this.$refs.searchEmployee.focusSelect();
         },
         updateNameEmployee(newName) {
@@ -359,6 +221,11 @@ export default {
     background-image: url('../../../assets/images/eventBirthday2024/bg_moonwalk.jpg');
     background-position: left top;
     background-repeat: no-repeat;
+    height: 100vh;
+
+    &.active {
+        background-position: right calc(100% + 50px);
+    }
 
     .bg_border {
         background-image: url('../../../assets/images/eventBirthday2024/bg_border.png');
@@ -460,10 +327,36 @@ export default {
         justify-content: flex-start;
         align-items: center;
         align-content: stretch;
-        margin-top: 45px;
+        margin-top: 25px;
+
+        .content_total {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            justify-content: flex-start;
+            align-items: center;
+            align-content: stretch;
+
+            span {
+                &:last-child {
+                    font-size: 22px;
+                    font-weight: 700;
+                }
+
+                font-size: 18px;
+                color:#fff;
+                display: block;
+                text-align: center;
+            }
+        }
 
         .icon {
-            background-image: url();
+            background-image: url('../../../assets/images/eventBirthday2024/icon_kimto_2.svg');
+            display: block;
+            width: 47px;
+            height: 46px;
+            background-size: 100%;
+            margin-right: 20px;
         }
 
         .lists {
@@ -476,190 +369,296 @@ export default {
             margin: 0;
             list-style: none;
             padding: 0;
-        }
-    }
 
-    .item {
-        position: relative;
-
-        .listImages {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            grid-template-rows: 1fr;
-            grid-column-gap: 20px;
-            grid-row-gap: 0px;
-            position: absolute;
-            top: -170px;
-
-            .item_img {
-                display: block;
+            .item_list {
                 position: relative;
-            }
+                padding: 0 30px;
 
-            :deep(.el-image__inner) {
-                border-radius: 20px;
-            }
-        }
-
-        .item__year {
-            position: relative;
-            padding-bottom: 25px;
-            cursor: pointer;
-
-            &:before {
-                position: absolute;
-                content: '';
-                width: 100%;
-                height: 1px;
-                background-color: #000;
-                bottom: 0px;
-                left: 0;
-            }
-
-            &.lastItem {
-                &:before {
-                    background: linear-gradient(90deg, #000 25%, #fff 100%);
-                }
-            }
-
-            .icon {
-                width: 22px;
-                height: 22px;
-                display: inline-block;
-                background: #bbb;
-                border-radius: 100%;
-                position: absolute;
-                z-index: 1;
-                bottom: -11px;
-                left: 0;
-            }
-
-            .year {
-                position: relative;
-                font-size: 30px;
-                color: #bbb;
-                font-family: 'Phudu';
-                margin-left: 25px;
-            }
-        }
-
-        .item__content {
-            width: 560px;
-            padding: 20px;
-            position: relative;
-            background-color: #ffffff;
-            font-size: 20px;
-            font-family: 'Inter';
-            color: #000;
-
-            .item__content__title {
-                font-family: 'Phudu';
-                font-weight: 500;
-            }
-
-            .line {
-                position: absolute;
-                height: 100%;
-                width: 1px;
-                background: linear-gradient(to bottom, #000 25%, #fff 100%);
-                left: 0;
-                top: 0;
-                left: 10px
-            }
-
-            .item__images {
-                display: flex;
-
-                :deep(.images) {
-                    margin-right: 5px;
-
-
+                &::before {
+                    width: 100%;
+                    content: '';
+                    height: 1px;
+                    background: #e5d6ac;
+                    position: absolute;
+                    left: 0;
+                    top: 50%;
+                    transform: translateY(-50%);
                 }
 
-                :deep(.el-image__inner) {
+                .icon_timeline {
+                    background-image: url('../../../assets/images/eventBirthday2024/icon_timeline.svg');
+                    display: block;
+                    width: 40px;
+                    height: 50px;
+                    background-size: 100%;
+                    background-repeat: no-repeat;
+                    margin: 0 auto;
+                    position: relative;
+                    z-index: 1;
+                    cursor: pointer;
+                    transition: all .3s ease;
+                    transform: scale(1);
+
+                    &:hover {
+                        background-image: url('../../../assets/images/eventBirthday2024/icon_timeline_hover.png');
+                        transition: all .3s ease;
+                        transform: scale(1.3);
+                    }
+
+                    &.active {
+                        background-image: url('../../../assets/images/eventBirthday2024/icon_timeline_hover.png');
+                        transform: scale(1.3);
+                    }
+                }
+
+                .item__year {
                     border-radius: 5px;
-                }
-            }
+                    padding: 5px 15px;
+                    background: rgb(37, 101, 119);
+                    background: linear-gradient(180deg, rgba(37, 101, 119, 1) 0%, rgba(37, 101, 119, 0) 100%);
+                    color: #fff;
+                    text-align: center;
+                    position: absolute;
+                    left: 50%;
+                    top: 100%;
+                    transform: translate(-50%, 5px);
+                    width: 50px;
 
-            .item__content__desc {
-                margin: 10px 0;
-            }
-        }
+                    .year {
+                        color: #f8d79c;
+                        border-bottom: 1px solid #73b3c6;
+                        padding-bottom: 5px;
+                        margin-bottom: 5px;
+                        display: block;
+                    }
 
-        &.active {
-            .item__year {
-                .icon {
-                    background-color: #FFC200;
-                }
-            }
-        }
-
-        &.leftContent {
-            .listImages {
-                left: -270%;
-            }
-
-            .item__content {
-                left: -250%;
-
-                .line {
-                    left: auto;
-                    right: 20px;
+                    p {
+                        margin: 0;
+                        font-size: 16px;
+                        display: flex;
+                        flex-direction: column;
+                        line-height: 20px;
+                    }
                 }
             }
         }
     }
 
-    .container-true {
-        position: relative;
+    .wrap_nguyetdat_search {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: flex-end;
+        align-items: stretch;
+        align-content: stretch;
+        margin-right: 50px;
+        position: absolute;
+        z-index: 1;
+        right: 0;
+
+        .title_nguyetda {
+            .tree_title {
+                position: relative;
+
+                &:before {
+                    content: '';
+                    background-image: url('../../../assets/images/eventBirthday2024/img_star_2.svg');
+                    height: 70px;
+                    width: 60px;
+                    background-size: 100%;
+                    background-repeat: no-repeat;
+                    position: absolute;
+                    right: 115px;
+                    background-position: bottom;
+                    top: 65px;
+                }
+
+                &:after {
+                    content: '';
+                    background-image: url('../../../assets/images/eventBirthday2024/img_star_1.svg');
+                    width: 60px;
+                    background-size: 100%;
+                    background-repeat: no-repeat;
+                    position: absolute;
+                    right: 30px;
+                    height: 77px;
+                    background-position: bottom;
+                    top: 105px;
+                }
+            }
+        }
+
     }
 
-    .trunk {
-        width: 680px;
-        height: 705px;
-        position: relative;
+    .swiper-slide {
+        height: 100vh;
 
-        .branches {
-            width: 475px;
-            height: 410px;
+        .trunk {
             position: absolute;
+            top: 0;
             left: 50%;
-            transform: translateX(-50%);
-            top: 0
-        }
+            transform: translate(-50%, 0px);
+            width: auto;
 
-        .leaf {
-            position: absolute;
-            z-index: 1;
-            width: 30px;
-            height: 30px;
-            border-radius: 100%;
-            overflow: hidden;
-            top: 108%;
-            left: 43%;
-            transform: scale(1);
-            transition: all 1.2s ease;
-            cursor: pointer;
+            .trunk_tree {
+                img {
+                    width: 125.5%;
+                }
 
-            img {
-                width: 100%;
-                height: 100%;
-                object-fit: fill;
-                object-position: center;
+                &:before {}
             }
 
-            &:hover {
-                transition: all .7s ease;
-                transform: scale(2);
-                z-index: 2;
-            }
-        }
+            .branches {
+                position: absolute;
+                width: 85%;
+                top: 0;
+                height: 50%;
+                left: 20%;
 
-        .trunk_tree {
-            img {
-                width: 100%;
+                .leaf {
+                    width: 80px;
+                    height: 100px;
+                    background-image: url('../../../assets/images/eventBirthday2024/bt_tt.png');
+                    color: #b29b66;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    transition: all .3s ease-in-out;
+                    cursor: pointer;
+                    position: absolute;
+                    background-size: 100%;
+
+                    &:hover {
+                        background-image: url('../../../assets/images/eventBirthday2024/bt_tt_hv.png');
+                        transition: all .3s ease-in-out;
+                    }
+
+                    .info {
+                        width: 60px;
+                        height: 60px;
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        justify-content: center;
+                        margin-top: 20px;
+                        text-align: center;
+
+                        span {
+                            font-size: 16px;
+
+                            &.w700 {
+                                font-size: 18px;
+                            }
+                        }
+                    }
+
+                    &.leaf_0 {
+                        left: 24%;
+                        top: 145px;
+                    }
+
+                    &.leaf_1 {
+                        left: 35%;
+                        top: 77px;
+                    }
+
+                    &.leaf_2 {
+                        left: 50%;
+                        top: 95px;
+                    }
+
+                    &.leaf_3 {
+                        left: 72%;
+                        top: 110px;
+                    }
+
+                    &.leaf_4 {
+                        left: 81%;
+                        top: 190px;
+                    }
+
+                    &.leaf_5 {
+                        left: 81%;
+                        bottom: 11px;
+                    }
+
+                    &.leaf_6 {
+                        left: 67%;
+                        bottom: 35px;
+                    }
+
+                    &.leaf_7 {
+                        left: 61%;
+                        bottom: 130px;
+                    }
+
+                    &.leaf_8 {
+                        left: 47%;
+                        bottom: 50px;
+                    }
+
+                    &.leaf_9 {
+                        left: 37%;
+                        bottom: 120px;
+                    }
+
+                    &.leaf_10 {
+                        left: 24%;
+                        bottom: 25px;
+                    }
+
+                    &.leaf_11 {
+                        left: 9%;
+                        bottom: -25px;
+                    }
+                }
             }
         }
     }
+
+    .wrap-timeline {
+        margin-top: 60px;
+    }
+}
+</style>
+<style lang="scss">
+.swiper-button-prev {
+    background-image: url('../../../assets/images/eventBirthday2024/icon_muiten.svg');
+    transform: rotate(90deg) translate(calc(-50% - 100px), 20px);
+}
+
+.swiper-button-next {
+    background-image: url('../../../assets/images/eventBirthday2024/icon_muiten.svg');
+    transform: rotate(-90deg) translate(calc(-50% + 140px), 25px);
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+    width: 60px;
+    height: 60px;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    top: 50%;
+    transition: all .3s ease-in-out;
+    margin: 0;
+}
+
+.swiper-button-prev:hover {
+    transition: all .3s ease-in-out;
+}
+
+.swiper-button-next:hover {
+    transition: all .3s ease-in-out;
+}
+
+.swiper-button-prev.swiper-button-disabled,
+.swiper-button-next.swiper-button-disabled {
+    display: none;
+}
+
+.swiper-button-prev:after,
+.swiper-button-next:after {
+    display: none;
 }
 </style>
