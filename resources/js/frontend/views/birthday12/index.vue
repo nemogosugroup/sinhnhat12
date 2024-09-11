@@ -1,102 +1,68 @@
 <template>
     <div id="sn12Map" :style="`background-image: url(${mapElm.MapBg})`">
-        <div class="sub_bg">
-            <video autoplay muted loop id="myVideo">
-                <source src="/videos/bg_video_clouds.mp4" type="video/mp4">
-            </video>
-        </div>
         <el-row class="row_1">
-            <el-col :span="24">
-                <h1 class="map_title">{{ "ĐƯỜNG TƠ TRĂNG" }}</h1>
+            <el-col :span="20">
+                <img class="map_title" :src="mapElm.DuongToTrangTextAndDate" alt="">
             </el-col>
-            <el-col :span="24">
-                <div class="map_user_board" :style="`background-image: url(${mapElm.MapBgUserBoard})`">
-                    <el-row>
-                        <el-col :span="4">
-                            <el-avatar :size="50" :src="user.avatar">
-                                <img :src="mapElm.DefaultAvatar" alt="" />
-                            </el-avatar>
-                        </el-col>
-                        <el-col :span="6">
-                            <span>{{ "Xin chào" }}</span>
-                        </el-col>
-                        <el-col :span="10">
-                            <b>{{ user.fullname }}</b>
-                        </el-col>
-                        <el-col :span="4">
-                            <a @click="handleLogout">{{ "Thoát" }}</a>
-                        </el-col>
-                    </el-row>
-                </div>
-            </el-col>
-        </el-row>
-        <el-row class="row_2">
-            <el-col :span="6" class="alerts">
+            <el-col :span="4" class="alerts">
                 <el-row>
-                    <el-col :span="24">
-                        <el-row>
-                            <el-col :span="4" class="alert_bell" :class="{ active: issetAlert }">
-                                <img @click="goToQuestList" :src="mapElm.MapIconBell" alt="">
-                                <b class="alert_count bell">{{ alertCount }}</b>
-                            </el-col>
-                            <el-col :span="20">
-                                <span>{{ "Thông báo" }}</span>
-                            </el-col>
-                        </el-row>
+                    <el-col :span="24" class="alert_bell" :class="{ active: issetAlert }">
+                        <img @click="goToQuestList" :src="mapElm.MapIconBell" alt="">
                     </el-col>
-                    <el-col :span="24">
-                        <el-row>
-                            <el-col :span="4">
-                                <img :src="mapElm.MapIconSilk" alt="">
-                                <b class="alert_count silk">{{ silkCount }}</b>
-                            </el-col>
-                            <el-col :span="20">
-                                <span>{{ "Kim tơ" }}</span>
-                            </el-col>
-                        </el-row>
+                    <el-col :span="24" class="alert_mochi">
+                        <img :src="mapElm.MapIconMochi" alt="">
+                        <b class="alert_count mochi">{{ mochiCount }}</b>
                     </el-col>
-                    <el-col :span="24">
-                        <el-row>
-                            <el-col :span="4">
-                                <img :src="mapElm.MapIconMochi" alt="">
-                                <b class="alert_count mochi">{{ mochiCount }}</b>
-                            </el-col>
-                            <el-col :span="20">
-                                <span>{{ "Mochi" }}</span>
-                            </el-col>
-                        </el-row>
+                    <el-col :span="24" class="alert_silk">
+                        <img :src="mapElm.MapIconSilk" alt="">
+                        <b class="alert_count silk">{{ silkCount }}</b>
                     </el-col>
                 </el-row>
             </el-col>
-            <el-col :span="18" class="ports">
+        </el-row>
+        <el-row class="row_2">
+            <el-col :span="24" class="ports">
                 <el-row>
-                    <el-col :span="24" class="port_wrapper text-center">
-                        <img class="main_img" :src="mapElm.MapGate" alt="">
-                        <img @click="goTo('GATE')" @mouseover="showBubble('GATE')" @mouseout="hideBubble"
-                            class="text_img" :src="mapElm.MapGateText" alt="">
+                    <el-col :span="8" class="port_wrapper cave" style="text-align: right"
+                            :class="{ is_first_time: isFirstTime }">
+                        <img class="main_img" :src="caveMainImg" alt="">
+                        <img
+                            @click="goTo('CAVE')"
+                            @mouseover="handleHover('CAVE')"
+                            @mouseout="handleHoverOut('CAVE')"
+                            class="text_img" :src="caveTextImg" alt=""
+                        >
+                        <div v-if="tooltipType === 'CAVE'" class="bubble_tooltip tooltip_CAVE">
+                            <VueTyped :strings="[`<b>Thố Động:</b> Điểm danh và làm nhiệm vụ ngày`]" :typeSpeed="10"
+                                      :backSpeed="30" :loop="false">
+                            </VueTyped>
+                        </div>
+                    </el-col>
+                    <el-col :span="8" class="port_wrapper gate text-center">
+                        <img class="main_img" :src="gateMainImg" alt="">
+                        <img
+                            @click="goTo('GATE')"
+                            @mouseover="handleHover('GATE')"
+                            @mouseout="handleHoverOut('GATE')"
+                            class="text_img" :src="gateTextImg" alt=""
+                        >
                         <div v-if="tooltipType === 'GATE'" class="bubble_tooltip tooltip_GATE">
                             <VueTyped :strings="[`<b>Cổng Moonwalk:</b> Trang hành trình GOSU12`]" :typeSpeed="15"
-                                :backSpeed="30" :loop="false">
+                                      :backSpeed="30" :loop="false">
                             </VueTyped>
                         </div>
                     </el-col>
-                    <el-col :span="12" class="port_wrapper cave text-center" :class="{ is_first_time: isFirstTime }">
-                        <img class="main_img" :src="mapElm.MapCave" alt="">
-                        <img @click="goTo('CAVE')" @mouseover="showBubble('CAVE')" @mouseout="hideBubble"
-                            class="text_img" :src="mapElm.MapCaveText" alt="">
-                        <div v-if="tooltipType === 'CAVE'" class="bubble_tooltip tooltip_CAVE">
-                            <VueTyped :strings="[`<b>Thố Động:</b> Điểm danh và làm nhiệm vụ ngày`]" :typeSpeed="15"
-                                :backSpeed="30" :loop="false">
-                            </VueTyped>
-                        </div>
-                    </el-col>
-                    <el-col :span="12" class="port_wrapper text-center">
-                        <img class="main_img" :src="mapElm.MapWheel" alt="">
-                        <img @click="goTo('WHEEL')" @mouseover="showBubble('WHEEL')" @mouseout="hideBubble"
-                            class="text_img" :src="mapElm.MapWheelText" alt="">
+                    <el-col :span="8" class="port_wrapper wheel text-left">
+                        <img class="main_img" :src="wheelMainImg" alt="">
+                        <img
+                            @click="goTo('WHEEL')"
+                            @mouseover="handleHover('WHEEL')"
+                            @mouseout="handleHoverOut('WHEEL')"
+                            class="text_img" :src="wheelTextImg" alt=""
+                        >
                         <div v-if="tooltipType === 'WHEEL'" class="bubble_tooltip tooltip_WHEEL">
                             <VueTyped :strings="[`<b>Vòng Quay Mặt Trời:</b> Trò chơi thu thập Kim Tơ`]" :typeSpeed="15"
-                                :backSpeed="30" :loop="false">
+                                      :backSpeed="30" :loop="false">
                             </VueTyped>
                         </div>
                     </el-col>
@@ -106,32 +72,38 @@
     </div>
 
     <map-dialog :dialog-visible="dialogVisible" :dialog-type="dialogType" :cave-type="caveType"
-        :first-time="isFirstTime" @hideDialog="handleHideDialog"></map-dialog>
+                :first-time="isFirstTime" @hideDialog="handleHideDialog"></map-dialog>
 
 </template>
 <script>
 import DefaultAvatar from '@/assets/images/default_avatar.png'
 import DownArrow from '@/assets/images/birthday12/map/map_down_arrow.png'
 
-import MapBg from '@/assets/images/birthday12/map/map_bg_moon_to_earth.png'
-import MapBgUserBoard from '@/assets/images/birthday12/map/map_bg_user_board.png'
-import MapCave from '@/assets/images/birthday12/map/map_cave.svg'
-import MapCaveText from '@/assets/images/birthday12/map/map_cave_text.svg'
-import MapGate from '@/assets/images/birthday12/map/map_gate.svg'
-import MapGateText from '@/assets/images/birthday12/map/map_gate_text.svg'
-import MapWheel from '@/assets/images/birthday12/map/map_wheel.svg'
-import MapWheelText from '@/assets/images/birthday12/map/map_wheel_text.svg'
-import MapIconBell from '@/assets/images/birthday12/map/map_icon_bell.png'
-import MapIconSilk from '@/assets/images/birthday12/map/map_icon_silk.png'
-import MapIconMochi from '@/assets/images/birthday12/map/map_icon_mochi.png'
+import MapBg from '@/assets/images/eventBirthday2024/bg.svg'
+import DuongToTrangTextAndDate from '@/assets/images/eventBirthday2024/duong_to_trang_text_date.svg'
+import MapCave from '@/assets/images/eventBirthday2024/img_thodong.svg'
+import MapCaveHover from '@/assets/images/eventBirthday2024/img_thodong_hover.svg'
+import MapCaveText from '@/assets/images/eventBirthday2024/icon_thodong.svg'
+import MapCaveTextHover from '@/assets/images/eventBirthday2024/icon_thodong_hover.svg'
+import MapGate from '@/assets/images/eventBirthday2024/img_moonwalk.svg'
+import MapGateHover from '@/assets/images/eventBirthday2024/img_moonwalk_hover.svg'
+import MapGateText from '@/assets/images/eventBirthday2024/icon_moonwalk.svg'
+import MapGateTextHover from '@/assets/images/eventBirthday2024/icon_moonwalk_hover.svg'
+import MapWheel from '@/assets/images/eventBirthday2024/img_vongquay.svg'
+import MapWheelHover from '@/assets/images/eventBirthday2024/img_vongquay_hover.svg'
+import MapWheelText from '@/assets/images/eventBirthday2024/icon_vongquay.svg'
+import MapWheelTextHover from '@/assets/images/eventBirthday2024/icon_vongquay_hover.svg'
+import MapIconBell from '@/assets/images/eventBirthday2024/icon_notification.svg'
+import MapIconSilk from '@/assets/images/eventBirthday2024/icon_kimto.svg'
+import MapIconMochi from '@/assets/images/eventBirthday2024/icon_mochi.svg'
 
 import MapDialog from "@frontend/views/birthday12/components/MapDialog.vue";
-import { mapGetters } from "vuex";
-import { Emitter } from '@frontend/views/birthday12/components/wheel/components/evenEmit.js';
+import {mapGetters} from "vuex";
+import {Emitter} from '@frontend/views/birthday12/components/wheel/components/evenEmit.js';
 
 export default {
     name: 'Map',
-    components: { MapDialog },
+    components: {MapDialog},
     data() {
         return {
             tooltipType: null,
@@ -140,20 +112,31 @@ export default {
             dialogType: null, // GATE, CAVE, WHEEL
             caveType: "nguyet_nhu", // nguyet_nhu, nguyet_nhiem, nguyet_thach, nguyet_ky
             issetAlert: 0,
-            alertCount: 0,
             silkCount: 0,
             mochiCount: 0,
+            caveMainImg: MapCave,
+            caveTextImg: MapCaveText,
+            gateMainImg: MapGate,
+            gateTextImg: MapGateText,
+            wheelMainImg: MapWheel,
+            wheelTextImg: MapWheelText,
             mapElm: {
                 DefaultAvatar: DefaultAvatar,
                 DownArrow: DownArrow,
                 MapBg: MapBg,
-                MapBgUserBoard: MapBgUserBoard,
+                DuongToTrangTextAndDate: DuongToTrangTextAndDate,
                 MapCave: MapCave,
+                MapCaveHover: MapCaveHover,
                 MapCaveText: MapCaveText,
+                MapCaveTextHover: MapCaveTextHover,
                 MapGate: MapGate,
+                MapGateHover: MapGateHover,
                 MapGateText: MapGateText,
+                MapGateTextHover: MapGateTextHover,
                 MapWheel: MapWheel,
+                MapWheelHover: MapWheelHover,
                 MapWheelText: MapWheelText,
+                MapWheelTextHover: MapWheelTextHover,
                 MapIconBell: MapIconBell,
                 MapIconSilk: MapIconSilk,
                 MapIconMochi: MapIconMochi,
@@ -168,7 +151,6 @@ export default {
     created() {
         this.$store.dispatch("user/getInfo").then(() => {
             this.issetAlert = this.user.alerts > 0;
-            this.alertCount = this.user.alerts;
             this.silkCount = this.user.point_silk;
             this.mochiCount = this.user.point_mochi;
             this.isFirstTime = this.user.first_time;
@@ -176,11 +158,31 @@ export default {
     },
 
     methods: {
-        hideBubble() {
-            this.tooltipType = null;
-        },
-        showBubble(pos) {
+        handleHover(pos) {
             this.tooltipType = pos;
+            if (pos === "CAVE") {
+                this.caveMainImg = this.mapElm.MapCaveHover;
+                this.caveTextImg = this.mapElm.MapCaveTextHover;
+            } else if (pos === "GATE") {
+                this.gateMainImg = this.mapElm.MapGateHover;
+                this.gateTextImg = this.mapElm.MapGateTextHover;
+            } else if (pos === "WHEEL") {
+                this.wheelMainImg = this.mapElm.MapWheelHover;
+                this.wheelTextImg = this.mapElm.MapWheelTextHover;
+            }
+        },
+        handleHoverOut(pos) {
+            this.tooltipType = null;
+            if (pos === "CAVE") {
+                this.caveMainImg = this.mapElm.MapCave;
+                this.caveTextImg = this.mapElm.MapCaveText;
+            } else if (pos === "GATE") {
+                this.gateMainImg = this.mapElm.MapGate;
+                this.gateTextImg = this.mapElm.MapGateText;
+            } else if (pos === "WHEEL") {
+                this.wheelMainImg = this.mapElm.MapWheel;
+                this.wheelTextImg = this.mapElm.MapWheelText;
+            }
         },
         goToQuestList() {
             this.dialogType = "CAVE";
@@ -204,7 +206,6 @@ export default {
             Emitter.emit("reset-game", true);
             await this.$store.dispatch("user/getInfo");
             this.issetAlert = this.user.alerts > 0;
-            this.alertCount = this.user.alerts;
             this.silkCount = this.user.point_silk;
             this.mochiCount = this.user.point_mochi;
             this.isFirstTime = this.user.first_time;
@@ -225,113 +226,73 @@ export default {
     height: 100vh;
     overflow: hidden;
     background-repeat: no-repeat;
-    background-size: contain;
-    background-position: 100% 80px;
+    background-size: cover;
+    background-position: center;
     padding: 100px 20px 0;
-
-    .sub_bg {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        z-index: -1;
-        filter: invert(1);
-        opacity: 0.55;
-    }
 
     .row_1 {
         .map_title {
-            font-family: "Phudu", serif;
-            font-size: 160px;
-            background: linear-gradient(to top, #833602 31%, #A8622E 65%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-weight: 600;
-            filter: drop-shadow(0 0 0.75rem rgba(0, 0, 0, 0.25));
-            text-shadow: 0 5px 5px rgb(0 0 0 / 10%);
-            -webkit-filter: drop-shadow(0 0 0.75rem rgba(0, 0, 0, 0.25));
-            margin: 10px 0;
+            position: relative;
+            left: 7%;
         }
 
-        .map_user_board {
-            height: 90px;
-            max-width: 460px;
-            padding: 20px 45px;
-            margin-bottom: 40px;
-            background-repeat: no-repeat;
-            text-align: center;
-
-            .el-avatar {
-                border: 2px solid #fff;
-                box-shadow: 0 4px 7px #00000070;
-
-                img {
-                    object-fit: cover;
-                }
-            }
-
-            .el-col {
-                &:not(:first-child) {
-
-                    span,
-                    b,
-                    a {
-                        position: relative;
-                        top: 16px;
-                        color: #66494E;
-                    }
-
-                    span,
-                    a {
-                        font-family: "LacLongQuan", serif;
-                    }
-                }
-
-                &:last-child {
-                    a {
-                        position: relative;
-
-                        &:before {
-                            content: "";
-                            height: 20px;
-                            width: 1px;
-                            background: #000;
-                            position: absolute;
-                            left: -8px;
-                            top: 1px;
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    .row_2 {
         .alerts {
+            padding-right: 25px;
+
             img {
                 margin-bottom: 5px;
+                float: right;
             }
 
             .alert_bell {
                 transition: all .3s ease-in-out;
-                cursor: pointer;
+
+                img {
+                    cursor: pointer;
+                    margin-bottom: 20px;
+                }
 
                 &.active {
-                    animation: bell_scale 1s infinite;
+                    &:before {
+                        content: "";
+                        width: 15px;
+                        height: 15px;
+                        display: block;
+                        background: #D95117;
+                        position: absolute;
+                        border-radius: 50%;
+                        right: 5px;
+                        top: 10px;
+                        box-shadow: 0 0 10px #D95117;
+                        animation: scale_effect 1s infinite;
+                    }
                 }
+            }
+
+            .alert_mochi {
+                position: relative;
+
+                img {
+                    position: relative;
+                    left: 7px;
+                    bottom: 2px;
+                }
+            }
+
+            .alert_silk {
+                position: relative;
             }
 
             .alert_count {
                 position: absolute;
                 color: #fff;
-                top: 60px;
-                left: 7px;
+                right: 10px;
                 transform: translate(50%, -50%);
-                font-size: 12px;
+                font-size: 18px;
                 width: 30px;
                 text-align: center;
+                text-shadow: 0 0 7px #000;
+                letter-spacing: 1px;
 
                 &.silk {
                     top: 59px;
@@ -346,7 +307,7 @@ export default {
                 position: relative;
 
                 span {
-                    font-family: "LacLongQuan", serif;
+                    font-family: "Myriad Pro", serif;
                     color: #8D410E;
                     position: absolute;
                     top: 35%;
@@ -356,24 +317,29 @@ export default {
                 }
             }
         }
+    }
+
+    .row_2 {
 
         .ports {
             .port_wrapper {
                 position: relative;
-                right: 70px;
-                bottom: 65px;
+                height: 500px;
+
+                .main_img {
+                    position: relative;
+                    transition: all .3s ease-in-out;
+                    animation: bounce 7s infinite;
+                }
+
+                .text_img {
+                    position: absolute;
+                    transform: translate(50%, -50%);
+                    cursor: pointer;
+                    transition: all .3s ease-in-out;
+                }
 
                 &.cave {
-                    &:after {
-                        content: "";
-                        position: absolute;
-                        top: 90px;
-                        right: 100px;
-                        width: 100px;
-                        height: 100px;
-                        background-image: url("@/assets/images/birthday12/map/map_cave_rabbit.svg");
-                        background-repeat: no-repeat;
-                    }
 
                     &.is_first_time {
                         &:before {
@@ -381,52 +347,47 @@ export default {
                             position: absolute;
                             width: 100px;
                             height: 120px;
-                            top: -20%;
-                            left: 43%;
-                            background-image: url("@/assets/images/birthday12/map/map_down_arrow.png");
+                            top: -25%;
+                            right: 3%;
+                            background-image: url("@/assets/images/eventBirthday2024/icon_muiten.svg");
                             background-repeat: no-repeat;
                             background-size: contain;
                             animation: bounce 1s infinite, blink 1s infinite;
                         }
                     }
-                }
 
-                .main_img {
-                    position: relative;
-                }
-
-                .text_img {
-                    position: absolute;
-                    top: 50%;
-                    right: 50%;
-                    transform: translate(50%, -50%);
-                    transition: all .3s ease-in-out;
-                    cursor: pointer;
-
-                    &:hover {
-                        transform: translate(50%, -55%);
-                    }
-                }
-
-                &:first-child {
-                    .text_img {
-                        top: 60%;
-                    }
-                }
-
-                &:nth-child(2) {
-                    .text_img {
-                        top: 33%;
-                    }
-                }
-
-                &:last-child {
                     .main_img {
-                        bottom: 80px;
+                        bottom: 20%;
+                        left: 12%;
                     }
 
                     .text_img {
-                        top: 40%;
+                        top: 26%;
+                        right: 26%;
+                    }
+                }
+
+                &.gate {
+                    .main_img {
+                        bottom: 67%;
+                        left: 5%;
+                    }
+
+                    .text_img {
+                        top: -17%;
+                        left: -4%;
+                    }
+                }
+
+                &.wheel {
+                    .main_img {
+                        bottom: 43%;
+                        left: 9%;
+                    }
+
+                    .text_img {
+                        top: 10%;
+                        left: -27%;
                     }
                 }
 
@@ -436,26 +397,29 @@ export default {
                     text-align: center;
                     z-index: 2;
 
-                    &.tooltip_GATE {
-                        bottom: 25px;
+                    &.tooltip_CAVE {
+                        top: 34%;
+                        left: 27%;
                     }
 
-                    &.tooltip_CAVE {
-                        top: 180px;
+                    &.tooltip_GATE {
+                        top: -9%;
+                        left: -14%;
                     }
 
                     &.tooltip_WHEEL {
-                        top: 210px;
+                        top: 18%;
+                        left: -32%;
                     }
 
-                    >div {
+                    > div {
                         display: inline;
                         padding: 7px 15px;
                         background: #fff;
                         border-radius: 7px;
                         box-shadow: 0 0 5px #000;
                         font-style: italic;
-                        font-family: "LacLongQuan", serif;
+                        font-family: "Myriad Pro", serif;
                     }
                 }
             }
@@ -473,7 +437,7 @@ export default {
     }
 
     50% {
-        transform: translateY(-10px);
+        transform: translateY(-5px);
     }
 
     100% {
@@ -487,13 +451,13 @@ export default {
     }
 }
 
-@keyframes bell_scale {
+@keyframes scale_effect {
     0% {
         transform: scale(1);
     }
 
     50% {
-        transform: scale(1.05);
+        transform: scale(1.1);
     }
 
     100% {

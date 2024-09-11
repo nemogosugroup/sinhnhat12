@@ -1,7 +1,6 @@
 <template>
     <div>
         <h1 class="title">{{ "NỘI QUY CÔNG VIÊN" }}</h1>
-        <hr class="custom_hr">
         <div class="content_wrapper">
             <div id="rules" class="content">
                 <ol type="I">
@@ -65,18 +64,16 @@ export default {
 </script>
 <style lang="scss" scoped>
 .title {
-    font-family: Phudu, serif;
+    font-family: Beaufort, serif;
     text-align: center;
-    margin: 0 0 15px;
-    font-size: 44px;
-    color: #516677;
-}
-
-.custom_hr {
-    background: linear-gradient(90deg, transparent, #516677, transparent);
-    border: none;
-    height: 1px;
-    max-width: 150px;
+    padding: 10px 0;
+    margin: 5px 0 10px;
+    font-size: 30px;
+    color: #28657D;
+    background-image: url('../../../../../../assets/images/eventBirthday2024/bg_title_nguyet_nhu.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
 }
 
 .content_wrapper {
@@ -96,7 +93,7 @@ export default {
     }
 
     &::-webkit-scrollbar-thumb {
-        background: linear-gradient(0deg, #7A5026, #E09246);
+        background: #60A8AC;
         border-radius: 10px;
     }
 
@@ -109,7 +106,7 @@ export default {
             li {
                 &::marker,
                 > strong {
-                    color: #E49A48;
+                    color: #5B4216;
                     margin-bottom: 10px;
                     display: block;
                 }
@@ -118,7 +115,7 @@ export default {
                         &::marker,
                         strong {
                             font-weight: bold;
-                            color: #000;
+                            color: #5B4216;
                         }
                         ol {
                             list-style-type: disc;

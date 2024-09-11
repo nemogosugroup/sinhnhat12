@@ -1,34 +1,16 @@
 <template>
     <el-dialog v-model="isShowDialog" class="custom_el_dialog"
-        style="width: 100%; height: 100%; background-color: transparent; box-shadow: none; margin: 0 auto"
-        :show-close="false">
-        <div class="custom_dialog" :class="dialogType" :style="`background-image: url(${dialogElm.DialogBg})`">
-
-            <div class="custom_title" :class="dialogType">
-                <img :src="dialogType === 'CAVE' ? dialogElm.DialogCaveTitle : dialogElm.DialogWheelTitle" alt="">
-            </div>
-
-            <div class="custom_logo" :class="dialogType">
-                <img :src="dialogType === 'CAVE' ? dialogElm.DialogCaveLogo : dialogElm.DialogWheelLogo" alt="">
-            </div>
-
+               style="width: 100%; height: 100%; background-color: transparent; box-shadow: none; margin: 0 auto"
+               :show-close="false" @close="closeDialog">
+        <div class="custom_dialog" :class="dialogType"
+             :style="`background-image: url(${dialogType === 'CAVE' ? dialogElm.DialogCaveBg :  dialogElm.DialogWheelBg})`">
             <div class="custom_close_btn">
                 <img @click="closeDialog" :src="dialogElm.DialogCloseBtn" alt="">
             </div>
 
-            <div class="custom_gabi">
-                <div v-if="isShowBubble" class="bubble_callout"
-                    :style="`background-image: url(${dialogElm.BubbleCallout})`">
-                    <VueTyped :strings="typedContent" :typeSpeed="50" :backSpeed="30" :loop="false"
-                        :onComplete="handleCompleteAll">
-                    </VueTyped>
-                </div>
-                <img :src="dialogElm.DialogGabi" alt="">
-            </div>
-
             <div class="custom_content">
-                <cave-content v-if="dialogType === 'CAVE'" :cave-type="tabType" :first-time="isFirstTime" />
-                <wheel-content v-if="dialogType === 'WHEEL'" />
+                <cave-content v-if="dialogType === 'CAVE'" :cave-type="tabType" :first-time="isFirstTime"/>
+                <wheel-content v-if="dialogType === 'WHEEL'"/>
             </div>
         </div>
     </el-dialog>
@@ -37,21 +19,16 @@
 import CaveContent from "../components/cave"
 import WheelContent from "../components/wheel"
 
-import DialogBg from "@/assets/images/birthday12/map/dialog/dialog_bg.png"
-import DialogCloseBtn from "@/assets/images/birthday12/map/dialog/dialog_close_btn.png"
-import DialogGabi from "@/assets/images/birthday12/map/dialog/dialog_gabi.png"
-import DialogCaveLogo from "@/assets/images/birthday12/map/dialog/dialog_cave.svg"
-import DialogCaveTitle from "@/assets/images/birthday12/map/dialog/dialog_cave_text.png"
-import DialogWheelLogo from "@/assets/images/birthday12/map/dialog/dialog_wheel.svg"
-import DialogWheelTitle from "@/assets/images/birthday12/map/dialog/dialog_wheel_text.png"
-import BubbleCallout from "@/assets/images/birthday12/map/bubble_callout.png"
+import DialogCaveBg from "@/assets/images/eventBirthday2024/popup_thodong.svg"
+import DialogWheelBg from "@/assets/images/eventBirthday2024/popup_vongquay.svg"
+import DialogCloseBtn from "@/assets/images/eventBirthday2024/icon_close.svg"
 
 import RepositoryFactory from '@frontend/utils/RepositoryFactory';
-import {ElMessage} from "element-plus";
+
 const game2048Repository = RepositoryFactory.get('game2048');
 export default {
     name: 'MapDialog',
-    components: { CaveContent, WheelContent },
+    components: {CaveContent, WheelContent},
     props: {
         dialogVisible: {
             type: Boolean,
@@ -78,14 +55,9 @@ export default {
             tabType: this.caveType,
             typedContent: ["Các Thỏ Ngọc hãy hoàn thành các nhiệm vụ ngày tại Nguyệt Nhiệm để nhận Mochi tham gia trò chơi Vòng Quay Mặt Trời nhé!"],
             dialogElm: {
-                DialogBg: DialogBg,
-                DialogCloseBtn: DialogCloseBtn,
-                DialogGabi: DialogGabi,
-                DialogCaveLogo: DialogCaveLogo,
-                DialogCaveTitle: DialogCaveTitle,
-                DialogWheelLogo: DialogWheelLogo,
-                DialogWheelTitle: DialogWheelTitle,
-                BubbleCallout: BubbleCallout
+                DialogCaveBg: DialogCaveBg,
+                DialogWheelBg: DialogWheelBg,
+                DialogCloseBtn: DialogCloseBtn
             }
         }
     },
@@ -96,7 +68,6 @@ export default {
     },
     mounted() {
         this.emitter.on("show-bubble-callout", () => {
-            document.querySelector(".custom_gabi").classList.add("active");
             this.isShowBubble = true;
         });
         this.emitter.on("hide-bubble-callout", () => {
@@ -126,7 +97,7 @@ export default {
             this.$emit('hideDialog', {});
         },
         async setFirstTimeToFalse() {
-            const { data } = await game2048Repository.setFirstTimeToFalse();
+            const {data} = await game2048Repository.setFirstTimeToFalse();
             if (data.success) {
                 console.log('updated users.first_time = false')
             }
@@ -137,14 +108,14 @@ export default {
 </script>
 <style lang="scss" scoped>
 .custom_dialog {
-    font-family: "LacLongQuan", serif;
+    font-family: "Myriad Pro", serif;
     position: relative;
     width: 100%;
     height: 90vh;
-    background-size: contain;
+    background-size: 1354px;
     background-repeat: no-repeat;
-    background-position: center;
-    padding: 5% 20% 9.5% 22.5%;
+    background-position: 267px 0;
+    padding: 198px 377px 75px 472px;
 
     .custom_close_btn {
         position: relative;
@@ -165,62 +136,11 @@ export default {
         }
     }
 
-    .custom_title {
-        position: absolute;
-        top: 8%;
-        left: 9.5%;
-
-        &.CAVE {
-            left: 11.5%;
-        }
-
-        img {
-            transition: all .3s ease-in-out;
-        }
-
-        &:hover {
-            img {
-                transform: scale(1.1);
-            }
-        }
-    }
-
-    .custom_logo {
-        position: absolute;
-        bottom: -4%;
-        left: 11%;
-
-        img {
-            transition: all .3s ease-in-out;
-        }
-
-        &:hover {
-            img {
-                transform: scale(1.1);
-            }
-        }
-
-        &.WHEEL {
-            bottom: -6.5%;
-            left: 6%;
-
-            img {
-                transform: scale(.8);
-            }
-
-            &:hover {
-                img {
-                    transform: scale(.9);
-                }
-            }
-        }
-    }
-
     .custom_close_btn {
         position: relative;
         float: right;
-        right: -25px;
-        top: -30px;
+        right: -40px;
+        top: -20px;
         cursor: pointer;
 
         img {
@@ -229,7 +149,7 @@ export default {
 
         &:hover {
             img {
-                transform: scale(1.1);
+                transform: scale(1.15);
             }
         }
     }
