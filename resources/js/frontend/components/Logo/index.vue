@@ -1,12 +1,12 @@
 <template>
     <div class="logo">
         <transition name="sidebarLogoFade">
-            <el-row :gutter="20">
+            <el-row :gutter="20" align="center" justify="center">
                 <el-col :span="8">
                     <router-link class="sidebar-logo-link" to="/">
                         <span class="wrap-logo">
                             <img :src="Logo" class="icon-logo" />
-                            <img :src="Gosu12" class="icon-birthday" />
+                            <!-- <img :src="Gosu12" class="icon-birthday" /> -->
                         </span>
                     </router-link>
                 </el-col>
@@ -20,7 +20,8 @@
 
 <script>
 import Gosu12 from "@/assets/images/eventBirthday2024/gosu12.svg";
-import Logo from "@/assets/images/eventBirthday2024/icon_logo.svg";
+// import Logo from "@/assets/images/eventBirthday2024/icon_logo.svg";
+import Logo from "@/assets/images/logo/GOSU_full.png";
 import Profile from "../Profile";
 export default {
     props: {
@@ -106,9 +107,11 @@ export default {
 .wrap-logo {
     display: flex;
     align-items: center;
+    height: 100%;
 
     .icon-logo {
         margin-right: 10px;
+        max-width: 170px;
     }
 }
 </style>

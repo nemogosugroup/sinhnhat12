@@ -1,10 +1,17 @@
 <template>
     <div class="search">
-        <h6 class="title-h6"> Nguyệt đa thần trụ</h6>
-        <div>
-            <el-select ref="employeeSelect" v-model="selectedEmployee" filterable clearable remote reserve-keyword
-                placeholder="Tìm kiếm nhân sự" :remote-method="remoteMethod" :loading="loading" @change="handleChange">
-                <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+        <div class="bg_border">
+            <el-input v-model="selectedEmployee" @keyup="handleSearchEmployee" class="search-employee"
+                ref="employeeSelect" style="max-width: 600px" placeholder="Search" @change="handleChange"
+                :loading="loading">
+                <template #append>
+                    <i class="ri-search-line"></i>
+                </template>
+            </el-input>
+        </div>
+        <el-scrollbar ref="scrollbarRef" v-loading="loading" height="350px">
+            <div class="listEmployee">
+                <div class="item" v-for="(item) in listEmployee" :key="item.value">
                     <span class="wrap-images">
                         <span class="images">
                             <img :src="item.avatar" alt="">
@@ -14,41 +21,49 @@
                             <span class="job">{{ item.job }}</span>
                         </span>
                     </span>
-                </el-option>
-            </el-select>
-        </div>
+                </div>
+            </div>
+        </el-scrollbar>
     </div>
 </template>
 <script>
 import { Employee } from './data';
 export default {
     name: "SearchEmployee",
-    props: {
-        nameEmployee: {
-            type: String,
-            default: null
-        }
-    },
     data() {
         return {
             list: [],
             options: [],
             value: null,
             loading: false,
-            selectedEmployee: this.nameEmployee
+            selectedEmployee: null,
+            isSearch: false,
+            listEmployee: []
         };
     },
     watch: {
-        nameEmployee(newValue) {
-            this.selectedEmployee = newValue; // Cập nhật khi có thay đổi từ parent
-        },
-        selectedEmployee(newValue) {
-            this.$emit('update:name-employee', newValue); // Truyền giá trị về parent khi el-select thay đổi
-        }
+    },
+    created() {
+        this.emitter.off("search-dept");
     },
     mounted() {
         this.list = Employee.map((item) => {
-            return { value: item.hoten, label: item.hoten, avatar: item.avatar, job: item.trungtam };
+            return { value: item.dept, label: item.fullname, avatar: item.avatar, job: item.jodid };
+        });
+        this.emitter.on("search-dept", (data) => {
+
+            if (data == 'HCNS') {
+                data = 'Hành chính nhân sự'
+            }
+            if (data == 'KTHT') {
+                data = 'Kỹ thuật hạ tầng'
+            }
+            if (data == 'TCKT') {
+                data = 'Tài chính kế toán'
+            }
+            this.selectedEmployee = data;
+
+            this.handleSearchEmployee();
         });
     },
     methods: {
@@ -66,34 +81,90 @@ export default {
             }
         },
         handleChange() {
-            console.log(this.value)
+            //console.log(this.selectedEmployee)
         },
         focusSelect() {
             this.$refs.employeeSelect.focus();
-            this.$nextTick(() => {
-                this.$refs.employeeSelect.toggleMenu(); // Mở menu dropdown
-            });
         },
+        handleSearchEmployee() {
+            if (this.selectedEmployee.length >= 2) {
+                let newStr = this.selectedEmployee.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+                this.loading = true;
+                this.listEmployee = this.list.filter((item) => {
+                    return item.value.toLowerCase().includes(newStr.toLowerCase());
+                });
+                this.loading = false;
+            } else {
+                this.listEmployee = [];
+            }
+        }
     },
 };
 </script>
 <style lang="scss" scoped>
 .search {
-    position: absolute;
-    bottom: 20%;
-    width: 230px;
-    left: 0;
-    transform: translateX(20%);
+    padding-left: 65px;
 
-    .title-h6 {
-        font-size: 18px;
-        margin: 0 0 10px;
+    .bg_border {
+        background-image: url('../../../assets/images/eventBirthday2024/bg_border.png');
+        height: 55px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-size: 100% 100%;
+        position: relative;
+        margin-bottom: 30px;
+        max-width: 260px;
+        min-width: 260px;
     }
+
+    .search-employee {
+        background-color: transparent;
+        font-size: 18px;
+        color: #fff;
+
+        :deep(.el-input__wrapper) {
+            background-color: transparent;
+            border: 0;
+            box-shadow: none;
+            color: #fff;
+        }
+
+        :deep(.el-input-group__append) {
+            border: 0;
+            background-color: transparent;
+            box-shadow: none;
+            cursor: pointer;
+            color: #60a8ac;
+            font-size: 24px;
+        }
+
+        :deep(.el-input__inner) {
+            color: #fff;
+        }
+
+        :deep(.el-input__inner)::placeholder {
+            opacity: 1;
+            color: #fff;
+        }
+    }
+}
+
+:deep(.el-loading-mask) {
+    background-color: transparent;
 }
 
 .el-select-dropdown__item {
     height: 50px;
     line-height: 20px;
+}
+
+.listEmployee {
+    position: relative;
+
+    .item {
+        width: 100%;
+    }
 
     .wrap-images {
         color: #000;
@@ -101,13 +172,23 @@ export default {
         display: flex;
         align-items: center;
         font-weight: 700;
+        background: #1a445c69;
+        border-radius: 5px;
+        padding: 5px 12px;
+        margin-bottom: 10px;
+        font-size: 18px;
+        min-width: 240px;
+        max-width: 240px;
 
         .images {
-            width: 30px;
-            height: 30px;
+            min-width: 47px;
+            max-width: 47px;
+            height: 47px;
+            border: 2px solid #fff;
+            box-shadow: 0 4px 7px rgba(0, 0, 0, 0.4392156863);
             border-radius: 100%;
             display: inline-flex;
-            margin-right: 3px;
+            margin-right: 12px;
             overflow: hidden;
 
             img {
@@ -118,14 +199,15 @@ export default {
 
         strong {
             font-weight: 700;
+            color: #b6ebec;
         }
 
         .job {
             font-weight: 400;
             display: block;
+            color: #fff;
         }
     }
-
 }
 
 // el-select-dropdown__item is-hovering
