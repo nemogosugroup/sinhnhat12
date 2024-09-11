@@ -4,25 +4,22 @@
             <el-row>
                 <el-col :span="24">
                     <div class="tab_text" :class="{active: type === 'nguyet_nhu'}" @click="changeTab('nguyet_nhu')">
-                        {{ "NGUYỆT NHŨ" }}
+                        {{ "Nguyệt Nhũ" }}
                     </div>
-                    <hr class="custom_hr">
                 </el-col>
                 <el-col :span="24" class="nguyet_nhiem" :class="{is_first_time: isFirstTime}">
                     <div class="tab_text" :class="{active: type === 'nguyet_nhiem'}" @click="changeTab('nguyet_nhiem')">
-                        {{ "NGUYỆT NHIỆM" }}
+                        {{ "Nguyệt Nhiệm" }}
                     </div>
-                    <hr class="custom_hr">
                 </el-col>
                 <el-col :span="24">
                     <div class="tab_text" :class="{active: type === 'nguyet_thach'}" @click="changeTab('nguyet_thach')">
-                        {{ "NGUYỆT THẠCH" }}
+                        {{ "Nguyệt Thạch" }}
                     </div>
-                    <hr class="custom_hr">
                 </el-col>
                 <el-col :span="24">
                     <div class="tab_text" :class="{active: type === 'nguyet_ky'}" @click="changeTab('nguyet_ky')">
-                        {{ "NGUYỆT KÝ" }}
+                        {{ "Nguyệt Ký" }}
                     </div>
                 </el-col>
             </el-row>
@@ -46,6 +43,9 @@
     </div>
 </template>
 <script>
+import LeftNavBtnBg from "@/assets/images/eventBirthday2024/button_tab.svg"
+import LeftNavBtnActiveBg from "@/assets/images/eventBirthday2024/button_tab_hover.svg"
+
 import NguyetNhu from "@frontend/views/birthday12/components/cave/tabs/nguyet_nhu.vue";
 import NguyetNhiem from "@frontend/views/birthday12/components/cave/tabs/nguyet_nhiem.vue";
 import NguyetThach from "@frontend/views/birthday12/components/cave/tabs/nguyet_thach.vue";
@@ -96,7 +96,6 @@ export default {
         changeTab(tabType) {
             if (this.isFirstTime && tabType === "nguyet_nhiem") {
                 this.isFirstTime = false;
-                document.querySelector(".custom_gabi").classList.remove("active");
                 this.emitter.emit("hide-bubble-callout", true);
             }
             this.type = tabType;
@@ -129,46 +128,34 @@ export default {
         }
 
         position: absolute;
-        left: -136px;
-        top: 180px;
-        max-width: 80px;
+        left: -138.5px;
+        top: 90px;
+        max-width: 145px;
+        padding-left: 5px;
 
         .tab_text {
             cursor: pointer;
             text-align: center;
             color: #fff;
-            font-size: 20px;
-            line-height: 27px;
-            padding: 2px 0 5px;
+            font-size: 24px;
+            line-height: 30px;
+            padding: 25px 20px 5px 5px;
+            height: 110px;
+            width: 122px;
             transition: all .3s ease-in-out;
-
-            &:before {
-                content: "";
-                position: absolute;
-                top: 2px;
-                transition: all .3s ease-in-out;
-            }
+            background-size: 88% !important;
+            background: url('../../../../../assets/images/eventBirthday2024/button_tab.svg') no-repeat 0;
+            margin-bottom: 10px;
 
             &:hover,
             &.active {
-                color: #FDD796;
-                text-shadow: 0 0 10px #FDD796;
+                padding-top: 28px;
+                padding-left: 12px;
+                color: #513A05;
                 position: relative;
-
-                &:before {
-                    width: 80px;
-                    height: 50px;
-                    border-radius: 50%;
-                    background-color: rgba(253, 215, 150, 0.25);
-                    filter: blur(10px);
-                }
+                background-size: 100% !important;
+                background: url('../../../../../assets/images/eventBirthday2024/button_tab_hover.svg') no-repeat 0 12px;
             }
-        }
-
-        .custom_hr {
-            background: linear-gradient(90deg, transparent, #fff, transparent);
-            border: none;
-            height: 1px;
         }
     }
 

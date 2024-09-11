@@ -1,7 +1,6 @@
 <template>
     <div>
-        <h1 class="title">{{ "NHIỆM VỤ HÀNG NGÀY" }}</h1>
-        <hr class="custom_hr">
+        <h1 class="title">{{ "NHIỆM VỤ" }}</h1>
         <div class="content_wrapper">
             <div class="content">
                 <el-row
@@ -19,7 +18,7 @@
                         <div v-if="item.id === 2 || item.id === 3">
                             <el-row>
                                 <el-col :span="12">
-                                    <div class="content">{{ item.desc }}</div>
+                                    <div class="content" v-html="item.desc"></div>
                                     <div class="progress">
                                         ({{ item.progress.current }}/{{ item.progress.max }})
                                     </div>
@@ -48,7 +47,7 @@
                                                 @click="submitInviteCode"
                                                 :loading="isLoading"
                                                 :disabled="item.is_done === 1"
-                                            >Nhập Code
+                                            >Paste Code
                                             </el-button>
                                         </el-col>
                                     </el-row>
@@ -57,17 +56,17 @@
                         </div>
                         <!--COPY CODE + ENTER CODE-->
                         <div v-else>
-                            <div class="content">{{ item.desc }}</div>
+                            <div class="content" v-html="item.desc"></div>
                             <div class="progress">
                                 ({{ item.progress.current }}/{{ item.progress.max }})
                             </div>
                         </div>
                     </el-col>
                     <el-col class="buttons" :span="5">
-                        <el-button v-if="item.is_received === 1" class="btn_done">Xong nhiệm vụ</el-button>
+                        <el-button v-if="item.is_received === 1" class="btn_done">Xong</el-button>
                         <el-button v-else class="btn_receive"
                                    :type="item.progress.current === item.progress.max ? 'success': 'primary'"
-                                   @click="getQuest(item, idx)">Nhận nhiệm vụ
+                                   @click="getQuest(item, idx)">Nhận
                         </el-button>
                     </el-col>
                 </el-row>
@@ -152,19 +151,16 @@ export default {
 </script>
 <style lang="scss" scoped>
 .title {
-    font-family: Phudu, serif;
+    font-family: Beaufort, serif;
     text-align: center;
-    margin: 0 0 15px;
-    font-size: 44px;
-    color: #516677;
-}
-
-.custom_hr {
-    background: linear-gradient(90deg, transparent, #516677, transparent);
-    border: none;
-    height: 1px;
-    max-width: 150px;
-    border-radius: 10px;
+    padding: 10px 0;
+    margin: 5px 0 10px;
+    font-size: 30px;
+    color: #28657D;
+    background-image: url('../../../../../../assets/images/eventBirthday2024/bg_title_nguyet_nhiem.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
 }
 
 .content_wrapper {
@@ -184,7 +180,7 @@ export default {
     }
 
     &::-webkit-scrollbar-thumb {
-        background: linear-gradient(0deg, #7A5026, #E09246);
+        background: #60A8AC;
         border-radius: 10px;
     }
 
@@ -223,12 +219,38 @@ export default {
             }
 
             &.content {
-                padding: 20px;
+                padding: 15px 20px 20px;
+                .content,
+                .progress {
+                    font-weight: bold;
+                    font-size: 22px;
+                }
             }
 
             &.buttons {
-                padding: 20px;
+                padding: 15px 20px 20px;
                 text-align: center;
+                > button {
+                    background-image: url('../../../../../../assets/images/eventBirthday2024/button_done.svg');
+                    background-repeat: no-repeat;
+                    background-position: center;
+                    background-size: cover;
+                    height: 50px;
+                    color: #fff;
+                    transition: all .3s ease-in-out;
+                    border: none;
+
+                    &:hover {
+                        filter: brightness(1.2);
+                    }
+                    &.el-button--success {
+                        filter: brightness(1) hue-rotate(290deg);
+                        transition: all .3s ease-in-out;
+                        &:hover {
+                            filter: brightness(1.2) hue-rotate(290deg);
+                        }
+                    }
+                }
             }
         }
     }
@@ -237,13 +259,14 @@ export default {
 :deep(.el-input),
 :deep(.el-button) {
     font-size: 18px;
-    height: 40px;
+    height: 50px;
 }
 
 :deep(.el-input) {
     .el-input__wrapper {
         padding: 5px 15px;
         border-radius: 7px;
+        box-shadow: none;
     }
 }
 
@@ -251,7 +274,9 @@ export default {
     border-radius: 7px;
     position: relative;
     right: 10px;
-    background-color: #F0D14E;
+    background-color: #F2D281;
+    border: none;
+    font-weight: bold;
 
     &.btn_done {
         cursor: default;

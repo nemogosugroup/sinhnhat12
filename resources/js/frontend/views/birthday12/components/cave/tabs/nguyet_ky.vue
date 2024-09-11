@@ -1,7 +1,6 @@
 <template>
     <div>
         <h1 class="title">{{ "LỊCH SỬ HOẠT ĐỘNG" }}</h1>
-        <hr class="custom_hr">
         <div class="content_wrapper">
             <div class="content">
                 <el-row v-for="(item, idx) in logs" :key="idx">
@@ -9,7 +8,7 @@
                         <div>{{ item.time }}</div>
                     </el-col>
                     <el-col class="content" :span="16">
-                        <div :title="item.content">{{ item.content }}</div>
+                        <div :title="item.content.replace(/<[^>]*>/g, '')" v-html="item.content"></div>
                     </el-col>
                     <el-col class="value" :span="2">
                         <div>
@@ -58,18 +57,16 @@ export default {
 </script>
 <style lang="scss" scoped>
 .title {
-    font-family: Phudu, serif;
+    font-family: Beaufort, serif;
     text-align: center;
-    margin: 0 0 15px;
-    font-size: 44px;
-    color: #516677;
-}
-
-.custom_hr {
-    background: linear-gradient(90deg, transparent, #516677, transparent);
-    border: none;
-    height: 1px;
-    max-width: 150px;
+    padding: 10px 0;
+    margin: 5px 0 10px;
+    font-size: 30px;
+    color: #28657D;
+    background-image: url('../../../../../../assets/images/eventBirthday2024/bg_title_nguyet_ky.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
 }
 
 .content_wrapper {
@@ -89,7 +86,7 @@ export default {
     }
 
     &::-webkit-scrollbar-thumb {
-        background: linear-gradient(0deg, #7A5026, #E09246);
+        background: #60A8AC;
         border-radius: 10px;
     }
 

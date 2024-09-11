@@ -45,7 +45,7 @@ $questTmp = [
             'current' => 0,
             'max' => 5
         ],
-        'desc' => 'Tham gia trò chơi Vòng Xoay Mặt Trời 5 lần/ngày'
+        'desc' => 'Tham gia trò chơi <b style="color: #317489;">Vòng Xoay Mặt Trời</b> 5 lần/ngày'
     ],
     [
         'id' => 5,
@@ -56,7 +56,7 @@ $questTmp = [
             'current' => 0,
             'max' => 1
         ],
-        'desc' => 'Lần đầu nhận được Kim Tơ trong ngày'
+        'desc' => 'Lần đầu nhận được <b style="color: #317489;">Kim Tơ</b> trong ngày'
     ],
     [
         'id' => 6,
@@ -67,7 +67,7 @@ $questTmp = [
             'current' => 0,
             'max' => 15
         ],
-        'desc' => 'Thu thập được 15 Kim Tơ/ngày'
+        'desc' => 'Thu thập được 15 <b style="color: #317489;">Kim Tơ</b>/ngày'
     ],
     [
         'id' => 7,
@@ -78,7 +78,7 @@ $questTmp = [
             'current' => 0,
             'max' => 50
         ],
-        'desc' => 'Thu thập được 50 Kim Tơ/ngày'
+        'desc' => 'Thu thập được 50 <b style="color: #317489;">Kim Tơ</b>/ngày'
     ],
     [
         'id' => 8,
@@ -89,7 +89,7 @@ $questTmp = [
             'current' => 0,
             'max' => 1
         ],
-        'desc' => 'Ghi được 1500 điểm trong một lượt chơi tại Vòng Xoay Mặt Trời'
+        'desc' => 'Ghi được 1500 điểm trong một lượt chơi tại <b style="color: #317489;">Vòng Xoay Mặt Trời</b>'
     ],
     [
         'id' => 9,
@@ -100,7 +100,7 @@ $questTmp = [
             'current' => 0,
             'max' => 1
         ],
-        'desc' => 'Ghé thăm Thố Động mỗi ngày'
+        'desc' => 'Ghé thăm <b style="color: #317489;">Thố Động</b> mỗi ngày'
     ],
     [
         'id' => 10,

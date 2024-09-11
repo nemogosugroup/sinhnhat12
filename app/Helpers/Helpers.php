@@ -178,13 +178,13 @@ class Helpers
             'type' => EVENT_BIRTHDAY12['type']['mochi'],
             'action' => EVENT_BIRTHDAY12['action']['minus'],
             'points' => EVENT_BIRTHDAY12['mochi'],
-            'content' => sprintf('Bạn đã sử dụng %d mochi để chơi Vòng Xoay Mặt Trời', EVENT_BIRTHDAY12['mochi']),
+            'content' => sprintf('Bạn đã sử dụng %d <b style="color: #317489;">Mochi</b> để chơi <b style="color: #317489;">Vòng Xoay Mặt Trời</b>', EVENT_BIRTHDAY12['mochi']),
         ];
         if (count($arr) > 0) {
             if ($arr['type'] == EVENT_BIRTHDAY12['type']['silk']) {
                 $results = $arr;
                 $results['action'] = EVENT_BIRTHDAY12['action']['plus'];
-                $results['content'] = sprintf('Nhận được %d Kim Tơ ở Vòng Xoay Mặt Trời', $arr['points']);
+                $results['content'] = sprintf('Nhận được %d <b style="color: #317489;">Kim Tơ</b> ở <b style="color: #317489;">Vòng Xoay Mặt Trời</b>', $arr['points']);
                 $results['points'] = $arr['points'];
             }
             if ($arr['type'] == EVENT_BIRTHDAY12['type']['mochi']) {
@@ -198,7 +198,9 @@ class Helpers
 
         return $results;
     }
-    public function checkQuestForCurrentDate(int $points){
+
+    public function checkQuestForCurrentDate(int $points)
+    {
 
         // $points => point score
         // + Tham gia trò chơi Vòng Xoay Mặt Trời 5 lần/ngày (5/5) - 10 Mochi => id nhiệm vụ là 4
@@ -207,52 +209,53 @@ class Helpers
         // + Thu thập được 50 Kim Tơ/ngày (50/50) - 15 Mochi   => id nhiệm vụ là 7
         // + Ghi được 1500 điểm trong một lượt chơi tại Vòng Xoay Mặt Trời - 10 Mochi  => id nhiệm vụ là 8
         // + Hoàn thành các nhiệm vụ trên mỗi ngày (1/1) - 15 Mochi => id nhiệm vụ là 10
-        if($points > 0){
+        if ($points > 0) {
             $date_number = $this->getCurrentDateNumber();
-            $existsInGame = $this->checkQuestIsDoneForGame(4 ,$date_number);
-            if(count($existsInGame) == 0){
-                $_existsInGame = $this->checkQuestIsDoneForGame(4 ,$date_number, 0);
-                if(count($_existsInGame) == 4){
-                    $this->createQuestForGame(4 ,$date_number);
-                }else{
-                    $this->createQuestForGame(4 ,$date_number, 0);
+            $existsInGame = $this->checkQuestIsDoneForGame(4, $date_number);
+            if (count($existsInGame) == 0) {
+                $_existsInGame = $this->checkQuestIsDoneForGame(4, $date_number, 0);
+                if (count($_existsInGame) == 4) {
+                    $this->createQuestForGame(4, $date_number);
+                } else {
+                    $this->createQuestForGame(4, $date_number, 0);
                 }
             }
-            $existsAddSilk = $this->checkQuestIsDoneForGame(5 ,$date_number);
-            if(count($existsAddSilk) == 0){
-                $this->createQuestForGame(5 ,$date_number);
+            $existsAddSilk = $this->checkQuestIsDoneForGame(5, $date_number);
+            if (count($existsAddSilk) == 0) {
+                $this->createQuestForGame(5, $date_number);
             }
 
-            if($points >= 1500){
-                $existsAdd1500Point = $this->checkQuestIsDoneForGame(8 ,$date_number);
-                if(count($existsAdd1500Point) == 0){
-                    $this->createQuestForGame(8 ,$date_number);
-                }
-            }
-
-            if($points >= 2000){
-                $existsAdd2000Point = $this->checkQuestIsDoneForGame(6 ,$date_number);
-                if(count($existsAdd2000Point) == 0){
-                    $this->createQuestForGame(6 ,$date_number);
+            if ($points >= 1500) {
+                $existsAdd1500Point = $this->checkQuestIsDoneForGame(8, $date_number);
+                if (count($existsAdd1500Point) == 0) {
+                    $this->createQuestForGame(8, $date_number);
                 }
             }
 
-            if($points >= 6000){
-                $existsAdd6000Point = $this->checkQuestIsDoneForGame(7 ,$date_number);
-                if(count($existsAdd6000Point) == 0){
-                    $this->createQuestForGame(7 ,$date_number);
+            if ($points >= 2000) {
+                $existsAdd2000Point = $this->checkQuestIsDoneForGame(6, $date_number);
+                if (count($existsAdd2000Point) == 0) {
+                    $this->createQuestForGame(6, $date_number);
+                }
+            }
+
+            if ($points >= 6000) {
+                $existsAdd6000Point = $this->checkQuestIsDoneForGame(7, $date_number);
+                if (count($existsAdd6000Point) == 0) {
+                    $this->createQuestForGame(7, $date_number);
                 }
             }
 
             $countQuestFinish = $this->countQuestIsFinishAll($date_number);
 
-            if(count($countQuestFinish) == 9){
-                $this->createQuestForGame(10 ,$date_number);
+            if (count($countQuestFinish) == 9) {
+                $this->createQuestForGame(10, $date_number);
             }
         }
     }
 
-    private function checkQuestIsDoneForGame(int $questId, int $date_number, int $isDone = 1){
+    private function checkQuestIsDoneForGame(int $questId, int $date_number, int $isDone = 1)
+    {
         $exists = $this->modelQuestLog->where([
             ['quest_id', '=', $questId],
             ['date_number', '=', $date_number],
@@ -263,7 +266,8 @@ class Helpers
     }
 
 
-    private function createQuestForGame(int $questId, int $date_number, int $isDone = 1){
+    private function createQuestForGame(int $questId, int $date_number, int $isDone = 1)
+    {
         $data = array(
             'quest_id' => $questId,
             'date_number' => $date_number,
@@ -274,7 +278,8 @@ class Helpers
         return $result;
     }
 
-    public function countQuestIsFinishAll(int $date_number){
+    public function countQuestIsFinishAll(int $date_number)
+    {
         $result = $this->modelQuestLog->where([
             ['date_number', '=', $date_number],
             ['user_id', '=', auth()->user()->id],
@@ -319,7 +324,7 @@ class Helpers
                     'action' => EVENT_BIRTHDAY12['action']['plus'],
                 ])->sum('points');
 
-                $result[$idx]['progress']['current'] = (int) min($silksOfCurrentDate, $result[$idx]['progress']['max']);
+                $result[$idx]['progress']['current'] = (int)min($silksOfCurrentDate, $result[$idx]['progress']['max']);
                 // check if current = max will add quest_logs & quest_logs.is_done = 1
                 if (
                     $result[$idx]['is_done'] === 0 &&
