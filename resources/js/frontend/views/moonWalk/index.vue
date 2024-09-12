@@ -49,7 +49,8 @@
                                                                 :class="`itemImages ${index > 3 ? 'hide' : ''}`">
                                                                 <img class="el-image__inner" :src="image.url"
                                                                     :alt="image.alt">
-                                                                <div class="countImages" v-if="index == 3">
+                                                                <div class="countImages"
+                                                                    v-if="index == 3 && (countImages - 4) > 0">
                                                                     <span class="font_beaufort w700">{{ '+' +
                                                                         (countImages - 4) }}</span>
                                                                 </div>

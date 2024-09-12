@@ -104,7 +104,7 @@ const dataJsonTimeline = [
         date: '24/12/2013',
         content: 'Các nhân viên SunSoft mừng Giáng sinh năm 2013',
         category: 'Hoạt động nội bộ',
-        image: []
+        image: ['/images/timeline/2013/D0FV0119.jpg']
     },
     {
         date: '19/01/2014',
@@ -134,20 +134,22 @@ const dataJsonTimeline = [
         date: '29/01/2015',
         content: 'Sự kiện kỷ niệm 4 năm thành lập Công ty Sunsoft',
         category: 'Các ngày kỷ niệm, thành lập',
-        image: '/images/timeline/2015/29.01.2015 Kỷ niệm 4 năm thành lập Công ty Sunsoft.jpg'
+        image: [
+            '/images/timeline/2015/29.01.2015 Kỷ niệm 4 năm thành lập Công ty Sunsoft.jpg'
+        ]
     },
     {
         date: '12/06/2015',
         content: 'Công ty Cổ phần GihOt chính thức được thành lập',
         category: 'Các ngày kỷ niệm, thành lập',
-        image: []
+        image: ['/images/timeline/2015/Gihot.webp']
     },
     {
         date: '18/06/2015',
         content:
             'Sự hào hứng của nhân viên SunSoft trong chuyến tham gia Teambuilding 2015',
         category: 'Hoạt động nội bộ',
-        image: '/images/timeline/2015/18.06.2015 Teambuilding.jpg'
+        image: ['/images/timeline/2015/18.06.2015 Teambuilding.jpg']
     },
     {
         date: '29/01/2016',
@@ -161,7 +163,7 @@ const dataJsonTimeline = [
         content:
             'Team Building của các nhân sự GOSU diễn ra tại Đà Nẵng với chủ đề: We Share - We build up',
         category: 'Hoạt động nội bộ',
-        image: []
+        image: ['/images/timeline/2016/GOPR4682.jpg']
     },
     {
         date: '16/09/2016',
@@ -173,7 +175,7 @@ const dataJsonTimeline = [
         date: '2016',
         content: 'Kỷ niệm GOSU được Chứng nhận là Đối tác Google Cao cấp',
         category: 'Thành tích nổi bật',
-        image: []
+        image: ['/images/timeline/2016/google.jpg']
     },
     {
         date: '08/12/2016',
@@ -203,7 +205,7 @@ const dataJsonTimeline = [
         date: '03/12/2018',
         content: 'Thành lập Công ty Cổ phần Phát triển Công nghệ DUO',
         category: 'Các ngày kỷ niệm, thành lập',
-        image: []
+        image: ['/images/timeline/2018/duo.png']
     },
     {
         date: '09/02/2018',
@@ -265,7 +267,9 @@ const dataJsonTimeline = [
         date: '18/06/2019',
         content: 'Tổng kết và trao giải cuộc thi GOSU Talent 2019',
         category: 'Hoạt động thương hiệu',
-        image: []
+        image: [
+            '/images/timeline/2019/18_6_2019_Tổng_kết_và_trao_giải_cuộc_thi_GOSU_Talent_2019.jpg'
+        ]
     },
     {
         date: '18/09/2019',
@@ -308,7 +312,7 @@ const dataJsonTimeline = [
         content:
             'Văn phòng Huế chuyển địa điểm mới, khang trang và thoải mái hơn',
         category: 'Hoạt động nội bộ',
-        image: []
+        image: ['/images/timeline/2020/IMG_1171-2.jpg']
     },
     {
         date: '17/09/2020',
@@ -374,7 +378,9 @@ const dataJsonTimeline = [
         content:
             'BGĐ trao thưởng dịch vụ Hải Tặc Đại Chiến đạt Dịch Vụ Truyền thuyết',
         category: 'Hoạt động dịch vụ',
-        image: []
+        image: [
+            '/images/timeline/2021/BGĐ_trao_thưởng_dịch_vụ_Hải_Tặc_Đại_Chiến_đạt_Dịch_Vụ_Truyền.jpg'
+        ]
     },
     {
         date: '06/03/2021',
@@ -479,13 +485,13 @@ const dataJsonTimeline = [
         date: '25/12/2022',
         content: 'Giáng sinh 2022',
         category: 'Hoạt động nội bộ',
-        image: []
+        image: ['/images/timeline/2022/24.12.2022 giáng sinh 2022 VP Huế.jpg']
     },
     {
         date: '13/01/2023',
         content: 'Year End Party 2022 - Share 2 Shine',
         category: 'Hoạt động nội bộ',
-        image: []
+        image: ['/images/timeline/2023/image_2024-08-22_16-42-11.png']
     },
     {
         date: '04/03/2023',
@@ -526,7 +532,9 @@ const dataJsonTimeline = [
         content:
             'GOSU đạt giải nhì trong Hội thi Sáng tạo Kỹ thuật tỉnh Thừa Thiên Huế lần thứ XIII',
         category: 'Thành tích nổi bật',
-        image: []
+        image: [
+            '/images/timeline/2023/2023_Lễ_tổng_kết_trao_giải_Hội_thi_sáng_tạo_kỹ_thuật_TT_Huế_2023.jpg'
+        ]
     },
     {
         date: '01/04/2023',
@@ -551,14 +559,16 @@ const dataJsonTimeline = [
         content:
             'GOSU về nhì tại giải đấu bóng đá HUECIT Open Cup lần thứ VIII tổ chức tại Huế',
         category: 'Hoạt động thương hiệu',
-        image: []
+        image: [
+            '/images/timeline/2023/GOSU_về_nhì_tại_giải_đấu_bóng_đá_HUECIT_Open_Cup_lần_thứ_VIII_tổ.jpg'
+        ]
     },
     {
         date: '09/06/2023',
         content: 'Chính thức ra mắt Cửu Dương Truyền Kỳ 2',
         category: 'Hoạt động dịch vụ',
         image: [
-            '/images/timeline/2023/09.06.2023 Chính thức ra mắt Cửu Dương Truyền Kỳ 2.jpeg'
+            '/images/timeline/2023/09.06.2023 Chính thức ra mắt Cửu Dương Truyền Kỳ 2.jpg'
         ]
     },
     {
