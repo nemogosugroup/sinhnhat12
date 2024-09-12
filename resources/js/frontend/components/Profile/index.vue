@@ -2,9 +2,9 @@
     <div class="app-wrapper">
         <div class="map_user_board" :style="`background-image: url(${mapElm.MapBgUserBoard})`">
             <el-row>
-                <el-col :span="4">
-                    <el-avatar :size="50" :src="user.avatar">
-                        <img :src="mapElm.DefaultAvatar" alt="" />
+                <el-col :span="4" style="cursor: pointer">
+                    <el-avatar :size="50" :src="user.avatar" @click="handleShowDialog">
+                        <img :src="mapElm.DefaultAvatar" alt=""/>
                     </el-avatar>
                 </el-col>
                 <el-col :span="6">
@@ -19,24 +19,28 @@
             </el-row>
         </div>
     </div>
-    <!--  -->
+
+    <avatar-dialog :dialog-visible="dialogVisible" :user-avatar="user.avatar" @hideDialog="handleHideDialog"/>
+
 </template>
 
 <script>
-import { mapGetters } from "vuex";
-import DefaultAvatar from '@/assets/images/eventBirthday2024/default_avatar.svg'
+import {mapGetters} from "vuex";
+import DefaultAvatar from '@/assets/images/eventBirthday2024/default_avatar.svg';
+import AvatarDialog from "@frontend/components/Profile/components/AvatarDialog.vue";
+
 export default {
     name: "Profile",
-    components: {},
+    components: {AvatarDialog},
     data() {
         return {
+            dialogVisible: false,
             mapElm: {
                 DefaultAvatar: DefaultAvatar,
             }
         };
     },
-    watch: {
-    },
+    watch: {},
     created() {
     },
     mounted() {
@@ -52,6 +56,12 @@ export default {
             await this.$store.dispatch("user/logout");
             this.emitter.emit("clicked-logout", true);
             this.$router.push(`/login`);
+        },
+        handleShowDialog() {
+            this.dialogVisible = true;
+        },
+        async handleHideDialog() {
+            this.dialogVisible = false;
         }
     },
 };

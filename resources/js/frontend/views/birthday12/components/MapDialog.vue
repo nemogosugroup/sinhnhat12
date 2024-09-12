@@ -51,7 +51,6 @@ export default {
         return {
             isShowDialog: this.dialogVisible,
             isFirstTime: this.firstTime,
-            isShowBubble: false,
             tabType: this.caveType,
             typedContent: ["Các Thỏ Ngọc hãy hoàn thành các nhiệm vụ ngày tại Nguyệt Nhiệm để nhận Mochi tham gia trò chơi Vòng Quay Mặt Trời nhé!"],
             dialogElm: {
@@ -63,15 +62,10 @@ export default {
     },
     filters: {},
     created() {
-        this.emitter.off("show-bubble-callout");
         this.emitter.off("hide-bubble-callout");
     },
     mounted() {
-        this.emitter.on("show-bubble-callout", () => {
-            this.isShowBubble = true;
-        });
-        this.emitter.on("hide-bubble-callout", () => {
-            this.isShowBubble = false;
+        this.emitter.on("end-first-time", () => {
             // call api update users.first_time = false
             this.setFirstTimeToFalse();
         });
@@ -99,7 +93,7 @@ export default {
         async setFirstTimeToFalse() {
             const {data} = await game2048Repository.setFirstTimeToFalse();
             if (data.success) {
-                console.log('updated users.first_time = false')
+                console.log('end first-time for user')
             }
         }
     }

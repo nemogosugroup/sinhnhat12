@@ -43,8 +43,6 @@
     </div>
 </template>
 <script>
-import LeftNavBtnBg from "@/assets/images/eventBirthday2024/button_tab.svg"
-import LeftNavBtnActiveBg from "@/assets/images/eventBirthday2024/button_tab_hover.svg"
 
 import NguyetNhu from "@frontend/views/birthday12/components/cave/tabs/nguyet_nhu.vue";
 import NguyetNhiem from "@frontend/views/birthday12/components/cave/tabs/nguyet_nhiem.vue";
@@ -77,12 +75,7 @@ export default {
     },
     filters: {},
     created() {
-        setTimeout(() => {
-            this.isFirstTime = this.firstTime;
-            setTimeout(() => {
-                this.emitter.emit("show-bubble-callout", true);
-            }, 1000);
-        }, 5000);
+        this.isFirstTime = this.firstTime;
     },
     watch: {
         caveType(newValue) {
@@ -96,7 +89,7 @@ export default {
         changeTab(tabType) {
             if (this.isFirstTime && tabType === "nguyet_nhiem") {
                 this.isFirstTime = false;
-                this.emitter.emit("hide-bubble-callout", true);
+                this.emitter.emit("end-first-time", true);
             }
             this.type = tabType;
         }
@@ -116,10 +109,10 @@ export default {
                     content: "";
                     position: absolute;
                     width: 100px;
-                    height: 80px;
-                    top: 23%;
-                    left: -120%;
-                    background-image: url("../../../../../assets/images/birthday12/map/map_right_arrow.png");
+                    height: 120px;
+                    top: 25%;
+                    left: -55%;
+                    background-image: url("../../../../../assets/images/eventBirthday2024/icon_muiten_ngang.png");
                     background-repeat: no-repeat;
                     background-size: contain;
                     animation: bounce 1s infinite, blink 1s infinite;
