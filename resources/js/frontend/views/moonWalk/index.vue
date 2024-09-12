@@ -20,23 +20,44 @@
                                     </el-col>
                                     <el-col :span="20">
                                         <div class="content_timeline">
-                                            <el-scrollbar ref="scrollbarRef" height="465px" always>
-                                                <el-row>
-                                                    <el-col :span="4">
-                                                        <span class="year font_beaufort w600 size68">{{
-                                                            showDataTimeLine.year }}</span>
-                                                        <div class='content font_myriad_con'>{{ showDataTimeLine.content
-                                                            }}</div>
-                                                    </el-col>
-                                                    <el-col :span="20">
-                                                        <ul class="list_images" v-if="showDataTimeLine.listImages">
-                                                            <li v-for="(item, key) in showDataTimeLine.listImages"
-                                                                :key="key"><el-image :src="item.url" />
-                                                            </li>
-                                                        </ul>
-                                                    </el-col>
-                                                </el-row>
-                                            </el-scrollbar>
+
+                                            <el-row>
+                                                <el-col :span="4">
+                                                    <span class="year font_beaufort w600 size68">{{
+                                                        showDataTimeLine.year }}</span>
+                                                    <el-scrollbar ref="scrollbarRef" height="300px" always>
+                                                        <div class='content font_myriad_con'>
+                                                            <ul>
+                                                                <li v-for="item in showDataTimeLine.content"
+                                                                    :key="item.date">
+                                                                    <span class="font_beaufort w600">{{ item.date + ' :'
+                                                                        }}</span>
+                                                                    <span class="font_myriad_con">{{ item.content
+                                                                        }}</span>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </el-scrollbar>
+                                                </el-col>
+                                                <el-col :span="20">
+                                                    <div class="list_images" v-if="listImages">
+                                                        <lightgallery :key="indexActive"
+                                                            :settings="{ speed: 500, plugins: plugins }"
+                                                            @lgInit="onInit" @lgBeforeSlide="onBeforeSlide">
+                                                            <a class="el-image" v-for="(image, index) in listImages"
+                                                                :key="index" :href="image.href"
+                                                                :class="`itemImages ${index > 3 ? 'hide' : ''}`">
+                                                                <img class="el-image__inner" :src="image.url"
+                                                                    :alt="image.alt">
+                                                                <div class="countImages" v-if="index == 3">
+                                                                    <span class="font_beaufort w700">{{ '+' +
+                                                                        (countImages - 4) }}</span>
+                                                                </div>
+                                                            </a>
+                                                        </lightgallery>
+                                                    </div>
+                                                </el-col>
+                                            </el-row>
                                         </div>
                                     </el-col>
                                 </el-row>
@@ -102,6 +123,7 @@
                 </el-col>
             </el-row>
         </div>
+        <vue-easy-lightbox :visible="visible" :imgs="listImagesLightBox" :index="index" @hide="visible = false" />
     </div>
 </template>
 
@@ -118,13 +140,16 @@ import { dataTimeline, dataDepartMent } from './timeline';
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import 'swiper/css';
 import { mapGetters } from "vuex";
-import { Employee } from '@frontend/components/SearchEmployee/data';
 import { Navigation } from 'swiper/modules';
 import 'swiper/css/navigation';
+import Lightgallery from 'lightgallery/vue';
+import lgThumbnail from 'lightgallery/plugins/thumbnail';
+import lgZoom from 'lightgallery/plugins/zoom';
 export default {
-    components: { Swiper, SwiperSlide, SearchEmployee },
+    components: { Swiper, SwiperSlide, SearchEmployee, Lightgallery },
     data() {
         return {
+            plugins: [lgThumbnail, lgZoom],
             listTimeLine: false,
             listDepartMent: false,
             tree: treeImg,
@@ -136,6 +161,7 @@ export default {
             isActiveSlider: false,
             nameSilk: 'Kim tơ',
             showDataTimeLine: [],
+            listImagesLightBox: [],
             imgElm: {
                 moonWalk: moonWalk,
                 nguyetDattitle: nguyetDattitle,
@@ -143,7 +169,11 @@ export default {
                 arrow: Arrow,
                 bannerTimeline: bannerTimeline,
                 nguyetDa: nguyetDa,
-            }
+            },
+            visible: false,
+            index: 0,
+            countImages: 0,
+            listImages: []
         }
     },
     setup() {
@@ -164,7 +194,13 @@ export default {
         });
         this.showDataTimeLine = this.listTimeLine[0];
         this.indexActive = this.showDataTimeLine.index;
-
+        this.countImages = this.showDataTimeLine.listImages.length;
+        this.listImages = this.showDataTimeLine.listImages.map((item, index) => {
+            item['href'] = item.url;
+            item['src'] = item.url;
+            return item;
+        });
+        this.listImagesLightBox = this.showDataTimeLine.listImages.map((item) => item);
         this.listDepartMent = dataDepartMent().map((item, index) => {
             return item;
         });
@@ -173,10 +209,29 @@ export default {
     mounted() {
     },
     methods: {
+        onInit() {
+            console.log('lightGallery has been initialized');
+        },
+        onBeforeSlide() {
+            console.log('calling before slide');
+        },
+        openLightbox(index) {
+            this.index = index;
+            this.visible = true;
+        },
         handleActiveTimeline(item) {
             if (item.showTimeline) {
                 this.showDataTimeLine = this.listTimeLine[item.index];
+                this.countImages = this.showDataTimeLine.listImages.length;
+                this.listImagesLightBox = this.showDataTimeLine.listImages.map((item) => item.url);
+                this.listImages = this.showDataTimeLine.listImages.map((item, index) => {
+                    item['src'] = item.url;
+                    item['href'] = item.url
+                    return item;
+                });
                 this.indexActive = this.showDataTimeLine.index;
+                this.onInit();
+                this.onBeforeSlide();
             } else {
                 this.$message({
                     message: 'Chưa thể mở được mốc năm ' + item.year,
@@ -217,6 +272,10 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+@import 'lightgallery/css/lightgallery.css';
+@import 'lightgallery/css/lg-thumbnail.css';
+@import 'lightgallery/css/lg-zoom.css';
+
 .wrap-moonwalk {
     padding: 100px 40px 80px;
     background-image: url('../../../assets/images/eventBirthday2024/bg_moonwalk.jpg');
@@ -293,29 +352,94 @@ export default {
             color: #fff;
             font-size: 18px;
             line-height: 26px;
+
+            ul {
+                padding: 0 10px 0 0;
+                margin: 0;
+                list-style: none;
+
+                li {
+                    margin-bottom: 10px;
+                    padding-left: 20px;
+                    position: relative;
+
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
+
+                    &::before {
+                        content: "";
+                        background-image: url('../../../assets/images/eventBirthday2024/icon_timeline_hover.png');
+                        display: block;
+                        width: 20px;
+                        height: 26px;
+                        position: absolute;
+                        left: 0;
+                        background-size: 100%;
+                    }
+
+                    span {
+                        display: block;
+                    }
+                }
+            }
         }
 
         .list_images {
-            display: flex;
-            flex-direction: row;
-            flex-wrap: nowrap;
-            justify-content: flex-start;
-            align-items: stretch;
-            align-content: stretch;
-            margin: 0;
-            padding: 0;
-            list-style: none;
 
-            li {
-                padding: 10px;
+            .lightgallery-vue {
+                display: flex;
+                flex-direction: row;
+                flex-wrap: nowrap;
+                justify-content: flex-start;
+                align-items: stretch;
+                align-content: stretch;
+                margin: 0;
+                padding: 0;
+                list-style: none;
+            }
 
-                :deep(.el-image) {
-                    border-radius: 15px;
-                    box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, .35)
+            .itemImages {
+                flex: 1;
+                max-width: 25%;
+                margin: 0px 10px;
+                cursor: pointer;
+                transition: all .3s ease-in-out;
+                height: 430px;
+                position: relative;
+                border-radius: 15px;
+                box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, .35);
+
+                &.hide {
+                    display: none;
                 }
 
-                :deep(.el-image__inner) {
+                .countImages {
+                    width: calc(100%);
+                    height: calc(100%);
+                    position: absolute;
+                    background: rgba(0, 0, 0, .6);
                     border-radius: 15px;
+                    top: 0px;
+                    left: 0px;
+                    font-size: 50px;
+                    color: #fff;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    font-weight: 900;
+                }
+
+                &:hover {
+                    flex: 2;
+                    max-width: 50%;
+                    transition: all .3s ease-in-out;
+                }
+
+                .el-image__inner {
+                    border-radius: 15px;
+                    height: 100%;
+                    object-fit: cover;
                 }
             }
         }

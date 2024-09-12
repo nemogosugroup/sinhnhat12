@@ -1,21 +1,41 @@
+import dataJsonTimeline from './dataTimeline';
+
 const dataTimeline = () => {
-    let data = [];
-    let count = 0;
-    let silk = 500;
-    for (let year = 2012; year <= 2024; year++) {
-        const _data = {};
-        _data['mileStoneSilk'] = count * silk;
-        _data['year'] = year;
-        _data['listImages'] = [
-            { url: '/static/uploads/sinhnhat/banner-wweb.png' },
-            { url: '/static/uploads/sinhnhat/banner-wweb.png' },
-            { url: '/static/uploads/sinhnhat/banner-wweb.png' }
-        ];
-        _data['content'] =
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. ';
+    const data = [];
+    const silk = 500;
+
+    // Lặp qua các năm từ 2011 đến 2024
+    for (let count = 0, year = 2011; year <= 2024; year++, count++) {
+        const mileStoneSilk = count * silk;
+
+        // Lọc các phần tử có năm phù hợp từ dataJsonTimeline
+        const filteredData = dataJsonTimeline.filter(
+            ({ date }) => date.split('/').pop() == year
+        );
+
+        // Tạo danh sách content và listImages từ các phần tử đã lọc
+        const content = filteredData.map(({ date, content, image }) => {
+            let images = [];
+            if (Array.isArray(image) && image.length > 0) {
+                images = image.map((url) => ({
+                    url,
+                    alt: date + ' ' + content
+                }));
+            }
+            return { date, content, images };
+        });
+
+        // Tạo đối tượng dữ liệu cho từng năm
+        const _data = {
+            mileStoneSilk,
+            year,
+            listImages: content.flatMap((c) => c.images), // Lấy tất cả các images từ content
+            content: content.map((c) => ({ date: c.date, content: c.content }))
+        };
+
         data.push(_data);
-        count++;
     }
+
     return data;
 };
 
@@ -85,4 +105,4 @@ const dataDepartMent = () => {
     return data;
 };
 
-export { dataTimeline, dataDepartMent };
+export { dataTimeline, dataDepartMent, dataJsonTimeline };
