@@ -13,8 +13,8 @@
                     <el-col class="value" :span="2">
                         <div>
                             <span class="number">{{ item.value.number }}</span>
-                            <img v-if="item.value.type === 'SILK'" class="icon" :src="iconSilk" alt="">
-                            <img v-else :src="iconMochi" class="icon" alt="">
+                            <img v-if="item.value.type === 'SILK'" class="icon" :class="item.value.type" :src="iconSilk" alt="">
+                            <img v-else :src="iconMochi" class="icon" :class="item.value.type" alt="">
                         </div>
                     </el-col>
                 </el-row>
@@ -23,8 +23,8 @@
     </div>
 </template>
 <script>
-import iconSilk from "@/assets/images/birthday12/map/dialog/icon_silk.png";
-import iconMochi from "@/assets/images/birthday12/map/dialog/icon_mochi.png";
+import iconSilk from "@/assets/images/eventBirthday2024/icon_kimto_2.svg";
+import iconMochi from "@/assets/images/eventBirthday2024/icon_mochi_2.svg";
 
 import RepositoryFactory from '@frontend/utils/RepositoryFactory';
 const game2048Repository = RepositoryFactory.get('game2048');
@@ -75,6 +75,7 @@ export default {
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
     padding: 5px;
     border-radius: 10px;
+    color: #4E4E4E;
 
     &::-webkit-scrollbar {
         width: 1em;
@@ -105,10 +106,10 @@ export default {
             }
             > div {
                 text-align: center;
-                background-color: #E8EFF5;
+                background-color: #DDEBF0;
                 border-radius: 5px;
                 height: 50px;
-                line-height: 36px;
+                line-height: 42px;
                 padding: 5px 15px;
                 .number {
                     position: relative;
@@ -116,13 +117,21 @@ export default {
                     color: #000;
                 }
                 .icon {
-                    width: 45px;
-                    height: 45px;
                     -o-object-fit: contain;
                     object-fit: contain;
                     position: absolute;
-                    right: 7px;
-                    top: 7px;
+                    &.SILK {
+                        width: 40px;
+                        height: 40px;
+                        right: 7px;
+                        top: 11px;
+                    }
+                    &.MOCHI {
+                        width: 45px;
+                        height: 45px;
+                        right: 3px;
+                        top: 1px;
+                    }
                 }
             }
         }
