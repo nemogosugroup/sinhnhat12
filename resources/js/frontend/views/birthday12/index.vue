@@ -74,6 +74,8 @@
     <map-dialog :dialog-visible="dialogVisible" :dialog-type="dialogType" :cave-type="caveType"
                 :first-time="isFirstTime" @hideDialog="handleHideDialog"></map-dialog>
 
+    <dialog-about :show-slogan="showSlogan"></dialog-about>
+
 </template>
 <script>
 import DefaultAvatar from '@/assets/images/default_avatar.png'
@@ -100,12 +102,14 @@ import MapIconMochi from '@/assets/images/eventBirthday2024/icon_mochi.svg'
 import MapDialog from "@frontend/views/birthday12/components/MapDialog.vue";
 import {mapGetters} from "vuex";
 import {Emitter} from '@frontend/views/birthday12/components/wheel/components/evenEmit.js';
+import DialogAbout from "@frontend/components/DialogAbout/index.vue";
 
 export default {
     name: 'Map',
-    components: {MapDialog},
+    components: {DialogAbout, MapDialog},
     data() {
         return {
+            showSlogan: false,
             tooltipType: null,
             isFirstTime: true,
             dialogVisible: false,
@@ -154,6 +158,7 @@ export default {
             this.silkCount = this.user.point_silk;
             this.mochiCount = this.user.point_mochi;
             this.isFirstTime = this.user.first_time;
+            this.showSlogan = this.isFirstTime;
         });
     },
 
@@ -345,10 +350,10 @@ export default {
                         &:before {
                             content: "";
                             position: absolute;
-                            width: 100px;
+                            width: 150px;
                             height: 120px;
-                            top: -25%;
-                            right: 3%;
+                            top: -32%;
+                            right: 0;
                             background-image: url("@/assets/images/eventBirthday2024/icon_muiten.svg");
                             background-repeat: no-repeat;
                             background-size: contain;

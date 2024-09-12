@@ -47,7 +47,6 @@
                 </div>
             </div>
         </el-main>
-        <dialog-about :show-slogan="showSlogan"></dialog-about>
     </div>
     <!--  -->
 </template>
@@ -73,7 +72,6 @@ export default {
         return {
             Logo12: Logo12,
             Divider: Divider,
-            bgLogin: bgLogin,
             bg_left: bg_left,
             bg_right: bg_right,
             img_bottom: img_bottom,
@@ -173,7 +171,8 @@ export default {
                                 this.$message({
                                     message: data.message,
                                     type: 'success'
-                                })
+                                });
+                                this.$router.push({name: "Home"});
 
                                 //console.log("check this.redirectUri",this.redirectUri);
                                 // if (this.redirectUri) {
@@ -184,7 +183,6 @@ export default {
                                 //     //console.log("check this.redirect",this.redirect);
                                 //     window.location.href = "/";
                                 // }
-                                this.showSlogan = true;
                                 this.showDialog = false;
                             } else {
                                 this.$message({

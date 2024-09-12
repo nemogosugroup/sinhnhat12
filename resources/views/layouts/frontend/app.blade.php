@@ -5,7 +5,7 @@
     <meta name="locale" content="{{ app()->getLocale() }}"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" value="{{ csrf_token() }}"/>
-    <title>Gosu</title>
+    <title>GOSU</title>
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css2?family=Material+Icons"
       rel="stylesheet">
