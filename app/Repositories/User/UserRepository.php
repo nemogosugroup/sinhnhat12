@@ -172,6 +172,12 @@ class UserRepository implements UserRepositoryInterface
                     $user->save();
                 }else{
                     $user = $profile['data'];
+                    $user['avatar'] = "/static/uploads/sinhnhat/default_avatar.svg";
+                    if($profile['data']['avatar']){
+                        $avatar = explode('hrm', $profile['data']['avatar']);
+                        $user['avatar'] = "/static/uploads".end($avatar);
+                    }
+
                     $user['password'] = Hash::make($password);
                     $user['first_time'] = true;
                     $this->createUser($user);
