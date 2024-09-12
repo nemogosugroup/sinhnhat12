@@ -75,7 +75,7 @@
     </div>
 </template>
 <script>
-import iconMochi from "@/assets/images/birthday12/map/dialog/icon_mochi.png";
+import iconMochi from "@/assets/images/eventBirthday2024/img_mochi_nguyet_nhiem.svg";
 import {ElMessage} from "element-plus";
 import {mapGetters} from "vuex";
 import RepositoryFactory from '@frontend/utils/RepositoryFactory';
@@ -203,18 +203,22 @@ export default {
             &.mochi {
                 text-align: center;
                 background-color: #A3CBEE;
+                max-width: 80px;
 
                 img {
-                    width: 80px;
+                    width: 85px;
                     height: 80px;
-                    object-fit: contain;
                     position: relative;
-                    bottom: 10px;
+                    object-fit: none;
                 }
 
                 > div {
                     position: relative;
-                    bottom: 30px;
+                    bottom: 25px;
+                    color: #fff;
+                    text-align: right;
+                    right: 5px;
+                    text-shadow: 0 0 5px #000;
                 }
             }
 
@@ -277,6 +281,7 @@ export default {
     background-color: #F2D281;
     border: none;
     font-weight: bold;
+    width: 100px;
 
     &.btn_done {
         cursor: default;
