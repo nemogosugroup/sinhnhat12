@@ -293,7 +293,7 @@ export default {
             margin: 0 auto;
 
             th, td {
-                border: 2px solid #636363;
+                border: 2px solid #5b42168f;
                 padding: 10px;
                 text-align: center;
             }

@@ -177,4 +177,26 @@ class ScoreController extends Controller
             return response()->json([$results], ResponseAlias::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
+
+    public function changeAvatar(Request $request): \Illuminate\Http\JsonResponse
+    {
+        try {
+            $avatar = app(UserRepository::class)->changeAvatar($request->file('new_avatar'));
+            $results = array(
+                'success' => true,
+                'avatar' => $avatar,
+                'message' => $this->msg->changeAvatarSuccess(),
+                'status' => ResponseAlias::HTTP_OK
+            );
+            return response()->json($results);
+
+        } catch (\Throwable $th) {
+            $results = array(
+                'message' => $th->getMessage(),
+                'success' => false,
+                'status' => ResponseAlias::HTTP_OK
+            );
+            return response()->json([$results], ResponseAlias::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
 }

@@ -1,11 +1,11 @@
 <template>
     <div class="logo">
         <transition name="sidebarLogoFade">
-            <el-row :gutter="20" align="center" justify="center">
+            <el-row :gutter="20" align="middle" justify="center">
                 <el-col :span="8">
                     <router-link class="sidebar-logo-link" to="/">
                         <span class="wrap-logo">
-                            <img :src="Logo" class="icon-logo" />
+                            <img :src="Logo" class="icon-logo"  alt=""/>
                             <!-- <img :src="Gosu12" class="icon-birthday" /> -->
                         </span>
                     </router-link>

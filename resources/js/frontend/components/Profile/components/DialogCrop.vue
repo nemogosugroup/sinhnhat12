@@ -1,0 +1,106 @@
+<template>
+    <el-dialog :title="titleDialog" v-model="isShowDialog" @close="closeDialog">
+        <el-row>
+            <el-button type="success" @click="cropSubmit">Submit</el-button>
+        </el-row>
+        <hr>
+        <el-row>
+            <el-col v-bind:span="24">
+                <vue-cropper
+                    ref="vueCropperRef"
+                    :src="data"
+                    v-bind="cropperOptions"
+                    style="height: 600px"
+                />
+            </el-col>
+        </el-row>
+    </el-dialog>
+</template>
+<script>
+import VueCropper from '@ballcat/vue-cropper';
+import 'cropperjs/dist/cropper.css';
+import {reactive} from 'vue'
+import Cropper from 'cropperjs'
+
+export default {
+    name: 'DialogCrop',
+    components: {VueCropper},
+    props: {
+        dialogCropVisible: {
+            type: Boolean,
+            default: false
+        },
+        data: {
+            type: String,
+            default: ""
+        }
+    },
+    data() {
+        return {
+            titleDialog: "Crop Image",
+            isLoading: true,
+            dialogVisible: false,
+            isLoadingService: false,
+            isShowDialog: this.dialogFormVisible,
+            cropperOptions: Cropper.Options = reactive({
+                viewMode: 0,
+                aspectRatio: 1,
+                autoCropArea: 0.65,
+                responsive: true,
+                restore: true,
+                checkCrossOrigin: true,
+                checkOrientation: true,
+                modal: true,
+                guides: true,
+                center: true,
+                highlight: true,
+                background: true,
+                autoCrop: true,
+                movable: true,
+                rotatable: true,
+                scalable: true,
+                zoomable: true,
+                zoomOnTouch: true,
+                zoomOnWheel: true,
+                cropBoxMovable: true,
+                cropBoxResizable: true,
+                toggleDragModeOnDblclick: true
+            }),
+            finalData: null
+        }
+    },
+
+    filters: {},
+
+    created() {
+    },
+    watch: {
+        dialogCropVisible(newValue) {
+            this.isShowDialog = newValue;
+        },
+
+    },
+    methods: {
+        closeDialog() {
+            this.isShowDialog = false
+            this.$emit('hidedialog', {})
+        },
+        cropSubmit() {
+            const refsCropper = this.$refs.vueCropperRef;
+            this.finalData = refsCropper.getCroppedCanvas().toDataURL('image/jpeg');
+            this.emitter.emit('send-cropped-image', {blob: this.finalData});
+            this.closeDialog();
+        }
+    }
+}
+
+</script>
+<style lang="scss" scoped>
+:deep(.el-select) {
+    width: 100%;
+}
+
+.cropper-container {
+    height: 100% !important;
+}
+</style>

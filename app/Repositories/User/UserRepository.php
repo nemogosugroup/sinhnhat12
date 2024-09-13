@@ -297,9 +297,7 @@ class UserRepository implements UserRepositoryInterface
     {
         $result = [];
 
-        $usersData = User::query()->where(
-            'point_silk','>', 0
-        )->orderByDesc('score')->get()->toArray();
+        $usersData = User::query()->orderByDesc('score')->get()->toArray();
         foreach (array_chunk($usersData, 50) as $users) {
             foreach ($users as $user) {
                 if ($user['id'] != 1) {
@@ -341,5 +339,13 @@ class UserRepository implements UserRepositoryInterface
     public function setFirstTimeToFalse()
     {
         User::query()->where('id', auth()->user()->id)->update(['first_time' => false]);
+    }
+
+    public function changeAvatar($file): string
+    {
+        $avatar = $this->helpers->upLoadAvatar($file);
+        User::query()->where('id', auth()->user()->id)->update(['avatar' => $avatar]);
+
+        return $avatar;
     }
 }

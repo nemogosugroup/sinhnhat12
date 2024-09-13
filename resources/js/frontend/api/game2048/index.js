@@ -38,4 +38,15 @@ export default {
             method: 'post'
         });
     },
+
+    changeAvatar(data) {
+        return request({
+            url: `${resource}` + '/change-avatar',
+            method: 'post',
+            data,
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            }
+        });
+    },
 };
