@@ -297,7 +297,7 @@ class UserRepository implements UserRepositoryInterface
     {
         $result = [];
 
-        $usersData = User::query()->orderByDesc('score')->get()->toArray();
+        $usersData = User::query()->orderByDesc('point_silk')->get()->toArray();
         foreach (array_chunk($usersData, 50) as $users) {
             foreach ($users as $user) {
                 if ($user['id'] != 1) {

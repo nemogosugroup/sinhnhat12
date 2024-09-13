@@ -81,47 +81,11 @@ body {
             position: relative;
             background-position: bottom;
             &.bachnhat {
-                background-image: url(../js/assets/images/sinhnhat/bachnhat_bg.jpg);
+                background-image: url(../js/assets/images/eventBirthday2024/bachnhat_bg.jpg);
                 background-size: 100% 100%;
                 &:before {
                     display: none;
                 }
-            }
-            .bg_left {
-                background-image: url(../js/assets/images/sinhnhat/img_left.svg);
-                position: absolute;
-                left: 0;
-                top: -20px;
-                width: 330px;
-                height: 100%;
-                background-repeat: no-repeat;
-                background-size: 100%;
-                transition: all 0.3s ease-in-out;
-                background-position-y: 0;
-                animation: bg_move 4s infinite;
-            }
-            .bg_right {
-                background-image: url(../js/assets/images/sinhnhat/img_right.svg);
-                position: absolute;
-                right: 0;
-                top: 0;
-                width: 840px;
-                height: 100%;
-                background-repeat: no-repeat;
-                background-size: 100%;
-                transition: all 0.3s ease-in-out;
-                background-position-y: 0;
-                animation: bg_move 4s infinite;
-            }
-            .bg_bottom {
-                background-image: url(../js/assets/images/sinhnhat/img_bottom.svg);
-                position: absolute;
-                right: 0;
-                bottom: 0;
-                width: 100%;
-                height: 100%;
-                background-repeat: no-repeat;
-                background-size: 100% 100%;
             }
             .display-flex {
                 display: flex;
@@ -134,11 +98,10 @@ body {
                 z-index: 1;
                 &.bachnhat {
                     bottom: 25px;
-                }
-                .divider {
-                    margin: 20px 0;
-                    &.bachnhat {
-                        margin: 5px 0 0;
+                    .moon {
+                        position: absolute;
+                        top: 100px;
+                        right: 500px;
                     }
                 }
             }
