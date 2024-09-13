@@ -14,6 +14,7 @@ use App\Models\DataLog;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Date;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
@@ -363,5 +364,27 @@ class Helpers
         }
 
         return $result;
+    }
+
+    public function upLoadAvatar($file): string
+    {
+        $folderPreview = 'static/uploads/avatar/' . auth()->user()->profile_id . '/';
+        if (File::exists($folderPreview)) {
+            File::deleteDirectory($folderPreview);
+        }
+
+        $folderName = 'static/uploads/avatar/' . auth()->user()->profile_id;
+        $path = public_path() . '/' . $folderName;
+        if (!is_dir($path)) {
+            mkdir($path, 0755);
+        }
+        $fullName = $file->getClientOriginalName();
+        $checkFiles = explode(".", $fullName);
+        $title = current($checkFiles);
+        $extension = end($checkFiles);
+        $fileName = Str::slug($title . time()) . '.' . $extension;
+        $file->move(public_path('static/uploads/avatar/' . auth()->user()->profile_id), $fileName);
+
+        return '/' . $folderName . '/' . $fileName;
     }
 }

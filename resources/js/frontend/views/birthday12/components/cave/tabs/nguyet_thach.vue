@@ -48,7 +48,7 @@
             </div>
         </div>
         <div class="search_result" :class="{searching: isSearching}">
-            <el-row v-if="Object.keys(this.searchData).length > 0" class="table_row rank_wrapper"
+            <el-row v-if="searchData !== null" class="table_row rank_wrapper"
                     :class="`rank_${searchData.idx+1}`">
                 <el-col class="rank" :span="3">
                     <img v-if="searchData.idx === 0" class="top_1" :src="MedalTop1" alt="">
@@ -98,7 +98,7 @@ export default {
             MedalTop3: MedalTop3,
             searchValue: null,
             isSearching: false,
-            searchData: {},
+            searchData: null,
             ranks: [],
             selfRank: null
         }
@@ -129,7 +129,7 @@ export default {
             }
         },
         searchPlayer() {
-            this.searchData = {};
+            this.searchData = null;
             this.isSearching = this.searchValue;
             if (this.isSearching) {
                 this.ranks.forEach((rank, idx) => {

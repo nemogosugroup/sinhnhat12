@@ -111,7 +111,7 @@ export default {
         return {
             showSlogan: false,
             tooltipType: null,
-            isFirstTime: true,
+            isFirstTime: false,
             dialogVisible: false,
             dialogType: null, // GATE, CAVE, WHEEL
             caveType: "nguyet_nhu", // nguyet_nhu, nguyet_nhiem, nguyet_thach, nguyet_ky

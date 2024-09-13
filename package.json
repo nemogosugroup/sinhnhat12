@@ -11,6 +11,7 @@
         "production": "mix --production"
     },
     "dependencies": {
+        "@ballcat/vue-cropper": "^1.0.6",
         "@vue/cli-plugin-babel": "^5.0.8",
         "@vue/cli-plugin-eslint": "^5.0.8",
         "@vue/compiler-sfc": "^3.3.11",
@@ -18,6 +19,7 @@
         "clipboard": "^2.0.11",
         "codemirror": "^5.45.0",
         "core-js": "^3.34.0",
+        "cropperjs": "^1.6.2",
         "crypto-js": "^4.2.0",
         "driver.js": "^0.9.5",
         "dropzone": "^6.0.0-beta.2",
