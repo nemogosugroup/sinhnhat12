@@ -1,16 +1,16 @@
 <template>
     <div class="logo">
         <transition name="sidebarLogoFade">
-            <el-row :gutter="20" align="center" justify="center">
+            <el-row :gutter="20" align="middle" justify="center">
                 <el-col :span="8">
                     <router-link class="sidebar-logo-link" to="/">
                         <span class="wrap-logo">
-                            <img :src="Logo" class="icon-logo" />
-                            <!-- <img :src="Gosu12" class="icon-birthday" /> -->
+                            <img :src="Logo" class="icon-logo"  alt=""/>
+                             <img :src="Gosu12" class="icon-birthday"  alt=""/>
                         </span>
                     </router-link>
                 </el-col>
-                <el-col :span="16" v-if="!isLogin">
+                <el-col :span="16" v-if="isLoginSuccess">
                     <Profile />
                 </el-col>
             </el-row>
@@ -20,9 +20,10 @@
 
 <script>
 import Gosu12 from "@/assets/images/eventBirthday2024/gosu12.svg";
-// import Logo from "@/assets/images/eventBirthday2024/icon_logo.svg";
-import Logo from "@/assets/images/logo/GOSU_full.png";
+import Logo from "@/assets/images/eventBirthday2024/icon_logo.svg";
+// import Logo from "@/assets/images/logo/GOSU_full.png";
 import Profile from "../Profile";
+import {mapGetters} from "vuex";
 export default {
     props: {
         isLogin: {
@@ -38,19 +39,38 @@ export default {
             Logo: Logo,
             isBachNhat: false,
             Gosu12: Gosu12,
+            isLoginSuccess: false
         }
     },
+    created() {
+        this.emitter.off("is-login-success");
+        this.emitter.off("clicked-logout");
+        this.checkLoginSuccess();
+    },
     computed: {
+        ...mapGetters(["user"]),
         isWhiteColor() {
             return this.$router.currentRoute.value.name === "BachNhat" || this.isLogin;
         }
     },
     mounted() {
         this.isBachNhat = this.$router.currentRoute.value.name === "BachNhat";
-    },
-    created() {
+        this.emitter.on("is-login-success", () => {
+            this.isLoginSuccess = true;
+        });
+        this.emitter.on("clicked-logout", () => {
+            this.isLoginSuccess = false;
+        });
     },
     methods: {
+        checkLoginSuccess() {
+            if (typeof this.user !== "undefined") {
+                this.isLoginSuccess = true;
+            }
+            if (this.user.id === null || this.user.id === undefined) {
+                this.isLoginSuccess = false;
+            }
+        }
     }
 }
 </script>
@@ -110,7 +130,7 @@ export default {
     height: 100%;
 
     .icon-logo {
-        margin-right: 10px;
+        margin-right: 15px;
         max-width: 170px;
     }
 }

@@ -139,6 +139,8 @@ export default {
             background-size: 88% !important;
             background: url('../../../../../assets/images/eventBirthday2024/button_tab.svg') no-repeat 0;
             margin-bottom: 10px;
+            font-family: Beaufort, serif;
+            font-weight: bold;
 
             &:hover,
             &.active {

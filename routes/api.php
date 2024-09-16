@@ -58,6 +58,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
             Route::get('ranks-list', [ScoreController::class, 'getRanksList']);
             Route::get('logs-list', [ScoreController::class, 'getLogsList']);
             Route::post('set-first-time-to-false', [ScoreController::class, 'setFirstTimeToFalse']);
+            Route::post('change-avatar', [ScoreController::class, 'changeAvatar']);
         });
         Route::group(['prefix' => 'quest'], function () {
             Route::post('receive-reward/{id}', [QuestLogController::class, 'handleReceiveQuestReward']);

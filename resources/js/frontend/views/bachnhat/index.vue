@@ -1,20 +1,14 @@
 <template>
     <div class="app-wrapper">
         <el-main class="main-login bachnhat">
-            <span class="bg_left"></span>
-            <span class="bg_right"></span>
             <div class="display-flex bachnhat">
+                <div class="moon">
+                    <el-image :src="Moon" />
+                </div>
                 <div class="info">
                     <div class="logo">
-                        <el-image style="width: 300px; height: 300px" :src="Logo12" />
+                        <el-image style="width: 450px; height: 375px" :src="BachNhatLogo" />
                     </div>
-                    <div class="info">
-                        <h1 class="title-h1 bachnhat">BÁCH NHẬT GOSU</h1>
-                        <span class="date bachnhat">NĂM 2024</span>
-                    </div>
-                </div>
-                <div class="divider bachnhat">
-                    <el-image :src="Divider" />
                 </div>
                 <div class="countdown">
                     <countdown :deadline="countdownDeadline" :labels="countDownLabels" :flipAnimation="false" />
@@ -22,16 +16,13 @@
             </div>
         </el-main>
     </div>
-    <!--  -->
 </template>
 
 <script>
 import imagesLogo from "@/assets/images/logo/GOSU_full.png";
-import Logo12 from "@/assets/images/sinhnhat/logo12.svg";
 import Divider from "@/assets/images/sinhnhat/divider.svg";
-import bg_left from "@/assets/images/sinhnhat/img_left.svg";
-import bg_right from "@/assets/images/sinhnhat/img_right.svg";
-import img_bottom from "@/assets/images/sinhnhat/img_bottom.svg";
+import Moon from "@/assets/images/eventBirthday2024/bachnhat_moon.png";
+import BachNhatLogo from "@/assets/images/eventBirthday2024/bachnhat_logo.png";
 
 import { Countdown } from 'vue3-flip-countdown'
 export default {
@@ -39,18 +30,16 @@ export default {
     components: { Countdown },
     data() {
         return {
-            Logo12: Logo12,
+            Moon: Moon,
+            BachNhatLogo: BachNhatLogo,
             Divider: Divider,
-            bg_left: bg_left,
-            bg_right: bg_right,
-            img_bottom: img_bottom,
             showSlogan: false,
             redirect: undefined,
             redirectUri: undefined,
             oAuthState: undefined,
             otherQuery: {},
             logo: imagesLogo,
-            countdownDeadline: "2024-12-08",
+            countdownDeadline: "2024-12-31",
             countDownLabels: { days: 'ngày', hours: 'giờ', minutes: 'phút', seconds: 'giây', }
 
         };
@@ -221,31 +210,82 @@ $height_logo: 70px;
     }
 }
 
+.info {
+    .logo {
+        position: relative;
+        top: -110px;
+    }
+}
+
 .countdown {
+    background-image: url("../../../assets/images/eventBirthday2024/countdown_frame.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    position: relative;
+    top: -165px;
+    :deep(.flip-clock) {
+        width: 500px;
+    }
     :deep(.flip-clock__piece) {
-        width: 160px;
-        height: 160px;
-        background: url('../../../assets/images/sinhnhat/bg_time_number.png');
-        background-size: 100% 100%;
-        background-repeat: no-repeat;
-        margin: 0 25px;
+        width: 115px;
+        height: 80px;
+        margin: 0;
+        position: relative;
+
+        &:not(:last-child) {
+            &::after {
+                content: "";
+                display: block;
+                background-image: url("../../../assets/images/eventBirthday2024/countdown_dot.png");
+                background-size: contain;
+                background-repeat: no-repeat;
+                background-position: center;
+                position: absolute;
+                right: -12px;
+                top: 35px;
+                width: 20px;
+                height: 30px;
+            }
+        }
 
         .no-animation__card {
-            font-size: 64px;
-            background: linear-gradient(to bottom, #ffffff 28%, #ead87f 87%);
+            font-size: 50px;
+            font-family: "LacLongQuan", serif;
+            background: #fdf3da;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             position: relative;
-            top: 25px;
+            top: -5px;
         }
 
         .flip-clock__slot {
-            font-family: Inter, serif;
+            font-family: Beaufort, serif;
             font-size: 20px;
-            color: #fff;
+            color: #73edff;
+            text-transform: uppercase;
             position: relative;
-            top: 5px;
+            top: -15px;
         }
+    }
+}
+
+.moon {
+    transition: all .3s ease-in-out;
+    animation: moon-scale 10s infinite;
+}
+
+@keyframes moon-scale {
+    0% {
+        transform: scale(1);
+        filter: brightness(1);
+    }
+    50% {
+        transform: scale(1.05);
+        filter: brightness(1.05);
+    }
+    100% {
+        transform: scale(1);
+        filter: brightness(1);
     }
 }
 </style>

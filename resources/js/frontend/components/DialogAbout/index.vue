@@ -38,7 +38,6 @@ export default {
         }
     },
     created() {
-        this.emitter.off("login-complete");
     },
     computed: {
         showSlogan(newValue) {
@@ -46,13 +45,9 @@ export default {
         }
     },
     mounted() {
-        this.emitter.on("login-complete", data => {
-            this.isShow = data
-        });
     },
     methods: {
         handleClose() {
-            this.emitter.emit("clicked-logout", false);
         },
         handleComplete() {
             this.isTyped = true;

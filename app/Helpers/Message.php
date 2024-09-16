@@ -70,4 +70,7 @@ class Message {
     public function inviteMaxQuest3(){
         return "Bạn đã xong nhiệm vụ nhập code!";
     }
+    public function changeAvatarSuccess(){
+        return "Thay đổi Avatar thành công!";
+    }
 }

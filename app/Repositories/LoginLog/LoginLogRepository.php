@@ -88,6 +88,19 @@ class LoginLogRepository extends BaseRepository implements LoginLogRepositoryInt
             ];
         }
 
+        // check if current-user using self code
+        $isUseSelfCode = $this->model->query()->where([
+            'user_id' => auth()->user()->id,
+            'code' => $code,
+            'date_number' => $currentDateNumber
+        ])->exists();
+        if ($isUseSelfCode) {
+            return [
+                'value' => false,
+                'message' => $this->msg->inviteCodeInvalid($code)
+            ];
+        }
+
         // check code duplicated
         $isUsed = $this->questLogModel->query()->where([
             'user_id' => auth()->user()->id,

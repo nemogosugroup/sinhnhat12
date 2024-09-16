@@ -8,7 +8,7 @@ import getPageTitle from '@frontend/utils/get-page-title';
 
 NProgress.configure({ showSpinner: false }); // NProgress Configuration
 
-const whiteList = ['/login', '/logout', '/auth-redirect']; // no redirect whitelist
+const whiteList = ['/login', '/test-login', '/logout', '/auth-redirect']; // no redirect whitelist
 router.beforeEach(async (to, from, next) => {
     // start progress bar
     NProgress.start();
@@ -17,7 +17,8 @@ router.beforeEach(async (to, from, next) => {
     // determine whether the user has logged in
     //removeToken();
     const hasToken = getAccessToken();
-    //const hasToken = null;
+    // const hasToken = null;
+
     if (hasToken && hasToken != 'undefined') {
         const hasRoles = store.getters.roles && store.getters.roles.length > 0;
         setLayout(to.meta.active);
@@ -80,6 +81,13 @@ router.beforeEach(async (to, from, next) => {
             NProgress.done();
         }
     }
+
+    // TODO: remove after test
+    // if (getAccessToken()) removeToken();
+    // to.path = '/login';
+    // next();
+    // NProgress.done();
+    // TODO: remove after test
 });
 
 router.afterEach(() => {
