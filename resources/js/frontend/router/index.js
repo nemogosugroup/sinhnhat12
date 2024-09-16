@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 /* Layout */
 import Login from '@frontend/views/login';
+import LoginTest from '@frontend/views/login/test.vue';
 import Home from '@frontend/views/birthday12';
 import BachNhat from '@frontend/views/bachnhat';
 import Page404 from '@frontend/views/error-page/404';
@@ -56,7 +57,37 @@ export const constantRoutes = [
                         next();
                     }
                 }
+            },
+            // TODO: remove after test
+            {
+                path: '/test',
+                component: LoginTest,
+                name: 'LoginTest',
+                meta: {
+                    title: 'GOSU',
+                    affix: true
+                },
+                beforeEnter(to, from, next) {
+                    // Kiểm tra xem người dùng đã đăng nhập hay chưa
+                    // Lấy các query parameters từ URL
+                    const queryParams = to.query;
+                    if (getAccessToken()) {
+                        if (queryParams.redirect_uri) {
+                            window.location.href =
+                                queryParams.redirect_uri +
+                                '?token=' +
+                                getAccessToken() +
+                                '&state=' +
+                                queryParams.state;
+                        } else {
+                            next({ path: '/' });
+                        }
+                    } else {
+                        next();
+                    }
+                }
             }
+            // TODO: remove after test
         ]
     },
     {
