@@ -219,7 +219,7 @@ const Employee = [
         profileid: '1623',
         email: 'hiep.pham@gosu.vn',
         fullname: 'Phạm Văn Hiệp',
-        avatar: 'https://static.gosucorp.vn/hrm/avatar/1623/6b37674627b641fe9055c8591d5d714b.jpg',
+        avatar: 'https://static.gosucorp.vn/hrm/avatar/1623/1856f9935fc34adfb71a01961eeaf001.jpg',
         dept: 'tai chinh ke toan',
         jodid: 'Giám đốc'
     },
