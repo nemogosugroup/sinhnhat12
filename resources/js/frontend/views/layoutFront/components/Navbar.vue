@@ -37,6 +37,7 @@ export default {
         this.emitter.off("clicked-logout");
     },
     mounted() {
+        this.checkLogin();
         this.emitter.on("clicked-logout", val => {
             this.isLogin = val;
         });

@@ -112,28 +112,6 @@ const actions = {
                         commit('SET_DATA_SILK', data.data.point_silk);
                         commit('SET_DATA_MOCHI', data.data.point_mochi);
                         commit('SET_DATA_BEST_SCORE', data.data.score);
-                        if (data.data.equipments) {
-                            let equipments = data.data.equipments.map(
-                                (item) => {
-                                    return item.id;
-                                }
-                            );
-                            commit('SET_EQUIPMENTS', equipments);
-                        }
-                        if (data.data.courses) {
-                            let courses = data.data.courses.map((item) => {
-                                return item.id;
-                            });
-                            commit('SET_COURSES', courses);
-                        }
-                        if (users.achievement_user) {
-                            let achievements = {
-                                medal: users.achievement_user?.medal.title,
-                                achievement:
-                                    users.achievement_user?.category.title
-                            };
-                            commit('SET_DATA_ACHIEVEMENT', achievements);
-                        }
                         setAccessToken(token);
                         setAuth(JSON.stringify(data.data));
                     }

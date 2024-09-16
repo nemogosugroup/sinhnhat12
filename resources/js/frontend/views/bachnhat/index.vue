@@ -39,7 +39,7 @@ export default {
             oAuthState: undefined,
             otherQuery: {},
             logo: imagesLogo,
-            countdownDeadline: "2024-12-08",
+            countdownDeadline: "2024-12-31",
             countDownLabels: { days: 'ngày', hours: 'giờ', minutes: 'phút', seconds: 'giây', }
 
         };
