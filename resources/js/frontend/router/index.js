@@ -57,10 +57,17 @@ export const constantRoutes = [
                         next();
                     }
                 }
-            },
-            // TODO: remove after test
+            }
+        ]
+    },
+    {
+        path: '/test-login',
+        component: layoutFront,
+        hidden: true,
+        redirect: '',
+        children: [
             {
-                path: '/test',
+                path: '',
                 component: LoginTest,
                 name: 'LoginTest',
                 meta: {
@@ -87,7 +94,6 @@ export const constantRoutes = [
                     }
                 }
             }
-            // TODO: remove after test
         ]
     },
     {
