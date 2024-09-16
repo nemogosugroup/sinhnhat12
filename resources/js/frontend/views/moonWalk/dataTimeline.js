@@ -92,15 +92,6 @@ const dataJsonTimeline = [
         ]
     },
     {
-        date: '25/04/2013',
-        content:
-            'Công ty SunSoft bị cơ quan chức năng điều tra hành vi phát hành game không giấy phép. Sau sự việc trên, công ty tập trung vào phát triển chất lượng dịch vụ và hoàn thiện công nghệ để xây dựng lại thương hiệu của mình.',
-        category: 'Những khó khăn, thất bại',
-        image: [
-            '/images/timeline/2013/25.04.2013 Sunsoft bị khởi tố vì phát hành game không giấy phép.jpg'
-        ]
-    },
-    {
         date: '24/12/2013',
         content: 'Các nhân viên SunSoft mừng Giáng sinh năm 2013',
         category: 'Hoạt động nội bộ',
@@ -110,7 +101,7 @@ const dataJsonTimeline = [
         date: '19/01/2014',
         content: 'YEP Sunsoft 2013',
         category: 'Hoạt động nội bộ',
-        image: []
+        image: ['/images/timeline/2014/IMG_7053.jpg']
     },
     {
         date: '01/06/2014',
@@ -156,7 +147,7 @@ const dataJsonTimeline = [
         content:
             'YEP 2015 với chủ đề Xuân khác, Nghĩ khác, Làm khác. Sau 5 năm phát triển, SunSoft chính thức giải thể. Kể từ đây, GOSU trở thành thương hiệu nhà phát hành chính thức duy nhất và mở ra chương mới trên hành trình chinh phục những thử thách.',
         category: 'Hoạt động nội bộ',
-        image: []
+        image: ['/images/timeline/2016/IMG_7051.jpg']
     },
     {
         date: '10/07/2016',
@@ -181,7 +172,7 @@ const dataJsonTimeline = [
         date: '08/12/2016',
         content: 'Thành lập Công ty CP Tư vấn và Quảng cáo Trực tuyến FLYADS',
         category: 'Các ngày kỷ niệm, thành lập',
-        image: []
+        image: ['/images/timeline/2016/IMG_7048.jpg']
     },
     {
         date: '01/08/2017',
@@ -205,13 +196,13 @@ const dataJsonTimeline = [
         date: '03/12/2018',
         content: 'Thành lập Công ty Cổ phần Phát triển Công nghệ DUO',
         category: 'Các ngày kỷ niệm, thành lập',
-        image: ['/images/timeline/2018/duo.png']
+        image: ['/images/timeline/2018/duo.jpg']
     },
     {
         date: '09/02/2018',
         content: 'YEP 2017 của GOSU tại khu vực TP.HCM ',
         category: 'Hoạt động nội bộ',
-        image: []
+        image: ['/images/timeline/2018/IMG_7052.jpg']
     },
     {
         date: '18/09/2018',
@@ -225,7 +216,7 @@ const dataJsonTimeline = [
         content:
             'NPH GOSU đồng hành cùng game thủ tham dự giải vô địch Cửu Âm Đông Nam Á- SEA 2018',
         category: 'Hoạt động thương hiệu',
-        image: []
+        image: ['/images/timeline/2018/image_2024-09-13_08-49-27.png']
     },
     {
         date: '08/12/2018',

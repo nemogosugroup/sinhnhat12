@@ -128,6 +128,7 @@ export default {
             border: 0;
             box-shadow: none;
             color: #fff;
+            padding-left: 20px;
         }
 
         :deep(.el-input-group__append) {

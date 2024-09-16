@@ -100,6 +100,11 @@ const dataDepartMent = () => {
             name: 'Bộ Phận',
             data: 'KTHT',
             value: 'ktht'
+        },
+        {
+            name: 'Studio ',
+            data: 'DUO',
+            value: 'duo'
         }
     ];
     return data;

@@ -216,6 +216,14 @@ const Employee = [
         dept: 'ky thuat ha tang'
     },
     {
+        profileid: '1623',
+        email: 'hiep.pham@gosu.vn',
+        fullname: 'Phạm Văn Hiệp',
+        avatar: 'https://static.gosucorp.vn/hrm/avatar/1623/6b37674627b641fe9055c8591d5d714b.jpg',
+        dept: 'tai chinh ke toan',
+        jodid: 'Giám đốc'
+    },
+    {
         profileid: '34',
         email: 'nhu.ton@gosu.vn',
         fullname: 'Tôn Nữ Thảo Quỳnh Như',
@@ -461,6 +469,14 @@ const Employee = [
         fullname: 'Phạm Bảo Châu',
         jodid: 'Trưởng nhóm',
         avatar: 'https://static.gosucorp.vn/hrm/avatar/59/9478a613bc624cacb659461cea768240.jpg',
+        dept: 'hanh chinh nhan su'
+    },
+    {
+        profileid: '90',
+        email: 'hong.bui@gosu.vn',
+        fullname: 'Bùi Thị Bích Hồng',
+        jodid: 'Nhân sự',
+        avatar: 'https://static.gosucorp.vn/hrm/avatar/90/ee029fe31e924bbfa0959a218f072fe5.jpg',
         dept: 'hanh chinh nhan su'
     },
     {

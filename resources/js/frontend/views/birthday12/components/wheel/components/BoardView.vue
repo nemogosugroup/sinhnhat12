@@ -23,8 +23,9 @@
                 <el-row :gutter="10">
                     <el-col :span="24">
                         <div class="content">
-                            <p>Điều hướng các ô số guống nhập thành số chắn lớn hơn trong 5 phút. Điểm càng cao nhận
-                                càng nhiều Kim Tơ</p>
+                            <p>Dùng các phím mũi tên trên keyboard để điều hướng các ô số sao cho các ô có giá trị giống
+                                nhau kết hợp lại sẽ tạo được ô có giá trị lớn hơn trong 5 phút. Điểm càng cao càng nhận
+                                được nhiều Kim Tơ</p>
                             <p><strong class="w900">*Số Kim Tơ quy đổi theo từng mốc điểm in game:</strong></p>
                             <ul>
                                 <li><span>Điểm 0000 - 1489: 5 Kim Tơ</span></li>
@@ -394,6 +395,7 @@ export default {
 :deep(.no-animation__card) {
     font-size: 36px;
     font-weight: 600;
+    line-height: 40px;
 }
 
 :deep(.flip-clock__piece:last-child) {
@@ -475,12 +477,13 @@ export default {
 
     .countDown {
         background-color: #DCF0F8;
-        padding: 10px;
+        padding: 10px 10px 5px;
         text-align: center;
         border-radius: 10px;
         font-weight: 600;
 
         span {
+            display: block;
             color: #25617A;
             font-size: 14px;
         }
@@ -555,6 +558,7 @@ export default {
             &:last-child {
                 font-size: 36px;
                 display: block;
+                line-height: 32px;
             }
         }
 
