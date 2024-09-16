@@ -37,7 +37,7 @@
                                     </el-scrollbar>
                                 </el-col>
                                 <el-col :span="20">
-                                    <div class="list_images" v-if="listImages.length < 3">
+                                    <div class="list_images" v-if="listImages.length <= 3">
                                         <lightgallery :key="indexActive" :settings="{ speed: 500, plugins: plugins }"
                                             @lgInit="onInit" @lgBeforeSlide="onBeforeSlide">
                                             <!-- :style="{ pointerEvents: index < 2 && listImages.length > 3 ? 'none' : 'auto' }" -->
@@ -549,6 +549,7 @@ html {
             }
 
             .itemImages {
+                background: #fff;
                 flex: 1;
                 max-width: 33.3%;
                 margin: 0px 10px;
