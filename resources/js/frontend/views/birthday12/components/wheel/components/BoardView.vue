@@ -171,6 +171,59 @@ export default {
             }
         };
 
+        const handleTouch = () => {
+            let startX, startY;
+
+            document.addEventListener('touchstart', (event) => {
+                startX = event.touches[0].clientX;
+                startY = event.touches[0].clientY;
+            });
+
+            document.addEventListener('touchend',
+                (event) => {
+                    const endX = event.changedTouches[0].clientX;
+                    const endY = event.changedTouches[0].clientY;
+
+                    const
+                        deltaX = endX - startX;
+                    const deltaY = endY - startY;
+
+
+                    // Ngưỡng để xác định độ lớn của cử chỉ
+                    const threshold = 50;
+
+                    if (Math.abs(deltaX) > threshold) {
+                        if (deltaX < 0) {
+                            console.log("Vuốt từ phải sang trái")
+                            // Mô phỏng phím mũi tên trái (keyCode 37)
+                            const keyboardEvent = new KeyboardEvent('keydown', { keyCode: 37 });
+                            board.value.move(37 - 37);
+                            document.dispatchEvent(keyboardEvent);
+                        } else {
+                            console.log("Vuốt từ trái sang phải")
+                            // Mô phỏng phím mũi tên phải (keyCode 39)
+                            const keyboardEvent = new KeyboardEvent('keydown', { keyCode: 39 });
+                            board.value.move(39 - 37);
+                            document.dispatchEvent(keyboardEvent);
+                        }
+                    } else if (Math.abs(deltaY) > threshold) {
+                        if (deltaY < 0) {
+                            console.log("Vuốt từ dưới lên trên")
+                            // Mô phỏng phím mũi tên lên (keyCode 38)
+                            const keyboardEvent = new KeyboardEvent('keydown', { keyCode: 38 });
+                            board.value.move(38 - 37);
+                            document.dispatchEvent(keyboardEvent);
+                        } else {
+                            console.log("Vuốt từ trên xuống dưới")
+                            // Mô phỏng phím mũi tên xuống (keyCode 40)
+                            const keyboardEvent = new KeyboardEvent('keydown', { keyCode: 40 });
+                            board.value.move(40 - 37);
+                            document.dispatchEvent(keyboardEvent);
+                        }
+                    }
+                });
+        }
+
         const startTimer = () => {
             dataBoard.timer = setInterval(() => {
                 if (dataBoard.countMinutes > 0) {
@@ -298,10 +351,14 @@ export default {
                 loading.value = false;
                 dataBoard.pointSilk.value = 0
             });
+
+            handleTouch();
             window.addEventListener("keydown", handleKeyDown);
         });
 
         onBeforeUnmount(() => {
+
+            handleTouch();
             window.removeEventListener("keydown", handleKeyDown);
         });
 
