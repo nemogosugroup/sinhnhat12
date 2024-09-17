@@ -63,7 +63,7 @@ const dataDepartMent = () => {
         },
         {
             name: 'Bộ phận',
-            data: 'Tổ TRỢ LÝ',
+            data: 'TỔ TRỢ LÝ',
             value: 'totroly'
         },
         {
