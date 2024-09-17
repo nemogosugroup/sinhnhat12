@@ -1709,7 +1709,7 @@ const Employee = [
         shortname: 'Chaimain',
         email: 'kien.tran@gosu.vn',
         fullname: 'Lê Thank Minh',
-        jodid: 'Chủ Tịch HĐQT',
+        jodid: 'Ban Giám Đốc',
         jodname: 'Chaimain',
         area: 'SGN',
         avatar: 'https://static.gosucorp.vn/hrm/avatar/190/a7390e6c74cb4aceab3a8b8dc1cb2e94.jpg',
@@ -1738,16 +1738,6 @@ const Employee = [
         dept: 'ban giam doc'
     },
     {
-        profileid: '81',
-        deptname: 'CTCP Trực tuyến GOSU',
-        shortname: 'GOSU HN',
-        fullname: 'Ngô Ngọc Nhi',
-        jodid: 'Ban Giám Đốc',
-        area: 'HUI',
-        avatar: 'https://static.gosucorp.vn/hrm/avatar/81/82d8afe2d9df4582aec10043ee34e215.jpg',
-        dept: 'ban giam doc'
-    },
-    {
         profileid: '1597',
         deptname: 'CTCP Trực tuyến GOSU',
         shortname: 'GOSU HN',
@@ -1758,15 +1748,13 @@ const Employee = [
         dept: 'ban giam doc'
     },
     {
-        profileid: '3826',
-        deptname: 'Ban Giám Đốc',
-        shortname: 'DIRECTOR',
-        email: 'thach.tran@gosu.vn',
-        fullname: 'Nguyễn Hồng Nhật',
+        profileid: '81',
+        deptname: 'CTCP Trực tuyến GOSU',
+        shortname: 'GOSU HN',
+        fullname: 'Ngô Ngọc Nhi',
         jodid: 'Ban Giám Đốc',
-        jodname: 'DIRECTOR - GOSU HUE',
         area: 'HUI',
-        avatar: 'https://static.gosucorp.vn/hrm/avatar/3826/e2c4d78ba87e42109ee96e0b2720b8bf.jpg',
+        avatar: 'https://static.gosucorp.vn/hrm/avatar/81/82d8afe2d9df4582aec10043ee34e215.jpg',
         dept: 'ban giam doc'
     },
     {
@@ -1779,6 +1767,18 @@ const Employee = [
         jodname: 'DIRECTOR - GOSU HUE',
         area: 'HUI',
         avatar: 'https://static.gosucorp.vn/hrm/avatar/63/61ea9af56eaf4c5e83329edc557f2405.jpg',
+        dept: 'ban giam doc'
+    },
+    {
+        profileid: '3826',
+        deptname: 'Ban Giám Đốc',
+        shortname: 'DIRECTOR',
+        email: 'thach.tran@gosu.vn',
+        fullname: 'Nguyễn Hồng Nhật',
+        jodid: 'Ban Giám Đốc',
+        jodname: 'DIRECTOR - GOSU HUE',
+        area: 'HUI',
+        avatar: 'https://static.gosucorp.vn/hrm/avatar/3826/e2c4d78ba87e42109ee96e0b2720b8bf.jpg',
         dept: 'ban giam doc'
     }
 ];

@@ -43,7 +43,7 @@ const dataDepartMent = () => {
     let data = [
         {
             name: 'Trung Tâm',
-            data: 'R&D Center',
+            data: 'R&D',
             value: 'r&d'
         },
         {
@@ -63,7 +63,7 @@ const dataDepartMent = () => {
         },
         {
             name: 'Bộ phận',
-            data: 'Tổ trợ lý',
+            data: 'Tổ TRỢ LÝ',
             value: 'totroly'
         },
         {
