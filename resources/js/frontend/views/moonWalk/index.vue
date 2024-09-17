@@ -384,7 +384,8 @@ html {
     transition: all .3s ease-in-out;
 
     &.wrap-moonwalk::-webkit-scrollbar {
-        width: 5px;
+        width: 1px;
+        height: 1px;
     }
 
     &.wrap-moonwalk::-webkit-scrollbar-track {
