@@ -13,7 +13,13 @@
     <link href="{{ mix('css/app.css') }}" type="text/css" rel="stylesheet"/>
     <link rel="icon" type="image/x-icon" href="{{ mix('/images/logo/GOSU_icon.png') }}">
 </head>
-<body>
+<body style="
+    min-width: 1920px;
+    max-width: 1920px;
+    min-height: 919px;
+    max-height: 919px;
+    overflow: auto;
+">
 <div id="app">
 </div>
 <script src="{{ mix('js/frontend/app.js') }}" type="text/javascript"></script> 

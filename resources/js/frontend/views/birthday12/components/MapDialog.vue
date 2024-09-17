@@ -110,6 +110,10 @@ export default {
     background-repeat: no-repeat;
     background-position: 267px 0;
     padding: 198px 377px 75px 472px;
+    min-width: 1888px;
+    max-width: 1888px;
+    min-height: 827px;
+    max-height: 827px;
 
     .custom_close_btn {
         position: relative;
