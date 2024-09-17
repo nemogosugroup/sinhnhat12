@@ -1,6 +1,6 @@
 <template>
-    <div ref="scroller" :class="`wrap-moonwalk ${isActiveSlider ? 'active' : ''}`" @wheel.prevent="onWheel"
-        :scroll-left.camel="scroll.scrollLeft" @mousemove="onMouseMove">
+    <div ref="scroller" :class="`wrap-moonwalk ${isActiveSlider ? 'active' : ''}`" @wheel="onWheel"
+        :scroll-left.camel="scroll.scrollLeft">
         <div class="wrap-moonwalk__content">
             <!-- <swiper :slidesPerView="1" :cssMode="true" :navigation="true" :pagination="true" :mousewheel="true"
                         :keyboard="true" :modules="modules" :spaceBetween="0" class="mySwiper" @swiper="onSwiper"
@@ -18,7 +18,7 @@
                         </div>
                     </el-col>
                     <el-col :span="20">
-                        <div class="content_timeline">
+                        <div class="content_timeline" @mouseover="mouseIn" @mouseleave="mouseOut">
                             <el-row>
                                 <el-col :span="4">
                                     <span class="year font_beaufort w600 size68">{{
@@ -113,7 +113,7 @@
                         <div class="title_nguyetda">
                             <div class="tree_title"><img :src="imgElm.nguyetDattitle" alt=""></div>
 
-                            <div class="wrap-search">
+                            <div class="wrap-search" @mouseover="mouseIn" @mouseleave="mouseOut">
                                 <search-employee ref="searchEmployee"></search-employee>
                             </div>
                         </div>
@@ -197,7 +197,8 @@ export default {
             isShowButton: {
                 next: true,
                 prev: false,
-            }
+            },
+            isScroll: true
         }
     },
     setup() {
@@ -234,12 +235,21 @@ export default {
     watch: {
     },
     methods: {
+        mouseIn() {
+            this.isScroll = false;
+        },
+        mouseOut() {
+            this.isScroll = true;
+        },
         onMouseMove(e) {
             // this.mouseX = e.clientX;
             // this.mouseY = e.clientY;
             // console.log(`Mouse moved to: (${this.mouseX}, ${this.mouseY})`);
         },
         onWheel(e) {
+            if (!this.isScroll) {
+                return false
+            }
             const scroller = this.$refs.scroller;
             if (scroller) {
                 const maxScrollLeft = scroller.scrollWidth - scroller.offsetWidth;
@@ -296,6 +306,7 @@ export default {
                     this.isShowButton.next = true
                     this.isActiveSlider = false;
                 }
+                this.isScroll = false
                 this.onInit();
                 this.onBeforeSlide();
             } else {
@@ -327,6 +338,7 @@ export default {
             });
         },
         handleShowEmployee(dept) {
+            this.isScroll = false;
             this.nameEmployee = dept;
             this.emitter.emit("search-dept", dept);
             this.$refs.searchEmployee.focusSelect();
@@ -335,7 +347,7 @@ export default {
             this.nameEmployee = newName;
         },
         handleMove(type) {
-
+            this.isScroll = true;
             const scroller = this.$refs.scroller;
             if (scroller) {
                 const maxScrollLeft = scroller.scrollWidth - scroller.offsetWidth;
