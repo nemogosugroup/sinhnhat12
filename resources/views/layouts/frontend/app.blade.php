@@ -12,13 +12,32 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link href="{{ mix('css/app.css') }}" type="text/css" rel="stylesheet"/>
     <link rel="icon" type="image/x-icon" href="{{ mix('/images/logo/GOSU_icon.png') }}">
+
+    <style>
+        body::-webkit-scrollbar {
+            width: 1px;
+            height: 1px;
+        }
+
+        body::-webkit-scrollbar-track {
+            -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+            background-color: #60A8AC;
+            border-radius: 10px;
+        }
+
+        body::-webkit-scrollbar-thumb {
+            background: #60A8AC;
+            border-radius: 10px;
+        }
+    </style>
 </head>
 <body style="
     min-width: 1920px;
     max-width: 1920px;
     min-height: 919px;
     max-height: 919px;
-    overflow: auto;
+    overflow-y: hidden;
+    overflow-x: auto;
 ">
 <div id="app">
 </div>

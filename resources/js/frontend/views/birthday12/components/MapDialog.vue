@@ -1,19 +1,21 @@
 <template>
-    <el-dialog v-model="isShowDialog" class="custom_el_dialog"
-               style="width: 100%; height: 100%; background-color: transparent; box-shadow: none; margin: 0 auto"
-               :show-close="false" @close="closeDialog">
-        <div class="custom_dialog" :class="dialogType"
-             :style="`background-image: url(${dialogType === 'CAVE' ? dialogElm.DialogCaveBg :  dialogElm.DialogWheelBg})`">
-            <div class="custom_close_btn">
-                <img @click="closeDialog" :src="dialogElm.DialogCloseBtn" alt="">
-            </div>
+    <div id="mapDialog">
+        <el-dialog v-model="isShowDialog" class="custom_el_dialog"
+                   style="width: 100%; height: 100%; background-color: transparent; box-shadow: none; margin: 0 auto"
+                   :show-close="false" @close="closeDialog">
+            <div class="custom_dialog" :class="dialogType"
+                 :style="`background-image: url(${dialogType === 'CAVE' ? dialogElm.DialogCaveBg :  dialogElm.DialogWheelBg})`">
+                <div class="custom_close_btn">
+                    <img @click="closeDialog" :src="dialogElm.DialogCloseBtn" alt="">
+                </div>
 
-            <div class="custom_content">
-                <cave-content v-if="dialogType === 'CAVE'" :cave-type="tabType" :first-time="isFirstTime"/>
-                <wheel-content v-if="dialogType === 'WHEEL'"/>
+                <div class="custom_content">
+                    <cave-content v-if="dialogType === 'CAVE'" :cave-type="tabType" :first-time="isFirstTime"/>
+                    <wheel-content v-if="dialogType === 'WHEEL'"/>
+                </div>
             </div>
-        </div>
-    </el-dialog>
+        </el-dialog>
+    </div>
 </template>
 <script>
 import CaveContent from "../components/cave"
@@ -101,87 +103,106 @@ export default {
 
 </script>
 <style lang="scss" scoped>
-.custom_dialog {
-    font-family: "Myriad Pro", serif;
-    position: relative;
-    width: 100%;
-    height: 90vh;
-    background-size: 1354px;
-    background-repeat: no-repeat;
-    background-position: 267px 0;
-    padding: 198px 377px 75px 472px;
-    min-width: 1888px;
-    max-width: 1888px;
-    min-height: 827px;
-    max-height: 827px;
-
-    .custom_close_btn {
-        position: relative;
-        float: right;
-        right: -25px;
-        top: -30px;
-        cursor: pointer;
-        z-index: 9;
-
-        img {
-            transition: all .3s ease-in-out;
+#mapDialog {
+    :deep(.el-overlay-dialog) {
+        &::-webkit-scrollbar {
+            width: 1px;
+            height: 1px;
         }
 
-        &:hover {
-            img {
-                transform: scale(1.1);
-            }
+        &::-webkit-scrollbar-track {
+            -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+            background-color: #60A8AC;
+            border-radius: 10px;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background: #60A8AC;
+            border-radius: 10px;
         }
     }
-
-    .custom_close_btn {
+    .custom_dialog {
+        font-family: "Myriad Pro", serif;
         position: relative;
-        float: right;
-        right: -40px;
-        top: -20px;
-        cursor: pointer;
+        width: 100%;
+        height: 90vh;
+        background-size: 1354px;
+        background-repeat: no-repeat;
+        background-position: 267px 0;
+        padding: 198px 377px 75px 472px;
+        min-width: 1888px;
+        max-width: 1888px;
+        min-height: 827px;
+        max-height: 827px;
 
-        img {
-            transition: all .3s ease-in-out;
-        }
+        .custom_close_btn {
+            position: relative;
+            float: right;
+            right: -25px;
+            top: -30px;
+            cursor: pointer;
+            z-index: 9;
 
-        &:hover {
             img {
-                transform: scale(1.15);
+                transition: all .3s ease-in-out;
             }
-        }
-    }
 
-    .custom_gabi {
-        position: absolute;
-        bottom: 3%;
-        right: 9%;
-        cursor: pointer;
-        z-index: 9;
-
-        img {
-            transition: all .3s ease-in-out;
-        }
-
-        &.active,
-        &:hover {
-            img {
-                transform: scale(1.1);
+            &:hover {
+                img {
+                    transform: scale(1.1);
+                }
             }
         }
 
-        .bubble_callout {
-            background-repeat: no-repeat;
-            background-size: contain;
+        .custom_close_btn {
+            position: relative;
+            float: right;
+            right: -40px;
+            top: -20px;
+            cursor: pointer;
+
+            img {
+                transition: all .3s ease-in-out;
+            }
+
+            &:hover {
+                img {
+                    transform: scale(1.15);
+                }
+            }
+        }
+
+        .custom_gabi {
             position: absolute;
-            top: -85%;
-            width: 350px;
-            height: 200px;
-            left: 20%;
-            padding: 30px 40px 90px 35px;
-            font-size: 17px;
-            font-weight: bold;
-            font-style: italic;
+            bottom: 3%;
+            right: 9%;
+            cursor: pointer;
+            z-index: 9;
+
+            img {
+                transition: all .3s ease-in-out;
+            }
+
+            &.active,
+            &:hover {
+                img {
+                    transform: scale(1.1);
+                }
+            }
+
+            .bubble_callout {
+                background-repeat: no-repeat;
+                background-size: contain;
+                position: absolute;
+                top: -85%;
+                width: 350px;
+                height: 200px;
+                left: 20%;
+                padding: 30px 40px 90px 35px;
+                font-size: 17px;
+                font-weight: bold;
+                font-style: italic;
+            }
         }
     }
 }
