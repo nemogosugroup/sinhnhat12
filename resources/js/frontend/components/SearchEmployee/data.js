@@ -980,18 +980,18 @@ const Employee = [
         avatar: 'https://static.gosucorp.vn/hrm/avatar/1579/b52f61908a524bd9bea9f1c47562a965.jpg',
         dept: 'mega center'
     },
-    {
-        profileid: '1719',
-        deptname: 'GAMO Marketing',
-        shortname: 'GAMO MARKETING',
-        email: 'hieu.ho@gosu.vn',
-        fullname: 'Hồ Đăng Hiếu',
-        jodid: 'Nhân sự',
-        jodname: 'GAMO COMMUNITY ',
-        area: 'HUI',
-        avatar: 'https://static.gosucorp.vn/hrm/avatar/1719/96b69096f48c4df2b97ae908334f0488.jpg',
-        dept: 'mega center'
-    },
+    // {
+    //     profileid: '1719',
+    //     deptname: 'GAMO Marketing',
+    //     shortname: 'GAMO MARKETING',
+    //     email: 'hieu.ho@gosu.vn',
+    //     fullname: 'Hồ Đăng Hiếu',
+    //     jodid: 'Nhân sự',
+    //     jodname: 'GAMO COMMUNITY ',
+    //     area: 'HUI',
+    //     avatar: 'https://static.gosucorp.vn/hrm/avatar/1719/96b69096f48c4df2b97ae908334f0488.jpg',
+    //     dept: 'mega center'
+    // },
     {
         profileid: '3787',
         deptname: 'GAMO Marketing',
