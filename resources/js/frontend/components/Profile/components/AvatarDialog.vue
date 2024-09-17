@@ -1,53 +1,55 @@
 <template>
-    <el-dialog v-model="isShowDialog" class="custom_el_dialog"
-               style="width: 100%; height: 100%; background-color: transparent; box-shadow: none; margin: 0 auto"
-               :show-close="false" @close="closeDialog">
-        <div class="custom_dialog"
-             :style="`background-image: url(${dialogElm.DialogAvatarBg})`">
-            <div class="custom_close_btn">
-                <img @click="closeDialog" :src="dialogElm.DialogCloseBtn" alt="">
-            </div>
+    <div id="AvatarDialog">
+        <el-dialog v-model="isShowDialog" class="custom_el_dialog"
+                   style="width: 100%; height: 100%; background-color: transparent; box-shadow: none; margin: 0 auto"
+                   :show-close="false" @close="closeDialog">
+            <div class="custom_dialog"
+                 :style="`background-image: url(${dialogElm.DialogAvatarBg})`">
+                <div class="custom_close_btn">
+                    <img @click="closeDialog" :src="dialogElm.DialogCloseBtn" alt="">
+                </div>
 
-            <div class="custom_content">
-                <div id="userAvatar">
-                    <div class="user_avatar" :style="`background-image: url(${tmpAvatar})`">
-                        <img class="avatar_frame" :src="dialogElm.AvatarFrame" alt="">
+                <div class="custom_content">
+                    <div id="userAvatar">
+                        <div class="user_avatar" :style="`background-image: url(${tmpAvatar})`">
+                            <img class="avatar_frame" :src="dialogElm.AvatarFrame" alt="">
+                        </div>
+                    </div>
+                    <div class="btn_upload">
+                        <el-button type="primary" @click="uploadAndCrop">
+                            <i class="ri-refresh-line"></i>Thay Đổi
+                        </el-button>
+                        <input :id="`uploadInput`" type="file" accept="image/*"
+                               style="display: none"
+                               @change="(event) => handleUpload(event)">
+                    </div>
+                    <div class="btn_submit">
+                        <el-button
+                            v-if="isAfterCropped"
+                            type="success"
+                            @click="submitChangeAvatar"
+                            :loading="isLoadingChangeAvatar"
+                        ><i class="ri-check-line"></i>Xác Nhận</el-button>
+                    </div>
+                    <div class="btn_download">
+                        <el-button
+                            type="primary"
+                            @click="screenshotAndDownloadAvatar"
+                            :loading="isLoadingDownload"
+                        >
+                            <i class="ri-file-download-line"></i>Tải Xuống
+                        </el-button>
                     </div>
                 </div>
-                <div class="btn_upload">
-                    <el-button type="primary" @click="uploadAndCrop">
-                        <i class="ri-refresh-line"></i>Thay Đổi
-                    </el-button>
-                    <input :id="`uploadInput`" type="file" accept="image/*"
-                           style="display: none"
-                           @change="(event) => handleUpload(event)">
-                </div>
-                <div class="btn_submit">
-                    <el-button
-                        v-if="isAfterCropped"
-                        type="success"
-                        @click="submitChangeAvatar"
-                        :loading="isLoadingChangeAvatar"
-                    ><i class="ri-check-line"></i>Xác Nhận</el-button>
-                </div>
-                <div class="btn_download">
-                    <el-button
-                        type="primary"
-                        @click="screenshotAndDownloadAvatar"
-                        :loading="isLoadingDownload"
-                    >
-                        <i class="ri-file-download-line"></i>Tải Xuống
-                    </el-button>
-                </div>
             </div>
-        </div>
-    </el-dialog>
+        </el-dialog>
 
-    <dialog-crop
-        :dialog-crop-visible="dialogCropVisible"
-        :data="dataCrop"
-        @hidedialog="handleHideCropDialog"
-    ></dialog-crop>
+        <dialog-crop
+            :dialog-crop-visible="dialogCropVisible"
+            :data="dataCrop"
+            @hidedialog="handleHideCropDialog"
+        ></dialog-crop>
+    </div>
 
 </template>
 <script>
@@ -203,80 +205,101 @@ export default {
 
 </script>
 <style lang="scss" scoped>
-.custom_dialog {
-    font-family: "Myriad Pro", serif;
-    position: relative;
-    width: 100%;
-    height: 90vh;
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    padding: 200px 600px 85px 580px;
-
-    .custom_close_btn {
-        position: relative;
-        float: right;
-        right: -30px;
-        top: -30px;
-        cursor: pointer;
-        z-index: 9;
-
-        img {
-            transition: all .3s ease-in-out;
+#AvatarDialog {
+    :deep(.el-overlay-dialog) {
+        &::-webkit-scrollbar {
+            width: 1px;
+            height: 1px;
         }
 
-        &:hover {
-            img {
-                transform: scale(1.15);
-            }
+        &::-webkit-scrollbar-track {
+            -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+            background-color: #60A8AC;
+            border-radius: 10px;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background: #60A8AC;
+            border-radius: 10px;
         }
     }
-
-    .custom_content {
+    .custom_dialog {
+        font-family: "Myriad Pro", serif;
         position: relative;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        padding: 200px 600px 85px 580px;
+        min-width: 1888px;
+        max-width: 1888px;
+        min-height: 827px;
+        max-height: 827px;
 
-        #userAvatar {
-            .user_avatar {
-                width: 550px;
-                height: 550px;
-                background-size: cover;
-                background-repeat: no-repeat;
-                background-position: center;
-                filter: drop-shadow(0px 0px 4px #000);
+        .custom_close_btn {
+            position: relative;
+            float: right;
+            right: -30px;
+            top: -30px;
+            cursor: pointer;
+            z-index: 9;
 
-                .avatar_frame {
-                    height: 550px;
-                    width: 550px;
-                    background-color: transparent;
+            img {
+                transition: all .3s ease-in-out;
+            }
+
+            &:hover {
+                img {
+                    transform: scale(1.15);
                 }
             }
         }
 
-        .btn_upload {
-            position: absolute;
-            top: 35%;
-            right: 20px;
-        }
+        .custom_content {
+            position: relative;
 
-        .btn_submit {
-            position: absolute;
-            top: 45%;
-            right: 20px;
-        }
+            #userAvatar {
+                .user_avatar {
+                    width: 550px;
+                    height: 550px;
+                    background-size: cover;
+                    background-repeat: no-repeat;
+                    background-position: center;
+                    filter: drop-shadow(0px 0px 4px #000);
 
-        .btn_download {
-            position: absolute;
-            top: 60%;
-            right: 20px;
-        }
+                    .avatar_frame {
+                        height: 550px;
+                        width: 550px;
+                        background-color: transparent;
+                    }
+                }
+            }
 
-        :deep(.el-button) {
-            height: 40px;
-            width: 100px;
-             i {
-                 position: relative;
-                 right: 5px;
-             }
+            .btn_upload {
+                position: absolute;
+                top: 35%;
+                right: 20px;
+            }
+
+            .btn_submit {
+                position: absolute;
+                top: 45%;
+                right: 20px;
+            }
+
+            .btn_download {
+                position: absolute;
+                top: 60%;
+                right: 20px;
+            }
+
+            :deep(.el-button) {
+                height: 40px;
+                width: 100px;
+                i {
+                    position: relative;
+                    right: 5px;
+                }
+            }
         }
     }
 }

@@ -124,8 +124,6 @@ export default {
     .custom_dialog {
         font-family: "Myriad Pro", serif;
         position: relative;
-        width: 100%;
-        height: 90vh;
         background-size: 1354px;
         background-repeat: no-repeat;
         background-position: 267px 0;

@@ -334,7 +334,7 @@ export default {
                 .main_img {
                     position: relative;
                     transition: all .3s ease-in-out;
-                    animation: bounce 7s infinite;
+                    animation: bounce 3.5s infinite;
                 }
 
                 .text_img {
@@ -442,7 +442,7 @@ export default {
     }
 
     50% {
-        transform: translateY(-5px);
+        transform: translateY(-7px);
     }
 
     100% {
