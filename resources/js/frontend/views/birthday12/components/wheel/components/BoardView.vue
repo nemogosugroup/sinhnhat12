@@ -190,7 +190,7 @@ export default {
 
 
                     // Ngưỡng để xác định độ lớn của cử chỉ
-                    const threshold = 50;
+                    const threshold = 250;
 
                     if (Math.abs(deltaX) > threshold) {
                         if (deltaX < 0) {
