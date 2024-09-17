@@ -2,7 +2,10 @@
 
 namespace App\Console\Commands;
 
+use App\Helpers\Helpers;
+use App\Models\DataLog;
 use App\Models\User;
+use App\Repositories\Game2048\game2048Repository;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Command\Command as CommandAlias;
 
@@ -35,6 +38,15 @@ class IncreaseMochi extends Command
                 foreach ($users as $user) {
                     $user->point_mochi += 10;
                     $user->save();
+                    // save log
+                    DataLog::query()->create([
+                        'user_id' => $user->id,
+                        'type' => EVENT_BIRTHDAY12['type']['mochi'],
+                        'action' => EVENT_BIRTHDAY12['action']['plus'],
+                        'points' => 10,
+                        'date_number' => app(Helpers::class)->getCurrentDateNumber(),
+                        'content' => "Tự động hồi 10 <b style='color: #317489'>Mochi</b> sau mỗi 2 tiếng, từ 8h đến 18h" // TODO: change content
+                    ]);
                 }
             });
 
