@@ -43,8 +43,8 @@ const dataDepartMent = () => {
     let data = [
         {
             name: 'Trung Tâm',
-            data: 'NEMO',
-            value: 'nemo'
+            data: 'R&D Center',
+            value: 'r&d'
         },
         {
             name: 'Trung Tâm',
@@ -58,13 +58,8 @@ const dataDepartMent = () => {
         },
         {
             name: 'Trung Tâm',
-            data: 'GAMO',
-            value: 'gamo'
-        },
-        {
-            name: 'Trung Tâm',
-            data: 'GOTA',
-            value: 'gota'
+            data: 'MEGA',
+            value: 'mega'
         },
         {
             name: 'Bộ phận',
@@ -87,9 +82,9 @@ const dataDepartMent = () => {
             value: 'itc'
         },
         {
-            name: 'Bộ Phận',
-            data: 'Design',
-            value: 'design'
+            name: 'Trung Tâm',
+            data: 'MEDIA',
+            value: 'media'
         },
         {
             name: 'Bộ Phận',
@@ -102,9 +97,14 @@ const dataDepartMent = () => {
             value: 'ktht'
         },
         {
-            name: 'Studio ',
-            data: 'DUO',
-            value: 'duo'
+            name: 'Bộ Phận',
+            data: 'Design HCM',
+            value: 'design hcm'
+        },
+        {
+            name: '',
+            data: 'Ban Giám Đốc',
+            value: 'ban giam doc'
         }
     ];
     return data;
