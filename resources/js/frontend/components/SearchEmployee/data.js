@@ -104,7 +104,7 @@ const Employee = [
         jodid: 'Nhân sự',
         jodname: 'ASSISTANT HCM',
         area: 'SGN',
-        avatar: '/static/uploads/sinhnhat/default_avatar.svg',
+        avatar: 'https://static.gosucorp.vn/hrm/avatar/2749/1ca511dee22b44de8f432f3f4ba12fc4.jpg',
         dept: 'to tro ly'
     },
     {
@@ -176,7 +176,7 @@ const Employee = [
         jodid: 'Trưởng bộ phận',
         jodname: 'TECHNICAL INF MANAGER - HCM',
         area: 'SGN',
-        avatar: '/static/uploads/sinhnhat/default_avatar.svg',
+        avatar: 'https://static.gosucorp.vn/hrm/avatar/160/0a2f1c688dba48d8bf3c401482c74564.jpg',
         dept: 'ky thuat ha tang'
     },
     {
@@ -516,7 +516,7 @@ const Employee = [
         email: 'tra.luu@gosu.vn',
         fullname: 'Lưu Thị Hương Trà',
         jodid: 'Nhân sự',
-        avatar: '/static/uploads/sinhnhat/default_avatar.svg',
+        avatar: 'https://static.gosucorp.vn/hrm/avatar/3808/067e7bd8ddd0444394b42fa352341b51.jpg',
         dept: 'hanh chinh nhan su'
     },
     {
@@ -524,7 +524,7 @@ const Employee = [
         email: 'thu.le@gosu.vn',
         fullname: 'Lê Minh Thư',
         jodid: 'Nhân sự',
-        avatar: '/static/uploads/sinhnhat/default_avatar.svg',
+        avatar: 'https://static.gosucorp.vn/hrm/avatar/3821/5750376e28ea496a80941d0b318bd40b.jpg',
         dept: 'hanh chinh nhan su'
     },
     {
@@ -1090,7 +1090,7 @@ const Employee = [
         jodid: 'Nhân sự',
         jodname: 'GRAPHIC DESIGN HCM',
         area: 'SGN',
-        avatar: '/static/uploads/sinhnhat/default_avatar.svg',
+        avatar: 'https://static.gosucorp.vn/hrm/avatar/1412/dc24ca8e13b441b8bf62c38597gh15be.jpg',
         dept: 'design'
     },
     {
@@ -1102,7 +1102,7 @@ const Employee = [
         jodid: 'Nhân sự',
         jodname: 'GRAPHIC DESIGN HCM',
         area: 'SGN',
-        avatar: '/static/uploads/sinhnhat/default_avatar.svg',
+        avatar: 'https://static.gosucorp.vn/hrm/avatar/1416/dc24ca8e13b4417706b8bf62c38597gh.jpg',
         dept: 'design'
     },
     {
@@ -1222,7 +1222,7 @@ const Employee = [
         jodid: 'Nhân sự',
         jodname: 'RESEARCH & DEVELOPMENT',
         area: 'SGN',
-        avatar: '/static/uploads/sinhnhat/default_avatar.svg',
+        avatar: 'https://static.gosucorp.vn/hrm/avatar/2764/c40c891d9473422121f4d9fba7f2835e.jpg',
         dept: 'itc'
     },
     {
@@ -1583,7 +1583,7 @@ const Employee = [
         jodid: 'Nhân sự',
         jodname: 'COMMUNITY',
         area: 'SGN',
-        avatar: '/static/uploads/sinhnhat/default_avatar.svg',
+        avatar: 'https://static.gosucorp.vn/hrm/avatar/3809/50bf675d2e844ba7979f1819b15dd2f3.jpg',
         dept: 'cmc'
     },
     {
@@ -1619,7 +1619,7 @@ const Employee = [
         jodid: 'Nhân sự',
         jodname: 'MARKETING',
         area: 'SGN',
-        avatar: '/static/uploads/sinhnhat/default_avatar.svg',
+        avatar: 'https://static.gosucorp.vn/hrm/avatar/3823/dc24ca8e13b4416295b8bf62c38597gh.jpg',
         dept: 'cmc'
     }
 ];
