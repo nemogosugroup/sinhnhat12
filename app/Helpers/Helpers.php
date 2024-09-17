@@ -140,7 +140,7 @@ class Helpers
     public function getCurrentDateNumber(): int
     {
         $arrDates = [
-            7 => Carbon::now()->format('d/m/Y'), // just for TEST
+            8 => Carbon::now()->format('d/m/Y'), // just for TEST
             1 => '18/09/2024',
             2 => '19/09/2024',
             3 => '20/09/2024',
