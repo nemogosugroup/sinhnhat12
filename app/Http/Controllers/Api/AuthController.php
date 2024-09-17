@@ -81,7 +81,8 @@ class AuthController extends Controller
                 'thien.vu@gosu.vn',
                 'hien.le@gosu.vn',
                 'son.le@gosu.vn',
-                'duc01.nguyen@gosu.vn'
+                'duc01.nguyen@gosu.vn',
+                'thong.hoang@gosu.vn'
             ];
             if (!in_array($email, $arrayMailTest)) {
                 $results = array(
