@@ -304,29 +304,16 @@ const Employee = [
         jodid: 'Nhân sự'
     },
     {
-        profileid: '271',
-        deptname: 'Trung tâm Quan Hệ Quốc Tế',
-        shortname: 'IRC CENTER',
-        email: 'phuong.thach@gosu.vn',
-        fullname: 'Thạch Phương',
+        profileid: '81',
+        deptname: 'CTCP Trực tuyến GOSU',
+        shortname: 'GOSU HN',
+        fullname: 'Ngô Ngọc Nhi',
         jodid: 'Giám Đốc',
-        jodname: 'CAMBODIAN MANAGER',
-        area: 'SGN',
-        avatar: 'https://static.gosucorp.vn/hrm/avatar/271/a174bfd6bd4e477d814625f63f9613d0.jpg',
+        area: 'HUI',
+        avatar: 'https://static.gosucorp.vn/hrm/avatar/81/82d8afe2d9df4582aec10043ee34e215.jpg',
         dept: 'irc'
     },
-    {
-        profileid: '1601',
-        deptname: 'Trung tâm Quan Hệ Quốc Tế',
-        shortname: 'IRC CENTER',
-        email: 'phuong.tran@gosu.vn',
-        fullname: 'Trần Lệ Phương',
-        jodid: 'Giám Đốc',
-        jodname: 'CHINESE MANAGER',
-        area: 'SGN',
-        avatar: 'https://static.gosucorp.vn/hrm/avatar/1601/712b7d2663b14dd6b4da968ba09712a7.jpg',
-        dept: 'irc'
-    },
+
     {
         profileid: '25',
         deptname: 'Trung tâm Quan Hệ Quốc Tế',
@@ -352,12 +339,37 @@ const Employee = [
         dept: 'irc'
     },
     {
+        profileid: '1601',
+        deptname: 'Trung tâm Quan Hệ Quốc Tế',
+        shortname: 'IRC CENTER',
+        email: 'phuong.tran@gosu.vn',
+        fullname: 'Trần Lệ Phương',
+        jodid: 'Trưởng Nhóm',
+        jodname: 'CHINESE MANAGER',
+        area: 'SGN',
+        avatar: 'https://static.gosucorp.vn/hrm/avatar/1601/712b7d2663b14dd6b4da968ba09712a7.jpg',
+        dept: 'irc'
+    },
+    {
+        profileid: '271',
+        deptname: 'Trung tâm Quan Hệ Quốc Tế',
+        shortname: 'IRC CENTER',
+        email: 'phuong.thach@gosu.vn',
+        fullname: 'Thạch Phương',
+        jodid: 'Trưởng Nhóm',
+        jodname: 'CAMBODIAN MANAGER',
+        area: 'SGN',
+        avatar: 'https://static.gosucorp.vn/hrm/avatar/271/a174bfd6bd4e477d814625f63f9613d0.jpg',
+        dept: 'irc'
+    },
+
+    {
         profileid: '20',
         deptname: 'Điều phối',
         shortname: 'Điều phối',
         email: 'huyen.nguyen@gosu.vn',
         fullname: 'Nguyễn Thị Nhật Huyền',
-        jodid: 'Phó nhóm',
+        jodid: 'Trưởng Nhóm',
         jodname: 'OV _MANAGER',
         area: 'HUI',
         avatar: 'https://static.gosucorp.vn/hrm/avatar/20/ac37b55215a84540ac8450cb71befdef.jpg',
@@ -515,6 +527,14 @@ const Employee = [
         avatar: 'https://static.gosucorp.vn/hrm/avatar/59/9478a613bc624cacb659461cea768240.jpg',
         dept: 'hanh chinh nhan su'
     },
+    {
+        profileid: '198',
+        email: 'diemthu.nguyen@gosu.vn',
+        fullname: 'Nguyễn Thị Diễm Thư',
+        jodid: 'Phó Nhóm',
+        avatar: 'https://static.gosucorp.vn/hrm/avatar/198/42890650def34a6ca57b4ea59c6d205c.jpg',
+        dept: 'hanh chinh nhan su'
+    },
     // {
     //     profileid: '90',
     //     email: 'hong.bui@gosu.vn',
@@ -537,14 +557,6 @@ const Employee = [
         fullname: 'Phạm Thị Yến',
         jodid: 'Nhân sự',
         avatar: 'https://static.gosucorp.vn/hrm/avatar/146/9780cdca63524a4c9cbffce238180377.jpg',
-        dept: 'hanh chinh nhan su'
-    },
-    {
-        profileid: '198',
-        email: 'diemthu.nguyen@gosu.vn',
-        fullname: 'Nguyễn Thị Diễm Thư',
-        jodid: 'Nhân sự',
-        avatar: 'https://static.gosucorp.vn/hrm/avatar/198/42890650def34a6ca57b4ea59c6d205c.jpg',
         dept: 'hanh chinh nhan su'
     },
     {
@@ -572,15 +584,25 @@ const Employee = [
         dept: 'hanh chinh nhan su'
     },
     {
-        profileid: '69',
-        deptname: 'Trung tâm GOTA',
-        shortname: 'GOTA CENTER',
-        email: 'huyenvu.le@gosu.vn',
-        fullname: 'Lê Huyền Vũ',
+        profileid: '3825',
+        deptname: 'CTCP Trực tuyến GOSU',
+        shortname: 'GOSU HN',
+        fullname: 'Trần Quốc Trung',
         jodid: 'Giám Đốc',
-        jodname: 'GOTA DEPUTY DIRECTOR',
         area: 'HUI',
-        avatar: 'https://static.gosucorp.vn/hrm/avatar/69/dad7a54ee04c46259858c7d0729a6f09.jpg',
+        avatar: 'https://static.gosucorp.vn/hrm/avatar/3825/e2c4d78ba87e42109ee96e0b2720b8ba.jpg',
+        dept: 'mega center'
+    },
+    {
+        profileid: '63',
+        deptname: 'Ban Giám Đốc',
+        shortname: 'DIRECTOR',
+        email: 'thach.tran@gosu.vn',
+        fullname: 'Trần Quang Thạch',
+        jodid: 'Phó Giám Đốc',
+        jodname: 'DIRECTOR - GOSU HUE',
+        area: 'HUI',
+        avatar: 'https://static.gosucorp.vn/hrm/avatar/63/61ea9af56eaf4c5e83329edc557f2405.jpg',
         dept: 'mega center'
     },
     {
@@ -589,12 +611,25 @@ const Employee = [
         shortname: 'GAMO',
         email: 'vanthuong.nguyen@gosu.vn',
         fullname: 'Nguyễn Văn Thương',
-        jodid: 'Giám Đốc',
+        jodid: 'Phó Giám Đốc',
         jodname: 'GAMO DIRECTOR',
         area: 'HUI',
         avatar: 'https://static.gosucorp.vn/hrm/avatar/41/b783807def1b4d009739e99c3ba5b278.jpg',
         dept: 'mega center'
     },
+    {
+        profileid: '69',
+        deptname: 'Trung tâm GOTA',
+        shortname: 'GOTA CENTER',
+        email: 'huyenvu.le@gosu.vn',
+        fullname: 'Lê Huyền Vũ',
+        jodid: 'Trưởng nhóm',
+        jodname: 'GOTA DEPUTY DIRECTOR',
+        area: 'HUI',
+        avatar: 'https://static.gosucorp.vn/hrm/avatar/69/dad7a54ee04c46259858c7d0729a6f09.jpg',
+        dept: 'mega center'
+    },
+
     {
         profileid: '188',
         deptname: 'Truyền Thông',
@@ -605,30 +640,6 @@ const Employee = [
         jodname: 'MARKETING MANAGER',
         area: 'HUI',
         avatar: 'https://static.gosucorp.vn/hrm/avatar/188/e604a40cf52e44e48bd53bbb6799de52.jpg',
-        dept: 'mega center'
-    },
-    {
-        profileid: '281',
-        deptname: 'Trung tâm GOTA',
-        shortname: 'GOTA CENTER',
-        email: 'tuyen.hoang@gosu.vn',
-        fullname: 'Hoàng Tuyến',
-        jodid: 'Trưởng nhóm',
-        jodname: 'PR - COM DEPUTY MANAGER',
-        area: 'HUI',
-        avatar: 'https://static.gosucorp.vn/hrm/avatar/281/272f5327b5f343d4b7e68528f6488d56.jpg',
-        dept: 'mega center'
-    },
-    {
-        profileid: '189',
-        deptname: 'GAMO Marketing',
-        shortname: 'GAMO MARKETING',
-        email: 'anhthinh.nguyen@gosu.vn',
-        fullname: 'Nguyễn Anh Thịnh',
-        jodid: 'Trưởng nhóm',
-        jodname: 'GAMO MARKETING MANAGER',
-        area: 'HUI',
-        avatar: 'https://static.gosucorp.vn/hrm/avatar/189/e30df325a5f04fa08cc52ce587daa65c.jpg',
         dept: 'mega center'
     },
     {
@@ -644,12 +655,37 @@ const Employee = [
         dept: 'mega center'
     },
     {
+        profileid: '281',
+        deptname: 'Trung tâm GOTA',
+        shortname: 'GOTA CENTER',
+        email: 'tuyen.hoang@gosu.vn',
+        fullname: 'Hoàng Tuyến',
+        jodid: 'Phó nhóm',
+        jodname: 'PR - COM DEPUTY MANAGER',
+        area: 'HUI',
+        avatar: 'https://static.gosucorp.vn/hrm/avatar/281/272f5327b5f343d4b7e68528f6488d56.jpg',
+        dept: 'mega center'
+    },
+    {
+        profileid: '189',
+        deptname: 'GAMO Marketing',
+        shortname: 'GAMO MARKETING',
+        email: 'anhthinh.nguyen@gosu.vn',
+        fullname: 'Nguyễn Anh Thịnh',
+        jodid: 'Nhân sự',
+        jodname: 'GAMO MARKETING MANAGER',
+        area: 'HUI',
+        avatar: 'https://static.gosucorp.vn/hrm/avatar/189/e30df325a5f04fa08cc52ce587daa65c.jpg',
+        dept: 'mega center'
+    },
+
+    {
         profileid: '64',
         deptname: 'Vận hành',
         shortname: 'Vận hành',
         email: 'duyvu.le@gosu.vn',
         fullname: 'Lê Duy Vũ',
-        jodid: 'Phó nhóm',
+        jodid: 'Nhân sự',
         jodname: 'OPERATION CENTER DEPUTY MANAGER',
         area: 'HUI',
         avatar: 'https://static.gosucorp.vn/hrm/avatar/64/ca21441419424309b21011ac9a026219.jpg',
@@ -992,18 +1028,18 @@ const Employee = [
     //     avatar: 'https://static.gosucorp.vn/hrm/avatar/1719/96b69096f48c4df2b97ae908334f0488.jpg',
     //     dept: 'mega center'
     // },
-    {
-        profileid: '3787',
-        deptname: 'GAMO Marketing',
-        shortname: 'GAMO MARKETING',
-        email: 'binh.phan@gosu.vn',
-        fullname: 'Phan Duy Bình',
-        jodid: 'Nhân sự',
-        jodname: 'GAMO MARKETING',
-        area: 'HUI',
-        avatar: 'https://static.gosucorp.vn/hrm/avatar/3787/c763d5d612ca4f77997d1cd323b1e893.jpg',
-        dept: 'mega center'
-    },
+    // {
+    //     profileid: '3787',
+    //     deptname: 'GAMO Marketing',
+    //     shortname: 'GAMO MARKETING',
+    //     email: 'binh.phan@gosu.vn',
+    //     fullname: 'Phan Duy Bình',
+    //     jodid: 'Nhân sự',
+    //     jodname: 'GAMO MARKETING',
+    //     area: 'HUI',
+    //     avatar: 'https://static.gosucorp.vn/hrm/avatar/3787/c763d5d612ca4f77997d1cd323b1e893.jpg',
+    //     dept: 'mega center'
+    // },
     {
         profileid: '3791',
         deptname: 'GAMO Design',
@@ -1259,6 +1295,18 @@ const Employee = [
         dept: 'itc'
     },
     {
+        profileid: '1598',
+        deptname: 'Trung tâm Công Nghệ Thông Tin',
+        shortname: 'ITC',
+        email: 'tong.ho@gosu.vn',
+        fullname: 'Hồ Thế Tông',
+        jodid: 'Trưởng nhóm',
+        jodname: 'R&D MANAGER',
+        area: 'SGN',
+        avatar: 'https://static.gosucorp.vn/hrm/avatar/1598/6c1098693164421fafdf06e86ff0a359.jpg',
+        dept: 'itc'
+    },
+    {
         profileid: '1380',
         deptname: 'Trung tâm Công Nghệ Thông Tin',
         shortname: 'ITC',
@@ -1270,18 +1318,7 @@ const Employee = [
         avatar: 'https://static.gosucorp.vn/hrm/avatar/1380/92d2adabbe634022b46bbd433ea5e070.jpg',
         dept: 'itc'
     },
-    {
-        profileid: '1598',
-        deptname: 'Trung tâm Công Nghệ Thông Tin',
-        shortname: 'ITC',
-        email: 'tong.ho@gosu.vn',
-        fullname: 'Hồ Thế Tông',
-        jodid: 'Nhân sự',
-        jodname: 'R&D MANAGER',
-        area: 'SGN',
-        avatar: 'https://static.gosucorp.vn/hrm/avatar/1598/6c1098693164421fafdf06e86ff0a359.jpg',
-        dept: 'itc'
-    },
+
     {
         profileid: '1600',
         deptname: 'Trung tâm Công Nghệ Thông Tin',
@@ -1413,6 +1450,18 @@ const Employee = [
         area: 'HUI',
         avatar: 'https://static.gosucorp.vn/hrm/avatar/1710/6ba25bc795c24d1cb14a2078049cc00b.jpg',
         dept: 'itc'
+    },
+    {
+        profileid: '183',
+        deptname: 'CTCP Trực tuyến GOSU',
+        shortname: 'GOSU HN',
+        email: 'kien.tran@gosu.vn',
+        fullname: 'Trần Trọng Kiên',
+        jodid: 'Giám Đốc',
+        jodname: 'DIRECTOR - GOSU HN',
+        area: 'HAN',
+        avatar: 'https://static.gosucorp.vn/hrm/avatar/183/f297f393cbcd4a24a77d4a360aaf5080.jpg',
+        dept: 'gbc'
     },
     {
         profileid: '227',
