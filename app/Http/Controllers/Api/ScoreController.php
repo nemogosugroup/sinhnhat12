@@ -77,6 +77,16 @@ class ScoreController extends Controller
             'point_silk' => auth()->user()->point_silk + $params['point_silk'],
             'point_mochi' => auth()->user()->point_mochi - EVENT_BIRTHDAY12['mochi']
         );
+        $checkMochi = auth()->user()->point_mochi - EVENT_BIRTHDAY12['mochi'];
+        if($checkMochi < 0){
+            $results = array(
+                'success' => true,
+                'data' => '',
+                'message' => $this->msg->createSuccess(),
+                'status' => Response::HTTP_OK
+            );
+            return response()->json($results);
+        }
         if($data['scores'] > auth()->user()->score){
             $dataUser['score'] = $data['scores'];
         }

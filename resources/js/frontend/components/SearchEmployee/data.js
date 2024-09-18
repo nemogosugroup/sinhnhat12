@@ -1867,19 +1867,19 @@ const Employee = [
         dept: '3c center'
     },
     {
-        profileid: '3822',
-        email: 'thieuvy.nguyen@gosu.vn',
-        fullname: 'Nguyễn Cao Thiệu Vy',
+        profileid: '1677',
+        email: 'phong.huynh@gosu.vn',
+        fullname: 'Huỳnh Thanh Phong',
         jodid: 'Nhân sự',
         area: 'SGN',
         avatar: '/static/uploads/sinhnhat/default_avatar.svg',
         dept: '3c center'
     },
     {
-        profileid: '1677',
-        email: 'phong.huynh@gosu.vn',
-        fullname: 'Huỳnh Thanh Phong',
-        jodid: 'Cộng tác viên',
+        profileid: '3822',
+        email: 'thieuvy.nguyen@gosu.vn',
+        fullname: 'Nguyễn Cao Thiệu Vy',
+        jodid: 'Nhân sự',
         area: 'SGN',
         avatar: '/static/uploads/sinhnhat/default_avatar.svg',
         dept: '3c center'
