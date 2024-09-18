@@ -71,12 +71,6 @@ class ScoreController extends Controller
         $dataJson = json_decode($decryptedData, true);
         //$params = $request->all();
         $params = $dataJson;
-        $data = $this->repo->create($params);
-        // update kimto/mochi/bestcore/is_lucky for user
-        $dataUser = array(
-            'point_silk' => auth()->user()->point_silk + $params['point_silk'],
-            'point_mochi' => auth()->user()->point_mochi - EVENT_BIRTHDAY12['mochi']
-        );
         $checkMochi = auth()->user()->point_mochi - EVENT_BIRTHDAY12['mochi'];
         if($checkMochi < 0){
             $results = array(
@@ -87,6 +81,13 @@ class ScoreController extends Controller
             );
             return response()->json($results);
         }
+        $data = $this->repo->create($params);
+        // update kimto/mochi/bestcore/is_lucky for user
+        $dataUser = array(
+            'point_silk' => auth()->user()->point_silk + $params['point_silk'],
+            'point_mochi' => auth()->user()->point_mochi - EVENT_BIRTHDAY12['mochi']
+        );
+
         if($data['scores'] > auth()->user()->score){
             $dataUser['score'] = $data['scores'];
         }
