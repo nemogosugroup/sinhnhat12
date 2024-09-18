@@ -927,6 +927,11 @@ html {
                     left: 14%;
                     bottom: 50px;
                 }
+
+                &.leaf_13 {
+                    left: 62%;
+                    top: 55px;
+                }
             }
         }
     }

@@ -91,7 +91,6 @@ export default {
                 let newStr = this.selectedEmployee.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
                 newStr = this.formatString(newStr);
                 this.loading = true;
-                console.log('newStr', newStr)
                 this.listEmployee = this.list.filter((item) => {
                     return item.value.toLowerCase().includes(newStr.toLowerCase());
                 });

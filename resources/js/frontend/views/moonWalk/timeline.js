@@ -105,6 +105,11 @@ const dataDepartMent = () => {
             name: '',
             data: 'Ban Giám Đốc',
             value: 'ban giam doc'
+        },
+        {
+            name: 'Trung Tâm',
+            data: '3C',
+            value: '3c center'
         }
     ];
     return data;
