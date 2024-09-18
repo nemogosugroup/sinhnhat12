@@ -71,12 +71,24 @@ class ScoreController extends Controller
         $dataJson = json_decode($decryptedData, true);
         //$params = $request->all();
         $params = $dataJson;
+        $lastData = DataLog::where('user_id', auth()->user()->id)
+        ->where('start', $params['start'])
+        ->where('end',  $params['end'])
+        ->get();
         $checkMochi = auth()->user()->point_mochi - EVENT_BIRTHDAY12['mochi'];
         if($checkMochi < 0 || auth()->user()->point_mochi < 2){
             $results = array(
                 'success' => true,
                 'data' => 'Bạn đã hết Mochi để chơi',
                 'message' => $this->msg->createSuccess(),
+                'status' => Response::HTTP_OK
+            );
+            return response()->json($results);
+        }
+        if(count($lastData) > 0){
+            $results = array(
+                'success' => true,
+                'message' => 'Chúc mừng sinh nhật Gosu',
                 'status' => Response::HTTP_OK
             );
             return response()->json($results);
