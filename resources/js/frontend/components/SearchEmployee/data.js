@@ -1829,6 +1829,60 @@ const Employee = [
         area: 'HUI',
         avatar: 'https://static.gosucorp.vn/hrm/avatar/3826/e2c4d78ba87e42109ee96e0b2720b8bf.jpg',
         dept: 'ban giam doc'
+    },
+    {
+        profileid: '1376',
+        email: 'giau.pham@gosu.vn',
+        fullname: 'Phạm Thị Ngọc Giàu',
+        jodid: 'Nhân sự',
+        area: 'SGN',
+        avatar: '/static/uploads/sinhnhat/default_avatar.svg',
+        dept: '3c center'
+    },
+    {
+        profileid: '1678',
+        email: 'dong.nguyen@gosu.vn',
+        fullname: 'Nguyễn Hoàng Đông',
+        jodid: 'Nhân sự',
+        area: 'SGN',
+        avatar: 'https://static.gosucorp.vn/hrm/avatar/1678/7402ff11c2414c20a88aa21007c8cf33.jpg',
+        dept: '3c center'
+    },
+    {
+        profileid: '3796',
+        email: 'an.dang@gosu.vn',
+        fullname: 'Đặng Phạm Bình An',
+        jodid: 'Nhân sự',
+        area: 'SGN',
+        avatar: '/static/uploads/sinhnhat/default_avatar.svg',
+        dept: '3c center'
+    },
+    {
+        profileid: '3797',
+        email: 'duytam.nguyen@gosu.vn',
+        fullname: 'Nguyễn Võ Duy Tâm',
+        jodid: 'Nhân sự',
+        area: 'SGN',
+        avatar: 'https://static.gosucorp.vn/hrm/avatar/3797/2840606a05414e9cb963cb3b3e4b236b.jpg',
+        dept: '3c center'
+    },
+    {
+        profileid: '3822',
+        email: 'thieuvy.nguyen@gosu.vn',
+        fullname: 'Nguyễn Cao Thiệu Vy',
+        jodid: 'Nhân sự',
+        area: 'SGN',
+        avatar: '/static/uploads/sinhnhat/default_avatar.svg',
+        dept: '3c center'
+    },
+    {
+        profileid: '1677',
+        email: 'phong.huynh@gosu.vn',
+        fullname: 'Huỳnh Thanh Phong',
+        jodid: 'Cộng tác viên',
+        area: 'SGN',
+        avatar: '/static/uploads/sinhnhat/default_avatar.svg',
+        dept: '3c center'
     }
 ];
 
