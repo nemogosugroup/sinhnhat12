@@ -60,42 +60,42 @@ export const constantRoutes = [
             }
         ]
     },
-    {
-        path: '/test-login',
-        component: layoutFront,
-        hidden: true,
-        redirect: '',
-        children: [
-            {
-                path: '',
-                component: LoginTest,
-                name: 'LoginTest',
-                meta: {
-                    title: 'GOSU',
-                    affix: true
-                },
-                beforeEnter(to, from, next) {
-                    // Kiểm tra xem người dùng đã đăng nhập hay chưa
-                    // Lấy các query parameters từ URL
-                    const queryParams = to.query;
-                    if (getAccessToken()) {
-                        if (queryParams.redirect_uri) {
-                            window.location.href =
-                                queryParams.redirect_uri +
-                                '?token=' +
-                                getAccessToken() +
-                                '&state=' +
-                                queryParams.state;
-                        } else {
-                            next({ path: '/' });
-                        }
-                    } else {
-                        next();
-                    }
-                }
-            }
-        ]
-    },
+    // {
+    //     path: '/test-login',
+    //     component: layoutFront,
+    //     hidden: true,
+    //     redirect: '',
+    //     children: [
+    //         {
+    //             path: '',
+    //             component: LoginTest,
+    //             name: 'LoginTest',
+    //             meta: {
+    //                 title: 'GOSU',
+    //                 affix: true
+    //             },
+    //             beforeEnter(to, from, next) {
+    //                 // Kiểm tra xem người dùng đã đăng nhập hay chưa
+    //                 // Lấy các query parameters từ URL
+    //                 const queryParams = to.query;
+    //                 if (getAccessToken()) {
+    //                     if (queryParams.redirect_uri) {
+    //                         window.location.href =
+    //                             queryParams.redirect_uri +
+    //                             '?token=' +
+    //                             getAccessToken() +
+    //                             '&state=' +
+    //                             queryParams.state;
+    //                     } else {
+    //                         next({ path: '/' });
+    //                     }
+    //                 } else {
+    //                     next();
+    //                 }
+    //             }
+    //         }
+    //     ]
+    // },
     {
         path: '/404',
         component: Page404,

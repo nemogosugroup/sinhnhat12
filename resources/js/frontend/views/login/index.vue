@@ -42,12 +42,12 @@
                 <div class="divider">
                     <el-image :src="Divider" />
                 </div>
-<!--                <div class="more font_beaufort w700" @click="showLogin">-->
-<!--                    <span>Đăng nhập</span>-->
-<!--                </div>-->
-                <div class="more font_beaufort w700">
-                    <span>Coming Soon</span>
+                <div class="more font_beaufort w700" @click="showLogin">
+                    <span>Đăng nhập</span>
                 </div>
+<!--                <div class="more font_beaufort w700">-->
+<!--                    <span>Coming Soon</span>-->
+<!--                </div>-->
             </div>
         </el-main>
     </div>

@@ -63,36 +63,36 @@ class AuthController extends Controller
             $password = $request->password;
 
             // TODO: emails for test
-            $arrayMailTest = [
-                'uyen.truong@gosu.vn',
-                'phe.tran@gosu.vn',
-                'admin@gosu.vn',
-                'baochau.pham@gosu.vn',
-                'diemthu.nguyen@gosu.vn',
-                'men.phan@gosu.vn',
-                'van.le@gosu.vn',
-                'trinh.hoang@gosu.vn',
-                'tra.luu@gosu.vn',
-                'thu.le@gosu.vn',
-                'nhi.ngo@gosu.vn',
-                'hong.nguyen@gosu.vn',
-                'yen.ha@gosu.vn',
-                'phucuong.tran@gosu.vn',
-                'thien.vu@gosu.vn',
-                'hien.le@gosu.vn',
-                'son.le@gosu.vn',
-                'duc01.nguyen@gosu.vn',
-                'thong.hoang@gosu.vn',
-                'huynh.nguyen@gosu.vn'
-            ];
-            if (!in_array($email, $arrayMailTest)) {
-                $results = array(
-                    'message' => "Tài khoản không hợp lệ!",
-                    'success' => false,
-                    'status' => Response::HTTP_OK
-                );
-                return response()->json($results);
-            }
+//            $arrayMailTest = [
+//                'uyen.truong@gosu.vn',
+//                'phe.tran@gosu.vn',
+//                'admin@gosu.vn',
+//                'baochau.pham@gosu.vn',
+//                'diemthu.nguyen@gosu.vn',
+//                'men.phan@gosu.vn',
+//                'van.le@gosu.vn',
+//                'trinh.hoang@gosu.vn',
+//                'tra.luu@gosu.vn',
+//                'thu.le@gosu.vn',
+//                'nhi.ngo@gosu.vn',
+//                'hong.nguyen@gosu.vn',
+//                'yen.ha@gosu.vn',
+//                'phucuong.tran@gosu.vn',
+//                'thien.vu@gosu.vn',
+//                'hien.le@gosu.vn',
+//                'son.le@gosu.vn',
+//                'duc01.nguyen@gosu.vn',
+//                'thong.hoang@gosu.vn',
+//                'huynh.nguyen@gosu.vn'
+//            ];
+//            if (!in_array($email, $arrayMailTest)) {
+//                $results = array(
+//                    'message' => "Tài khoản không hợp lệ!",
+//                    'success' => false,
+//                    'status' => Response::HTTP_OK
+//                );
+//                return response()->json($results);
+//            }
             // TODO: emails for test
 
             $results = $this->userRepo->loginUser(['email' => $email, 'password' => $password]);
