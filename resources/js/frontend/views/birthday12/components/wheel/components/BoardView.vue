@@ -1,15 +1,16 @@
 <template>
     <div class="wrap-board">
-        <span class="point-reward point-silk"><img :src="iconSilk" /><span class="point">{{ dataBoard.pointSilk.value
-                }}</span></span>
-        <span class="point-reward point-mochi"><img :src="iconMochi" /><span class="point">{{ mochi }}</span></span>
+        <span class="point-reward point-silk"><img :src="iconSilk"/><span class="point">{{
+                dataBoard.pointSilk.value
+            }}</span></span>
+        <span class="point-reward point-mochi"><img :src="iconMochi"/><span class="point">{{ mochi }}</span></span>
         <el-row :gutter="10" style="position: relative; top:-35px">
             <el-col :span="13">
                 <div class="board">
                     <div v-for="(r_item, r_i) in board.cells" :key="r_i">
                         <cell v-for="(c_item, c_i) in r_item" :key="c_i"></cell>
                     </div>
-                    <tile-view v-for="(tile, i) in tiles" :tile="tile" :key="i"> </tile-view>
+                    <tile-view v-for="(tile, i) in tiles" :tile="tile" :key="i"></tile-view>
                     <game-end-overlay :board="board" :onrestart="onRestart" :onsubmit="submitScore"></game-end-overlay>
                     <div v-if="!checkStartGame" class='youWin'></div>
                 </div>
@@ -43,17 +44,20 @@
                         <div class="countDown">
                             <span>{{ mapData.countdown }}</span>
                             <Countdown :deadline="`${dataBoard.deadline.value}`" :stop="!startGame" :showLabels="false"
-                                :showDays="false" :showHours="false" mainFlipBackgroundColor="#DCF0F8"
-                                secondFlipBackgroundColor='#DCF0F8' mainColor="#121F24" secondFlipColor="#121F24"
-                                :flipAnimation="false" />
+                                       :showDays="false" :showHours="false" mainFlipBackgroundColor="#DCF0F8"
+                                       secondFlipBackgroundColor='#DCF0F8' mainColor="#121F24" secondFlipColor="#121F24"
+                                       :flipAnimation="false"/>
                         </div>
                         <div class="play-again">
                             <el-button :loading="loading" class="reset" @click="onRestart">
-                                <div class='img'><img :src="iconMochi2" alt=""> <span class="count">{{ use_mochi
-                                        }}</span></div>
+                                <div class='img'><img :src="iconMochi2" alt=""> <span class="count">{{
+                                        use_mochi
+                                    }}</span></div>
                                 <div>{{
-                                    !startGame && score == 0 ?
-                                        mapData.play : mapData.play_again }}</div>
+                                        !startGame && score == 0 ?
+                                            mapData.play : mapData.play_again
+                                    }}
+                                </div>
                             </el-button>
                         </div>
                     </el-col>
@@ -78,6 +82,7 @@
 
 <script>
 import RepositoryFactory from '@frontend/utils/RepositoryFactory';
+
 const game2048Repository = RepositoryFactory.get('game2048');
 
 import MapIconMochi from '@/assets/images/eventBirthday2024/icon_mochi.svg'
@@ -86,19 +91,20 @@ import MapIconMochi2 from '@/assets/images/eventBirthday2024/icon_mochi_2.svg'
 import Cell from "./Cell.vue";
 import TileView from "./TileView.vue";
 import GameEndOverlay from "./GameEndOverlay.vue";
-import { Board } from "../board";
-import { onMounted, onBeforeUnmount, ref, computed } from "vue";
-import { Countdown } from 'vue3-flip-countdown';
+import {Board} from "../board";
+import {onMounted, onBeforeUnmount, ref, computed} from "vue";
+import {Countdown} from 'vue3-flip-countdown';
 import moment from 'moment';
-import { useStore } from "vuex";
-import { Emitter, encryptData } from './evenEmit';
-import { ElMessage } from 'element-plus'
+import {useStore} from "vuex";
+import {Emitter, encryptData} from './evenEmit';
+import {ElMessage} from 'element-plus'
+
 const levels = [
-    { min: 0, max: 1489, levelKey: 'lv1' },
-    { min: 1500, max: 1998, levelKey: 'lv2' },
-    { min: 2000, max: 2498, levelKey: 'lv3' },
-    { min: 2500, max: 2998, levelKey: 'lv4' },
-    { min: 3000, max: 3498, levelKey: 'lv5', bonus: true }
+    {min: 0, max: 1489, levelKey: 'lv1'},
+    {min: 1500, max: 1998, levelKey: 'lv2'},
+    {min: 2000, max: 2498, levelKey: 'lv3'},
+    {min: 2500, max: 2998, levelKey: 'lv4'},
+    {min: 3000, max: 3498, levelKey: 'lv5', bonus: true}
 ];
 import CryptoJS from "crypto-js";
 
@@ -142,11 +148,11 @@ export default {
                 countMinutes: Math.round(moment().add(minutes, 'minutes').diff(moment()) / 1000), // count seconds
                 pointSilk: ref(0),
                 levelSilk: {
-                    'lv1': { 'point': 5, 'check': true },
-                    'lv2': { 'point': 5, 'check': true },
-                    'lv3': { 'point': 5, 'check': true },
-                    'lv4': { 'point': 5, 'check': true },
-                    'lv5': { 'point': 5, 'check': true }
+                    'lv1': {'point': 5, 'check': true},
+                    'lv2': {'point': 5, 'check': true},
+                    'lv3': {'point': 5, 'check': true},
+                    'lv4': {'point': 5, 'check': true},
+                    'lv5': {'point': 5, 'check': true}
                 },
                 checkBonnus: false,
                 scoreBonnus: 0, // kiểm tra điểm bonnus nếu score đạt trên 3500 bắt đầu tính toán để cộng dồn silk
@@ -184,39 +190,37 @@ export default {
                     const endX = event.changedTouches[0].clientX;
                     const endY = event.changedTouches[0].clientY;
 
-                    const
-                        deltaX = endX - startX;
+                    const deltaX = endX - startX;
                     const deltaY = endY - startY;
-
 
                     // Ngưỡng để xác định độ lớn của cử chỉ
                     const threshold = 250;
 
                     if (Math.abs(deltaX) > threshold) {
                         if (deltaX < 0) {
-                            console.log("Vuốt từ phải sang trái")
+                            // console.log("Vuốt từ phải sang trái")
                             // Mô phỏng phím mũi tên trái (keyCode 37)
-                            const keyboardEvent = new KeyboardEvent('keydown', { keyCode: 37 });
+                            const keyboardEvent = new KeyboardEvent('keydown', {keyCode: 37});
                             board.value.move(37 - 37);
                             document.dispatchEvent(keyboardEvent);
                         } else {
-                            console.log("Vuốt từ trái sang phải")
+                            // console.log("Vuốt từ trái sang phải")
                             // Mô phỏng phím mũi tên phải (keyCode 39)
-                            const keyboardEvent = new KeyboardEvent('keydown', { keyCode: 39 });
+                            const keyboardEvent = new KeyboardEvent('keydown', {keyCode: 39});
                             board.value.move(39 - 37);
                             document.dispatchEvent(keyboardEvent);
                         }
                     } else if (Math.abs(deltaY) > threshold) {
                         if (deltaY < 0) {
-                            console.log("Vuốt từ dưới lên trên")
+                            // console.log("Vuốt từ dưới lên trên")
                             // Mô phỏng phím mũi tên lên (keyCode 38)
-                            const keyboardEvent = new KeyboardEvent('keydown', { keyCode: 38 });
+                            const keyboardEvent = new KeyboardEvent('keydown', {keyCode: 38});
                             board.value.move(38 - 37);
                             document.dispatchEvent(keyboardEvent);
                         } else {
-                            console.log("Vuốt từ trên xuống dưới")
+                            // console.log("Vuốt từ trên xuống dưới")
                             // Mô phỏng phím mũi tên xuống (keyCode 40)
-                            const keyboardEvent = new KeyboardEvent('keydown', { keyCode: 40 });
+                            const keyboardEvent = new KeyboardEvent('keydown', {keyCode: 40});
                             board.value.move(40 - 37);
                             document.dispatchEvent(keyboardEvent);
                         }
@@ -246,11 +250,11 @@ export default {
             dataBoard.scoreBonnus = 0;
             dataBoard.checkBonnus = false;
             dataBoard.levelSilk = {
-                'lv1': { 'point': 5, 'check': true },
-                'lv2': { 'point': 5, 'check': true },
-                'lv3': { 'point': 5, 'check': true },
-                'lv4': { 'point': 5, 'check': true },
-                'lv5': { 'point': 5, 'check': true }
+                'lv1': {'point': 5, 'check': true},
+                'lv2': {'point': 5, 'check': true},
+                'lv3': {'point': 5, 'check': true},
+                'lv4': {'point': 5, 'check': true},
+                'lv5': {'point': 5, 'check': true}
             };
             startGame.value = true;
             checkStartGame.value = true;
@@ -318,7 +322,7 @@ export default {
                 loading.value = true;
                 const _encryptData = encryptData(formData, secretKey, iv);
                 console.log('encryptData', _encryptData)
-                const { data } = await game2048Repository.create({ 'data': _encryptData, iv: iv });
+                const {data} = await game2048Repository.create({'data': _encryptData, iv: iv});
                 if (data.success) {
                     const dataCommit = {
                         'silk': dataBoard.pointSilk.value + silk.value
@@ -518,7 +522,6 @@ export default {
             width: 100%;
             height: 1px;
         }
-
 
 
         p {
