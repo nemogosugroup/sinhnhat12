@@ -72,10 +72,10 @@ class ScoreController extends Controller
         //$params = $request->all();
         $params = $dataJson;
         $checkMochi = auth()->user()->point_mochi - EVENT_BIRTHDAY12['mochi'];
-        if($checkMochi < 0){
+        if($checkMochi < 0 || auth()->user()->point_mochi < 2){
             $results = array(
                 'success' => true,
-                'data' => '',
+                'data' => 'Bạn đã hết Mochi để chơi',
                 'message' => $this->msg->createSuccess(),
                 'status' => Response::HTTP_OK
             );
