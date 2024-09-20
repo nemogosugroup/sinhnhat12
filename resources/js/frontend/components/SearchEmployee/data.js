@@ -1132,7 +1132,7 @@ const Employee = [
         shortname: 'GRAPHIC DESIGN ',
         email: 'xuanbinh.dang@gosu.vn',
         fullname: 'Đặng Xuân Bình',
-        jodid: 'Trưởng nhóm',
+        jodid: 'Giám Đốc',
         jodname: 'GRAPHIC DESIGN HUE - MANAGER',
         area: 'HUI',
         avatar: 'https://static.gosucorp.vn/hrm/avatar/123/3ab2931b92a0488c9386214356954d62.jpg',
