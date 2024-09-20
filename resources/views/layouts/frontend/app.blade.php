@@ -4,8 +4,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="locale" content="{{ app()->getLocale() }}" />
-    {{-- <meta name="viewport" content="width=1920, user-scalable=0" /> --}}
-    <meta name="viewport" content="width=1920, initial-scale=0.5, maximum-scale=1">
+    <meta name="viewport" content="width=1920, user-scalable=0" />
+    {{-- <meta name="viewport" content="width=1920, initial-scale=0.5, maximum-scale=1"> --}}
     <meta name="csrf-token" value="{{ csrf_token() }}" />
     <title>GOSU</title>
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet" type="text/css">
