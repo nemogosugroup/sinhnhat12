@@ -8,7 +8,7 @@ import getPageTitle from '@frontend/utils/get-page-title';
 
 NProgress.configure({ showSpinner: false }); // NProgress Configuration
 
-const whiteList = ['/logout', '/auth-redirect']; // no redirect whitelist
+const whiteList = ['/login', '/test-login', '/logout', '/auth-redirect']; // no redirect whitelist
 router.beforeEach(async (to, from, next) => {
     // start progress bar
     NProgress.start();
@@ -74,7 +74,6 @@ router.beforeEach(async (to, from, next) => {
             if (to.path === "/bachnhat") {
                 next();
             } else {
-                window.location.href = '/bachnhat';
                 next(`/login?redirect=${to.path}`);
             }
             next();

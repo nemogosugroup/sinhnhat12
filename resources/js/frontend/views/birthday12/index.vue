@@ -153,6 +153,7 @@ export default {
     mounted() {
     },
     created() {
+        this.$router.push(`/bachnhat`);
         this.$store.dispatch("user/getInfo").then(() => {
             this.issetAlert = this.user.alerts > 0;
             this.silkCount = this.user.point_silk;
