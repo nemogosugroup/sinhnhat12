@@ -42,12 +42,12 @@
                 <div class="divider">
                     <el-image :src="Divider" />
                 </div>
-<!--                <div class="more font_beaufort w700" @click="showLogin">-->
-<!--                    <span>Đăng nhập</span>-->
-<!--                </div>-->
-                <div class="more font_beaufort w700">
-                    <span>Sự kiện đã kết thúc</span>
+                <div class="more font_beaufort w700" @click="showLogin">
+                    <span>Đăng nhập</span>
                 </div>
+                <!-- <div class="more font_beaufort w700">
+                    <span>Sự kiện đã kết thúc</span>
+                </div> -->
             </div>
         </el-main>
     </div>
@@ -130,7 +130,7 @@ export default {
         },
     },
     created() {
-        this.$router.push(`/bachnhat`);
+        //this.$router.push(`/bachnhat`);
     },
     mounted() {
 
@@ -176,7 +176,7 @@ export default {
                                     message: data.message,
                                     type: 'success'
                                 });
-                                this.$router.push({name: "Home"});
+                                this.$router.push({ name: "Home" });
 
                                 //console.log("check this.redirectUri",this.redirectUri);
                                 // if (this.redirectUri) {

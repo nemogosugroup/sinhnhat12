@@ -24,45 +24,33 @@
             <el-col :span="24" class="ports">
                 <el-row>
                     <el-col :span="8" class="port_wrapper cave" style="text-align: right"
-                            :class="{ is_first_time: isFirstTime }">
+                        :class="{ is_first_time: isFirstTime }">
                         <img class="main_img" :src="caveMainImg" alt="">
-                        <img
-                            @click="goTo('CAVE')"
-                            @mouseover="handleHover('CAVE')"
-                            @mouseout="handleHoverOut('CAVE')"
-                            class="text_img" :src="caveTextImg" alt=""
-                        >
+                        <img @click="goTo('CAVE')" @mouseover="handleHover('CAVE')" @mouseout="handleHoverOut('CAVE')"
+                            class="text_img" :src="caveTextImg" alt="">
                         <div v-if="tooltipType === 'CAVE'" class="bubble_tooltip tooltip_CAVE">
                             <VueTyped :strings="[`<b>Thố Động:</b> Điểm danh và làm nhiệm vụ ngày`]" :typeSpeed="10"
-                                      :backSpeed="30" :loop="false">
+                                :backSpeed="30" :loop="false">
                             </VueTyped>
                         </div>
                     </el-col>
                     <el-col :span="8" class="port_wrapper gate text-center">
                         <img class="main_img" :src="gateMainImg" alt="">
-                        <img
-                            @click="goTo('GATE')"
-                            @mouseover="handleHover('GATE')"
-                            @mouseout="handleHoverOut('GATE')"
-                            class="text_img" :src="gateTextImg" alt=""
-                        >
+                        <img @click="goTo('GATE')" @mouseover="handleHover('GATE')" @mouseout="handleHoverOut('GATE')"
+                            class="text_img" :src="gateTextImg" alt="">
                         <div v-if="tooltipType === 'GATE'" class="bubble_tooltip tooltip_GATE">
                             <VueTyped :strings="[`<b>Cổng Moonwalk:</b> Trang hành trình GOSU12`]" :typeSpeed="15"
-                                      :backSpeed="30" :loop="false">
+                                :backSpeed="30" :loop="false">
                             </VueTyped>
                         </div>
                     </el-col>
                     <el-col :span="8" class="port_wrapper wheel text-left">
                         <img class="main_img" :src="wheelMainImg" alt="">
-                        <img
-                            @click="goTo('WHEEL')"
-                            @mouseover="handleHover('WHEEL')"
-                            @mouseout="handleHoverOut('WHEEL')"
-                            class="text_img" :src="wheelTextImg" alt=""
-                        >
+                        <img @click="goTo('WHEEL')" @mouseover="handleHover('WHEEL')"
+                            @mouseout="handleHoverOut('WHEEL')" class="text_img" :src="wheelTextImg" alt="">
                         <div v-if="tooltipType === 'WHEEL'" class="bubble_tooltip tooltip_WHEEL">
                             <VueTyped :strings="[`<b>Vòng Quay Mặt Trời:</b> Trò chơi thu thập Kim Tơ`]" :typeSpeed="15"
-                                      :backSpeed="30" :loop="false">
+                                :backSpeed="30" :loop="false">
                             </VueTyped>
                         </div>
                     </el-col>
@@ -72,7 +60,7 @@
     </div>
 
     <map-dialog :dialog-visible="dialogVisible" :dialog-type="dialogType" :cave-type="caveType"
-                :first-time="isFirstTime" @hideDialog="handleHideDialog"></map-dialog>
+        :first-time="isFirstTime" @hideDialog="handleHideDialog"></map-dialog>
 
     <dialog-about :show-slogan="showSlogan"></dialog-about>
 
@@ -100,13 +88,13 @@ import MapIconSilk from '@/assets/images/eventBirthday2024/icon_kimto.svg'
 import MapIconMochi from '@/assets/images/eventBirthday2024/icon_mochi.svg'
 
 import MapDialog from "@frontend/views/birthday12/components/MapDialog.vue";
-import {mapGetters} from "vuex";
-import {Emitter} from '@frontend/views/birthday12/components/wheel/components/evenEmit.js';
+import { mapGetters } from "vuex";
+import { Emitter } from '@frontend/views/birthday12/components/wheel/components/evenEmit.js';
 import DialogAbout from "@frontend/components/DialogAbout/index.vue";
 
 export default {
     name: 'Map',
-    components: {DialogAbout, MapDialog},
+    components: { DialogAbout, MapDialog },
     data() {
         return {
             showSlogan: false,
@@ -153,7 +141,7 @@ export default {
     mounted() {
     },
     created() {
-        this.$router.push(`/bachnhat`);
+        //this.$router.push(`/bachnhat`);
         this.$store.dispatch("user/getInfo").then(() => {
             this.issetAlert = this.user.alerts > 0;
             this.silkCount = this.user.point_silk;
@@ -418,7 +406,7 @@ export default {
                         left: -32%;
                     }
 
-                    > div {
+                    >div {
                         display: inline;
                         padding: 7px 15px;
                         background: #fff;
